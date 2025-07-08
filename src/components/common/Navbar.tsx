@@ -53,9 +53,9 @@ const Navbar: React.FC = () => {
             Alpico
           </span> */}
            {scrolled || !isHomePage?(
-            <img src="src/images/Coffee_logo.png" alt="Alpico coffee logo" className='flex items-center gap-2 w-30 h-20' />)
+            <img src="../images/Coffee_logo.png" alt="Alpico coffee logo" className='flex items-center gap-2 w-30 h-20' />)
             :(
-            <img src="src/images/Coffee_logo_white.svg" alt="Alpico coffee logo" className='flex items-center gap-2 w-30 h-20' />
+            <img src="../images/Coffee_logo_white.svg" alt="Alpico coffee logo" className='flex items-center gap-2 w-30 h-20' />
             )
           }
         </Link>
