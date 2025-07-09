@@ -94,7 +94,6 @@ const Checkout: React.FC = () => {
   };
 
   const handleFinalSubmit = () => {
-    clearCart();
     setCurrentStep('success');
   };
 
@@ -574,9 +573,7 @@ const Checkout: React.FC = () => {
           <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
               <CheckCircle size={64} className="mx-auto text-green-600 mb-6" />
-              
               <h2 className="text-3xl font-bold text-navy-900 mb-4">Order Confirmed!</h2>
-              
               <div className="bg-green-50 p-6 rounded-lg mb-6">
                 <p className="text-lg font-medium text-green-800 mb-2">
                   Order ID: <span className="font-mono">{orderId}</span>
@@ -585,7 +582,6 @@ const Checkout: React.FC = () => {
                   Your order will be delivered soon. We'll send you tracking details via email.
                 </p>
               </div>
-
               <div className="bg-blue-50 p-4 rounded-lg mb-6">
                 <p className="text-blue-800 mb-2">
                   <strong>For any queries, contact us on Instagram:</strong>
@@ -600,8 +596,10 @@ const Checkout: React.FC = () => {
                   @alpico.coffee
                 </a>
               </div>
-
               <div className="space-y-4">
+                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded text-yellow-900 text-left mb-2" role="alert">
+                  <strong>Important:</strong> Please <b>download your order summary PDF</b> and show it to our delivery staff when your order arrives.
+                </div>
                 <Button
                   variant="primary"
                   size="lg"
@@ -616,9 +614,74 @@ const Checkout: React.FC = () => {
                   onClick={async () => {
                     // Create a hidden printable div with all order details
                     const printable = document.createElement('div');
+                    printable.style.width = '800px';
+                    printable.style.margin = '0'; // Remove vertical centering
+                    printable.style.background = '#fff';
                     printable.style.padding = '32px';
                     printable.style.fontFamily = 'sans-serif';
+                    printable.style.boxSizing = 'border-box';
                     printable.innerHTML = `
+                      <style>
+                        html, body { margin: 0 !important; padding: 0 !important; }
+                        @page { margin: 0; }
+                        .alpico-pdf-container { width: 700px; margin: 0 auto; background: #fff; padding: 32px; font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; box-sizing: border-box; }
+                        .alpico-title { font-size: 2rem; font-weight: bold; color: #1e293b; margin-bottom: 1.2rem; }
+                        .alpico-status { background: #e6fffa; padding: 1rem 2rem; border-radius: 8px; margin-bottom: 1.2rem; }
+                        .alpico-status b { font-size: 1.1rem; }
+                        .alpico-status span { font-family: monospace; }
+                        .alpico-status .alpico-status-msg { color: #047857; margin-top: 0.3rem; display: block; }
+                        .alpico-section-title { font-size: 1.1rem; font-weight: bold; margin: 1.5rem 0 0.5rem; }
+                        .alpico-shipping { background: #f0f9ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.2rem; font-size: 1rem; }
+                        .alpico-shipping b { color: #0f172a; }
+                        .alpico-items-table { width: 100%; border-collapse: collapse; margin-bottom: 1.2rem; }
+                        .alpico-items-table th { background: #f1f5f9; text-align: left; padding: 10px; border-bottom: 2px solid #e5e7eb; font-size: 1rem; }
+                        .alpico-items-table td { padding: 10px; border-bottom: 1px solid #e5e7eb; font-size: 1rem; }
+                        .alpico-items-table td:last-child, .alpico-items-table th:last-child { text-align: right; }
+                        .alpico-summary { background: #f0f9ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.2rem; font-size: 1rem; }
+                        .alpico-summary-row { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+                        .alpico-summary-row:last-child { font-weight: bold; font-size: 1.1rem; border-top: 1px solid #e5e7eb; padding-top: 0.5rem; margin-bottom: 0; }
+                      </style>
+                      <div class='alpico-pdf-container' style='margin-top:0;'>
+                        <div class='alpico-title'>Order Confirmed!</div>
+                        <div class='alpico-status'>
+                          <b>Order ID:</b> <span>${orderId}</span>
+                          <span class='alpico-status-msg'>Your order will be delivered soon. We'll send you tracking details via email.</span>
+                        </div>
+                        <div class='alpico-section-title'>Shipping Details</div>
+                        <div class='alpico-shipping'>
+                          <b>Name:</b> ${formData.firstName} ${formData.lastName}<br/>
+                          <b>Address:</b> ${formData.address}<br/>
+                          <b>City:</b> ${formData.city}<br/>
+                          <b>State:</b> ${formData.state}<br/>
+                          <b>Occupation:</b> ${formData.occupation}<br/>
+                          <b>Email:</b> ${formData.email}<br/>
+                          <b>Phone:</b> ${formData.phone}
+                        </div>
+                        <div class='alpico-section-title'>Order Items</div>
+                        <table class='alpico-items-table'>
+                          <thead>
+                            <tr>
+                              <th>Product</th>
+                              <th>Qty</th>
+                              <th>Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            ${cart && cart.length > 0 ? cart.map(item => `
+                              <tr>
+                                <td>${item.product.name}</td>
+                                <td style='text-align:right;'>${item.quantity}</td>
+                                <td style='text-align:right;'>NPR ${(item.product.price * item.quantity).toFixed(2)}</td>
+                              </tr>
+                            `).join('') : `<tr><td colspan='3' style='text-align:center;color:#64748b;'>No items in order.</td></tr>`}
+                          </tbody>
+                        </table>
+                        <div class='alpico-summary'>
+                          <div class='alpico-summary-row'><span>Subtotal:</span><span>NPR ${subtotal.toFixed(2)}</span></div>
+                          <div class='alpico-summary-row'><span>Shipping:</span><span>${shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}</span></div>
+                          <div class='alpico-summary-row'><span>Total:</span><span>NPR ${total > 0 ? total.toFixed(2) : '0.00'}</span></div>
+                        </div>
+                      </div>
                       <h2 style='font-size:2rem;font-weight:bold;color:#1e293b;margin-bottom:1rem;'>Order Confirmed!</h2>
                       <div style='background:#e6fffa;padding:1rem 2rem;border-radius:8px;margin-bottom:1rem;'>
                         <div style='font-size:1.1rem;margin-bottom:0.5rem;'><b>Order ID:</b> <span style='font-family:monospace;'>${orderId}</span></div>
@@ -635,24 +698,26 @@ const Checkout: React.FC = () => {
                         <div><b>Phone:</b> ${formData.phone}</div>
                       </div>
                       <h3 style='font-size:1.2rem;font-weight:bold;margin:1.5rem 0 0.5rem;'>Order Items</h3>
-                      <div style='margin-bottom:1rem;'>
-                        ${cart.map(item => `
-                          <div style='display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding:0.5rem 0;'>
-                            <div style='display:flex;align-items:center;'>
-                              <img src='${item.product.image}' alt='${item.product.name}' style='width:48px;height:48px;object-fit:cover;border-radius:6px;margin-right:1rem;'>
-                              <div>
-                                <div style='font-weight:bold;'>${item.product.name}</div>
-                                <div style='color:#64748b;font-size:0.95rem;'>Qty: ${item.quantity}</div>
-                                ${['light-roast','medium-roast','dark-roast'].includes(item.product.category) && item.machine ? `<div style='color:#2563eb;font-size:0.9rem;'>Machine: ${item.machine}</div>` : ''}
-                              </div>
-                            </div>
-                            <div style='font-weight:bold;'>NPR ${(item.product.price * item.quantity).toFixed(2)}</div>
-                          </div>
-                        `).join('')}
-                      </div>
+                      <table style='width:100%;border-collapse:collapse;margin-bottom:1rem;'>
+                        <thead>
+                          <tr style='background:#f1f5f9;'>
+                            <th style='text-align:left;padding:8px;border-bottom:1px solid #e5e7eb;'>Product</th>
+                            <th style='text-align:right;padding:8px;border-bottom:1px solid #e5e7eb;'>Qty</th>
+                            <th style='text-align:right;padding:8px;border-bottom:1px solid #e5e7eb;'>Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          ${cart.map(item => `
+                            <tr>
+                              <td style='padding:8px;border-bottom:1px solid #e5e7eb;'>${item.product.name}</td>
+                              <td style='padding:8px;text-align:right;border-bottom:1px solid #e5e7eb;'>${item.quantity}</td>
+                              <td style='padding:8px;text-align:right;border-bottom:1px solid #e5e7eb;'>NPR ${(item.product.price * item.quantity).toFixed(2)}</td>
+                            </tr>
+                          `).join('')}
+                        </tbody>
+                      </table>
                       <div style='background:#f0f9ff;padding:1rem;border-radius:8px;margin-bottom:1rem;'>
                         <div style='display:flex;justify-content:space-between;'><span>Subtotal:</span><span>NPR ${subtotal.toFixed(2)}</span></div>
-                        <!-- Discount row removed, handled in CartSummary -->
                         <div style='display:flex;justify-content:space-between;'><span>Shipping:</span><span>${shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}</span></div>
                         <div style='display:flex;justify-content:space-between;font-weight:bold;font-size:1.1rem;border-top:1px solid #e5e7eb;padding-top:0.5rem;'><span>Total:</span><span>NPR ${total > 0 ? total.toFixed(2) : '0.00'}</span></div>
                       </div>
@@ -670,6 +735,7 @@ const Checkout: React.FC = () => {
                         })
                         .from(printable)
                         .save();
+                      clearCart();
                     } else {
                       alert('PDF download is not available. Please contact support.');
                     }

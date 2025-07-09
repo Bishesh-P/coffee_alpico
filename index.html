@@ -9,11 +9,15 @@
     <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preconnect for Pexels images CDN -->
+    <link rel="preconnect" href="https://images.pexels.com" crossorigin>
     <!-- Google Fonts with display=swap for faster paint -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Preload main CSS for faster first paint -->
     <link rel="preload" as="style" href="/src/index.css" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
+    <!-- Preload LCP logo image for better LCP performance -->
+    <link rel="preload" as="image" href="/images/Coffee_logo_white.svg" imagesrcset="/images/Coffee_logo_white.svg" />
   </head>
   <body>
     <div id="root"></div>

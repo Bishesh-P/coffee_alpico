@@ -160,9 +160,16 @@ const FeaturedProducts: React.FC = () => {
               <Link to={`/products/${product.id}`}>
                 <div className="h-64 overflow-hidden group">
                   <img
-                    src={product.image}
+                    src={product.image.replace('dpr=2', 'w=600')}
+                    srcSet={`
+                      ${product.image.replace('dpr=2', 'w=400')} 400w,
+                      ${product.image.replace('dpr=2', 'w=800')} 800w,
+                      ${product.image.replace('dpr=2', 'w=1200')} 1200w
+                    `}
+                    sizes="(max-width: 600px) 400px, (max-width: 900px) 800px, 1200px"
                     alt={product.name}
                     className="w-full h-full object-cover transform transition-all duration-700 grayscale group-hover:scale-110 group-hover:grayscale-0"
+                    loading="lazy"
                   />
                 </div>
               </Link>

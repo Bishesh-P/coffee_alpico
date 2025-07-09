@@ -116,7 +116,9 @@ const Navbar: React.FC = () => {
             to="/cart" 
             className="relative"
           >
-            <ShoppingBag className={scrolled || !isHomePage ? 'text-navy-900' : 'text-white'} />
+            <ShoppingBag className={
+              `${scrolled || !isHomePage ? 'text-navy-900' : 'text-white'} group-hover:text-blue-700 transition-colors`
+            } />
             {getCartCount() > 0 && (
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {getCartCount()}
@@ -128,9 +130,11 @@ const Navbar: React.FC = () => {
         <div className="flex items-center space-x-4 md:hidden">
           <Link 
             to="/cart" 
-            className="relative"
+            className="relative group"
           >
-            <ShoppingBag className={scrolled || !isHomePage ? 'text-navy-900' : 'text-white'} />
+            <ShoppingBag className={
+              `${scrolled || !isHomePage ? 'text-navy-900' : 'text-white'} group-hover:text-blue-700 transition-colors`
+            } />
             {getCartCount() > 0 && (
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {getCartCount()}
@@ -140,6 +144,7 @@ const Navbar: React.FC = () => {
           <button 
             onClick={toggleMenu} 
             className={scrolled || !isHomePage ? 'text-navy-900' : 'text-white'}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
           >
             {isOpen ? <X /> : <Menu />}
           </button>
