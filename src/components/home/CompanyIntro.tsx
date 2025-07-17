@@ -47,30 +47,37 @@ const CompanyIntro: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-6">
+            <div className="flex flex-col gap-6">
               <img 
                 src="https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
                 alt="Coffee beans being roasted" 
-                className="rounded-lg h-64 w-full object-cover"
+                className="rounded-lg w-full aspect-[4/3] object-cover shadow-md"
+                style={{ minHeight: '180px', maxHeight: '260px' }}
+                loading="lazy"
               />
               <img 
-                // src="https://images.pexels.com/photos/1093312/pexels-photo-1093312.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                 src="https://images.pexels.com/photos/3840447/pexels-photo-3840447.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"  
                 alt="Container loaded in the ship" 
-                className="rounded-lg h-75 w-full object-cover "
+                className="rounded-lg w-full aspect-[4/3] object-cover shadow-md"
+                style={{ minHeight: '180px', maxHeight: '260px' }}
+                loading="lazy"
               />
             </div>
-            <div className="space-y-4 pt-8">
+            <div className="flex flex-col gap-6 pt-8">
               <img 
-              src="https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                src="https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
                 alt="Coffee cupping session" 
-                className="rounded-lg h-48 w-full object-cover"
+                className="rounded-lg w-full aspect-[16/9] object-cover shadow-md"
+                style={{ minHeight: '120px', maxHeight: '200px' }}
+                loading="lazy"
               />
               <img 
-               src="https://images.pexels.com/photos/19926887/pexels-photo-19926887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                src="https://images.pexels.com/photos/19926887/pexels-photo-19926887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
                 alt="Container ship in harbor" 
-                className="rounded-lg h-100 w-full object-cover"
+                className="rounded-lg w-full aspect-[16/9] object-cover shadow-md"
+                style={{ minHeight: '120px', maxHeight: '200px' }}
+                loading="lazy"
               />
             </div>
           </div>

@@ -30,6 +30,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     setIsOpen(false);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [location.pathname]);
 
   // Check if we're on the home page
@@ -156,7 +157,7 @@ const Navbar: React.FC = () => {
           isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="bg-white shadow-lg">
+        <div className="bg-white bg-opacity-80 shadow-lg" style={{ background: 'rgba(255,255,255,0.7)' }}>
           <div className="container mx-auto px-4 py-2 flex flex-col space-y-4">
             <Link 
               to="/" 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../supabase-client';
 import { Link, /*useNavigate*/ } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { CheckCircle, Upload, Instagram, QrCode, ArrowLeft } from 'lucide-react';
@@ -37,6 +38,7 @@ const Checkout: React.FC = () => {
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<string>('');
 
+
   const machineOptions = [
     'French Press',
     'Mocha Pot',
@@ -62,9 +64,45 @@ const Checkout: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleShippingSubmit = (e: React.FormEvent) => {
+  const handleShippingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setCurrentStep('confirmation');
+    // Prepare user/order data for Supabase (without receipt_url)
+    const userDetails = {
+      order_id: orderId || `ALP${Date.now().toString().slice(-8)}`,
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      occupation: formData.occupation,
+      total: total,
+      shipping: shipping,
+      platform: selectedPlatform,
+      
+      items: cart.map(item => ({
+        product_id: item.product.id,
+        name: item.product.name,
+        price: item.product.price,
+        quantity: item.quantity,
+        machine: item.machine || null
+      })),
+      created_at: new Date().toISOString()
+      
+    };
+    try {
+      const { error } = await supabase.from('details_user').insert([userDetails]);
+      if (error) {
+        console.error('Supabase insert error:', error);
+        alert('Failed to save user details.\n' + (error.message || 'Please try again.'));
+        return;
+      }
+      setCurrentStep('confirmation');
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      alert('An unexpected error occurred. Please try again.');
+    }
   };
 
 
@@ -93,8 +131,60 @@ const Checkout: React.FC = () => {
     }
   };
 
-  const handleFinalSubmit = () => {
-    setCurrentStep('success');
+  // Save receipt URL to database
+  const saveReceiptToDatabase = async (orderId: string, receiptUrl: string) => {
+    const { error } = await supabase
+      .from('details_user') // Change to your table name if needed
+      .update({ receipt_url: receiptUrl })
+      .eq('order_id', orderId);
+    if (error) {
+      console.error('Error saving receipt URL:', error);
+      throw error;
+    }
+  };
+
+  // Upload receipt to Supabase Storage bucket 'transaction' and save URL
+  const handleFinalSubmit = async () => {
+    if (!receiptFile) {
+      alert('Please upload a receipt first');
+      return;
+    }
+    try {
+      // Generate unique filename using order ID
+      const fileExt = receiptFile.name.split('.').pop();
+      const fileName = `receipts/${orderId}_${Date.now()}.${fileExt}`;
+
+      // Upload to Supabase storage
+      const { error: uploadError } = await supabase.storage
+        .from('transaction')
+        .upload(fileName, receiptFile, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      // Get public URL for the uploaded file
+      const { data: urlData } = supabase.storage
+        .from('transaction')
+        .getPublicUrl(fileName);
+
+      if (!urlData?.publicUrl) {
+        throw new Error('Could not get public URL for receipt');
+      }
+
+      // Save receipt URL to database
+      await saveReceiptToDatabase(orderId, urlData.publicUrl);
+
+      // Move to next step (success) without showing alert
+      clearCart();
+      setCurrentStep('success');
+    } catch (error) {
+      console.error('Error uploading receipt:', error);
+      alert('Error uploading receipt. Please try again.');
+    }
   };
 
   // PROMO CODE STATE REMOVED

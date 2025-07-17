@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../supabase-client';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import SEOHead from '../components/common/SEOHead';
 import { seoConfig } from '../config/seo';
@@ -20,21 +21,35 @@ const Contact: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would send this to your backend
-    setFormSubmitted(true);
-    // Reset form data
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-    // Reset form submission status after 3 seconds
-    setTimeout(() => {
-      setFormSubmitted(false);
-    }, 3000);
+    // Store contact form data in Supabase 'Contact us' table
+    try {
+      const { error } = await supabase.from('contact_us').insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        }
+      ]);
+      if (!error) {
+        setFormSubmitted(true);
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        setTimeout(() => {
+          setFormSubmitted(false);
+        }, 3000);
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (err) {
+      alert('An error occurred. Please try again.');
+    }
   };
 
   const breadcrumbItems = [

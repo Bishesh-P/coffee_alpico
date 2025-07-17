@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../../supabase-client';
 import { Link } from 'react-router-dom';
 import { Coffee, Instagram, Facebook, Mail, Linkedin } from 'lucide-react';
 
@@ -6,14 +7,24 @@ const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => {
-        setSubscribed(false);
-      }, 3000);
+      // Insert email into Supabase 'Email' table
+      try {
+        const { error } = await supabase.from('Email').insert([{ email }]);
+        if (!error) {
+          setSubscribed(true);
+          setEmail('');
+          setTimeout(() => {
+            setSubscribed(false);
+          }, 3000);
+        } else {
+          alert('Failed to subscribe. Please try again.');
+        }
+      } catch (err) {
+        alert('An error occurred. Please try again.');
+      }
     }
   };
 
