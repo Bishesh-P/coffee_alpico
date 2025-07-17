@@ -19,6 +19,7 @@ export default defineConfig({
     },
     sourcemap: false,
     minify: 'terser',
+    chunkSizeWarningLimit: 1000,
     terserOptions: {
       compress: {
         drop_console: true,
@@ -30,5 +31,8 @@ export default defineConfig({
     hmr: {
       overlay: false
     }
+  },
+  define: {
+    'process.env': {}
   }
 });
