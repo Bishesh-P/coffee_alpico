@@ -1,31 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X,/* Coffee */} from 'lucide-react';
+import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 
-const Navbar: React.FC = () => {
+const Navbar = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { getCartCount } = useCart();
   const location = useLocation();
 
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     setIsOpen(!isOpen);
-  };
+  }, [isOpen]);
+
+  const cartCount = useMemo(() => getCartCount(), [getCartCount]);
+  const isHomePage = useMemo(() => location.pathname === '/', [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -33,8 +30,19 @@ const Navbar: React.FC = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [location.pathname]);
 
-  // Check if we're on the home page
-  const isHomePage = location.pathname === '/';
+  const navTextClass = useMemo(() => 
+    scrolled || !isHomePage 
+      ? 'text-navy-900 hover:text-blue-700' 
+      : 'text-white hover:text-blue-200',
+    [scrolled, isHomePage]
+  );
+
+  const logoSrc = useMemo(() => 
+    scrolled || !isHomePage 
+      ? "/images/Coffee_logo.png" 
+      : "/images/Coffee_logo_white.svg",
+    [scrolled, isHomePage]
+  );
 
   return (
     <nav 
@@ -49,80 +57,52 @@ const Navbar: React.FC = () => {
           to="/" 
           className="flex items-center gap-2 text-2xl font-serif font-bold"
         > 
-          {/* <Coffee className={scrolled || !isHomePage ? 'text-navy-900' : 'text-white'} />
-          <span className={scrolled || !isHomePage ? 'text-navy-900' : 'text-white'}>
-            Alpico
-          </span> */}
-           {scrolled || !isHomePage?(
-            <img src="/images/Coffee_logo.png" alt="Alpico coffee logo" className='flex items-center gap-2 w-30 h-20' />)
-            :(
-            <img src="/images/Coffee_logo_white.svg" alt="Alpico coffee logo" className='flex items-center gap-2 w-30 h-20' />
-            )
-          }
+          <img 
+            src={logoSrc} 
+            alt="Alpico coffee logo" 
+            className='flex items-center gap-2 w-30 h-20' 
+          />
         </Link>
    
-
         <div className="hidden md:flex items-center space-x-8 tracking-widest">
           <Link 
             to="/" 
-            className={`${
-              scrolled || !isHomePage 
-                ? 'text-navy-900 hover:text-blue-700' 
-                : 'text-white hover:text-blue-200'
-            } transition-colors font-medium`}
+            className={`${navTextClass} transition-colors font-medium`}
           >
             Home
           </Link>
           <Link 
             to="/products" 
-            className={`${
-              scrolled || !isHomePage 
-                ? 'text-navy-900 hover:text-blue-700' 
-                : 'text-white hover:text-blue-200'
-            } transition-colors font-medium`}
+            className={`${navTextClass} transition-colors font-medium`}
           >
             Products
           </Link>
           <Link 
             to="/blog" 
-            className={`${
-              scrolled || !isHomePage 
-                ? 'text-navy-900 hover:text-blue-700' 
-                : 'text-white hover:text-blue-200'
-            } transition-colors font-medium`}
+            className={`${navTextClass} transition-colors font-medium`}
           >
             Blog
           </Link>
           <Link 
             to="/about" 
-            className={`${
-              scrolled || !isHomePage 
-                ? 'text-navy-900 hover:text-blue-700' 
-                : 'text-white hover:text-blue-200'
-            } transition-colors font-medium`}
+            className={`${navTextClass} transition-colors font-medium`}
           >
             About Us
           </Link>
           <Link 
             to="/contact" 
-            className={`${
-              scrolled || !isHomePage 
-                ? 'text-navy-900 hover:text-blue-700' 
-                : 'text-white hover:text-blue-200'
-            } transition-colors font-medium`}
+            className={`${navTextClass} transition-colors font-medium`}
           >
             Contact
           </Link>
           <Link 
             to="/cart" 
-            className="relative"
+            className="relative group"
           >
-            <ShoppingBag className={
-              `${scrolled || !isHomePage ? 'text-navy-900' : 'text-white'} group-hover:text-blue-700 transition-colors`
-            } />
-            {getCartCount() > 0 && (
+            <ShoppingBag className={`${navTextClass} group-hover:text-blue-700 transition-colors`} />
+            {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {getCartCount()}
+                {cartCount}
               </span>
             )}
           </Link>
@@ -133,18 +113,16 @@ const Navbar: React.FC = () => {
             to="/cart" 
             className="relative group"
           >
-            <ShoppingBag className={
-              `${scrolled || !isHomePage ? 'text-navy-900' : 'text-white'} group-hover:text-blue-700 transition-colors`
-            } />
-            {getCartCount() > 0 && (
+            <ShoppingBag className={`${navTextClass} group-hover:text-blue-700 transition-colors`} />
+            {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {getCartCount()}
+                {cartCount}
               </span>
             )}
           </Link>
           <button 
             onClick={toggleMenu} 
-            className={scrolled || !isHomePage ? 'text-navy-900' : 'text-white'}
+            className={navTextClass}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
           >
             {isOpen ? <X /> : <Menu />}
@@ -194,6 +172,8 @@ const Navbar: React.FC = () => {
       </div>
     </nav>
   );
-};
+});
+
+Navbar.displayName = 'Navbar';
 
 export default Navbar;

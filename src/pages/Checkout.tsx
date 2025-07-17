@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { supabase } from '../supabase-client';
-import { Link, /*useNavigate*/ } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { CheckCircle, Upload, Instagram, QrCode, ArrowLeft } from 'lucide-react';
 import CartSummary from '../components/cart/CartSummary';
 import Button from '../components/common/Button';
+import type { CheckoutStep, PaymentPlatformInfo, MachineType } from '../types';
 
-type CheckoutStep = 'shipping' | 'confirmation' | 'platform' | 'payment' | 'receipt' | 'success';
-
-
-const paymentPlatforms = [
+const paymentPlatforms: readonly PaymentPlatformInfo[] = [
   {
     key: 'esewa',
     name: 'eSewa',
@@ -28,26 +26,25 @@ const paymentPlatforms = [
     qr: '/images/qr-fonepay.png',
     info: 'Scan with Fonepay app',
   },
-];
+] as const;
+
+const machineOptions: readonly MachineType[] = [
+  'French Press',
+  'Mocha Pot',
+  'Aeropress',
+  'Espresso Machine',
+  'Pour Over',
+  'Drip Coffee Maker',
+  'Other',
+] as const;
 
 const Checkout: React.FC = () => {
   const { cart, clearCart, getCartTotal, setMachineForItem } = useCart();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('shipping');
   const [orderId, setOrderId] = useState<string>('');
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<string>('');
-
-
-  const machineOptions = [
-    'French Press',
-    'Mocha Pot',
-    'Aeropress',
-    'Espresso Machine',
-    'Pour Over',
-    'Drip Coffee Maker',
-    'Other',
-  ];
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -59,10 +56,70 @@ const Checkout: React.FC = () => {
     occupation: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Memoized calculations
+  const subtotal = useMemo(() => getCartTotal(), [getCartTotal]);
+  
+  const { shipping, total, isValley } = useMemo(() => {
+    const cityLower = formData.city.trim().toLowerCase();
+    const valleyCheck = ["kathmandu", "bhaktapur", "lalitpur"].includes(cityLower);
+    let shippingCost = 0;
+    
+    if (subtotal === 0) {
+      shippingCost = 0;
+    } else if (valleyCheck && subtotal > 1400) {
+      shippingCost = 0;
+    } else {
+      shippingCost = 150;
+    }
+    
+    return {
+      shipping: shippingCost,
+      total: subtotal + shippingCost,
+      isValley: valleyCheck
+    };
+  }, [subtotal, formData.city]);
+
+  // Optimized handlers with useCallback
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  }, []);
+
+  const handleReceiptUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setReceiptFile(file);
+    }
+  }, []);
+
+  const handleConfirmOrder = useCallback(() => {
+    const newOrderId = `ALP${Date.now().toString().slice(-8)}`;
+    setOrderId(newOrderId);
+    setCurrentStep('platform');
+  }, []);
+
+  const handlePlatformSelect = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    if (selectedPlatform) {
+      setCurrentStep('payment');
+    }
+  }, [selectedPlatform]);
+
+  const handlePaymentConfirm = useCallback(() => {
+    setCurrentStep('receipt');
+  }, []);
+
+  // Save receipt URL to database
+  const saveReceiptToDatabase = useCallback(async (orderId: string, receiptUrl: string) => {
+    const { error } = await supabase
+      .from('details_user')
+      .update({ receipt_url: receiptUrl })
+      .eq('order_id', orderId);
+    if (error) {
+      console.error('Error saving receipt URL:', error);
+      throw error;
+    }
+  }, []);
 
   const handleShippingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,44 +159,6 @@ const Checkout: React.FC = () => {
     } catch (err) {
       console.error('Unexpected error:', err);
       alert('An unexpected error occurred. Please try again.');
-    }
-  };
-
-
-  const handleConfirmOrder = () => {
-    // Generate order ID
-    const newOrderId = `ALP${Date.now().toString().slice(-8)}`;
-    setOrderId(newOrderId);
-    setCurrentStep('platform');
-  };
-
-  const handlePlatformSelect = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (selectedPlatform) {
-      setCurrentStep('payment');
-    }
-  };
-
-  const handlePaymentConfirm = () => {
-    setCurrentStep('receipt');
-  };
-
-  const handleReceiptUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setReceiptFile(file);
-    }
-  };
-
-  // Save receipt URL to database
-  const saveReceiptToDatabase = async (orderId: string, receiptUrl: string) => {
-    const { error } = await supabase
-      .from('details_user') // Change to your table name if needed
-      .update({ receipt_url: receiptUrl })
-      .eq('order_id', orderId);
-    if (error) {
-      console.error('Error saving receipt URL:', error);
-      throw error;
     }
   };
 
@@ -187,20 +206,6 @@ const Checkout: React.FC = () => {
     }
   };
 
-  // PROMO CODE STATE REMOVED
-  const subtotal = getCartTotal();
-  // Updated shipping logic for Kathmandu Valley
-  const isValley = ["kathmandu", "bhaktapur", "lalitpur"].includes(formData.city.trim().toLowerCase());
-  let shipping = 0;
-  if (subtotal === 0) {
-    shipping = 0;
-  } else if (isValley && subtotal > 1400) {
-    shipping = 0;
-  } else {
-    shipping = 150;
-  }
-  const total = subtotal + shipping;
-
   if (cart.length === 0 && currentStep === 'shipping') {
     return (
       <div className="pt-20 md:pt-16">
@@ -228,9 +233,15 @@ const Checkout: React.FC = () => {
             {currentStep !== 'shipping' && (
               <button 
                 onClick={() => {
-                  if (currentStep === 'confirmation') setCurrentStep('shipping');
-                  else if (currentStep === 'payment') setCurrentStep('confirmation');
-                  else if (currentStep === 'receipt') setCurrentStep('payment');
+                  const stepMap: Record<CheckoutStep, CheckoutStep> = {
+                    confirmation: 'shipping',
+                    platform: 'confirmation',
+                    payment: 'platform',
+                    receipt: 'payment',
+                    shipping: 'shipping',
+                    success: 'success'
+                  };
+                  setCurrentStep(stepMap[currentStep]);
                 }}
                 className="mr-4 text-blue-200 hover:text-white"
               >
@@ -305,7 +316,7 @@ const Checkout: React.FC = () => {
                         className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
                         value={item.machine || ''}
                         required
-                        onChange={e => setMachineForItem(item.product.id, e.target.value)}
+                        onChange={e => setMachineForItem(item.product.id, e.target.value as MachineType)}
                       >
                         <option value="" disabled>Select machine</option>
                         {machineOptions.map(opt => (
@@ -695,22 +706,14 @@ const Checkout: React.FC = () => {
                   size="lg"
                   fullWidth
                   onClick={() => {
-                    window.location.href = '/products';
+                    navigate('/products');
                   }}
                 >
                   Continue Shopping
                 </Button>
                 <button
                   onClick={async () => {
-                    // Create a hidden printable div with all order details
-                    const printable = document.createElement('div');
-                    printable.style.width = '800px';
-                    printable.style.margin = '0'; // Remove vertical centering
-                    printable.style.background = '#fff';
-                    printable.style.padding = '32px';
-                    printable.style.fontFamily = 'sans-serif';
-                    printable.style.boxSizing = 'border-box';
-                    printable.innerHTML = `
+                    const generatePDFContent = () => `
                       <style>
                         html, body { margin: 0 !important; padding: 0 !important; }
                         @page { margin: 0; }
@@ -731,7 +734,7 @@ const Checkout: React.FC = () => {
                         .alpico-summary-row { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
                         .alpico-summary-row:last-child { font-weight: bold; font-size: 1.1rem; border-top: 1px solid #e5e7eb; padding-top: 0.5rem; margin-bottom: 0; }
                       </style>
-                      <div class='alpico-pdf-container' style='margin-top:0;'>
+                      <div class='alpico-pdf-container'>
                         <div class='alpico-title'>Order Confirmed!</div>
                         <div class='alpico-status'>
                           <b>Order ID:</b> <span>${orderId}</span>
@@ -757,7 +760,7 @@ const Checkout: React.FC = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            ${cart && cart.length > 0 ? cart.map(item => `
+                            ${cart?.length ? cart.map(item => `
                               <tr>
                                 <td>${item.product.name}</td>
                                 <td style='text-align:right;'>${item.quantity}</td>
@@ -769,67 +772,36 @@ const Checkout: React.FC = () => {
                         <div class='alpico-summary'>
                           <div class='alpico-summary-row'><span>Subtotal:</span><span>NPR ${subtotal.toFixed(2)}</span></div>
                           <div class='alpico-summary-row'><span>Shipping:</span><span>${shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}</span></div>
-                          <div class='alpico-summary-row'><span>Total:</span><span>NPR ${total > 0 ? total.toFixed(2) : '0.00'}</span></div>
+                          <div class='alpico-summary-row'><span>Total:</span><span>NPR ${total.toFixed(2)}</span></div>
                         </div>
                       </div>
-                      <h2 style='font-size:2rem;font-weight:bold;color:#1e293b;margin-bottom:1rem;'>Order Confirmed!</h2>
-                      <div style='background:#e6fffa;padding:1rem 2rem;border-radius:8px;margin-bottom:1rem;'>
-                        <div style='font-size:1.1rem;margin-bottom:0.5rem;'><b>Order ID:</b> <span style='font-family:monospace;'>${orderId}</span></div>
-                        <div style='color:#047857;'>Your order will be delivered soon. We'll send you tracking details via email.</div>
-                      </div>
-                      <h3 style='font-size:1.2rem;font-weight:bold;margin:1.5rem 0 0.5rem;'>Shipping Details</h3>
-                      <div style='background:#f0f9ff;padding:1rem;border-radius:8px;margin-bottom:1rem;'>
-                        <div><b>Name:</b> ${formData.firstName} ${formData.lastName}</div>
-                        <div><b>Address:</b> ${formData.address}</div>
-                        <div><b>City:</b> ${formData.city}</div>
-                        <div><b>State:</b> ${formData.state}</div>
-                        <div><b>Occupation:</b> ${formData.occupation}</div>
-                        <div><b>Email:</b> ${formData.email}</div>
-                        <div><b>Phone:</b> ${formData.phone}</div>
-                      </div>
-                      <h3 style='font-size:1.2rem;font-weight:bold;margin:1.5rem 0 0.5rem;'>Order Items</h3>
-                      <table style='width:100%;border-collapse:collapse;margin-bottom:1rem;'>
-                        <thead>
-                          <tr style='background:#f1f5f9;'>
-                            <th style='text-align:left;padding:8px;border-bottom:1px solid #e5e7eb;'>Product</th>
-                            <th style='text-align:right;padding:8px;border-bottom:1px solid #e5e7eb;'>Qty</th>
-                            <th style='text-align:right;padding:8px;border-bottom:1px solid #e5e7eb;'>Price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          ${cart.map(item => `
-                            <tr>
-                              <td style='padding:8px;border-bottom:1px solid #e5e7eb;'>${item.product.name}</td>
-                              <td style='padding:8px;text-align:right;border-bottom:1px solid #e5e7eb;'>${item.quantity}</td>
-                              <td style='padding:8px;text-align:right;border-bottom:1px solid #e5e7eb;'>NPR ${(item.product.price * item.quantity).toFixed(2)}</td>
-                            </tr>
-                          `).join('')}
-                        </tbody>
-                      </table>
-                      <div style='background:#f0f9ff;padding:1rem;border-radius:8px;margin-bottom:1rem;'>
-                        <div style='display:flex;justify-content:space-between;'><span>Subtotal:</span><span>NPR ${subtotal.toFixed(2)}</span></div>
-                        <div style='display:flex;justify-content:space-between;'><span>Shipping:</span><span>${shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}</span></div>
-                        <div style='display:flex;justify-content:space-between;font-weight:bold;font-size:1.1rem;border-top:1px solid #e5e7eb;padding-top:0.5rem;'><span>Total:</span><span>NPR ${total > 0 ? total.toFixed(2) : '0.00'}</span></div>
-                      </div>
                     `;
-                    document.body.appendChild(printable);
-                    const html2pdf = (window as any).html2pdf;
-                    if (html2pdf) {
-                      await html2pdf()
-                        .set({
-                          margin: 0.5,
-                          filename: `Order_${orderId || 'details'}.pdf`,
-                          image: { type: 'jpeg', quality: 0.98 },
-                          html2canvas: { scale: 2 },
-                          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                        })
-                        .from(printable)
-                        .save();
-                      clearCart();
-                    } else {
-                      alert('PDF download is not available. Please contact support.');
+                    
+                    try {
+                      const printable = document.createElement('div');
+                      printable.innerHTML = generatePDFContent();
+                      document.body.appendChild(printable);
+                      
+                      const html2pdf = await loadHtml2Pdf();
+                      if (html2pdf) {
+                        await html2pdf()
+                          .set({
+                            margin: 0.5,
+                            filename: `Order_${orderId || 'details'}.pdf`,
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { scale: 2 },
+                            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+                          })
+                          .from(printable)
+                          .save();
+                      } else {
+                        alert('PDF download is not available. Please contact support.');
+                      }
+                      document.body.removeChild(printable);
+                    } catch (error) {
+                      console.error('PDF generation error:', error);
+                      alert('Error generating PDF. Please try again.');
                     }
-                    document.body.removeChild(printable);
                   }}
                   className="w-full py-2 text-blue-700 hover:text-navy-900 border border-blue-700 rounded-lg"
                 >
@@ -845,12 +817,20 @@ const Checkout: React.FC = () => {
 };
 
 
-// Dynamically load html2pdf.js if not present
-if (typeof window !== 'undefined' && !(window as any).html2pdf) {
-  const script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-  script.async = true;
-  document.body.appendChild(script);
-}
+// Lazy load html2pdf.js when needed
+const loadHtml2Pdf = (): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    if ((window as any).html2pdf) {
+      resolve((window as any).html2pdf);
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    script.onload = () => resolve((window as any).html2pdf);
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+};
 
 export default Checkout;

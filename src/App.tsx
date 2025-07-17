@@ -1,11 +1,11 @@
-// import React from 'react';
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { CartProvider } from './context/CartContext';
 import { BlogProvider } from './context/BlogContext';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
+import ErrorBoundary from './components/common/ErrorBoundary';
+import LoadingSpinner from './components/common/LoadingSpinner';
 import { Suspense, lazy, useEffect } from 'react';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -43,34 +43,40 @@ function App() {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <CartProvider>
-          <BlogProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow">
-                <Suspense fallback={<div className="flex justify-center items-center h-64 text-lg">Loading...</div>}>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/products" element={<Products />} />
-                    <Route path="/products/:id" element={<ProductDetail />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/checkout/success" element={<CheckoutSuccess />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/:id" element={<BlogPost />} />
-                    {/* Admin-only route - not linked publicly */}
-                    <Route path="/admin/blog" element={<BlogAdmin />} />
-                  </Routes>
-                </Suspense>
-              </main>
-              <Footer />
-            </div>
-          </BlogProvider>
-        </CartProvider>
-      </BrowserRouter>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <CartProvider>
+            <BlogProvider>
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow">
+                  <Suspense fallback={
+                    <div className="flex justify-center items-center h-64">
+                      <LoadingSpinner size="lg" />
+                    </div>
+                  }>
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/products" element={<Products />} />
+                      <Route path="/products/:id" element={<ProductDetail />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/checkout/success" element={<CheckoutSuccess />} />
+                      <Route path="/about" element={<About />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/blog" element={<Blog />} />
+                      <Route path="/blog/:id" element={<BlogPost />} />
+                      {/* Admin-only route - not linked publicly */}
+                      <Route path="/admin/blog" element={<BlogAdmin />} />
+                    </Routes>
+                  </Suspense>
+                </main>
+                <Footer />
+              </div>
+            </BlogProvider>
+          </CartProvider>
+        </BrowserRouter>
+      </ErrorBoundary>
     </HelmetProvider>
   );
 }

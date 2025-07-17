@@ -1,8 +1,8 @@
-import React from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../common/Button';
 
-const Hero: React.FC = () => {
+const Hero = memo(() => {
   return (
     <div className="relative h-screen">
       <div 
@@ -46,6 +46,8 @@ const Hero: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+Hero.displayName = 'Hero';
 
 export default Hero;

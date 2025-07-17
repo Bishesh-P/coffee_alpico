@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
-import { CartContextType, CartItem, Product } from '../types';
+import { CartContextType, CartItem, Product, MachineType } from '../types';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product, quantity: number = 1, machine?: string) => {
+  const addToCart = (product: Product, quantity: number = 1, machine?: MachineType) => {
     setCart((prevCart) => {
       // Check if product already exists in cart
       const existingItem = prevCart.find((item) => item.product.id === product.id);
@@ -24,7 +24,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
-  const setMachineForItem = (productId: number, machine: string) => {
+  const setMachineForItem = (productId: number, machine: MachineType) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.product.id === productId ? { ...item, machine } : item

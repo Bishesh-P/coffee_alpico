@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button = memo<ButtonProps>(({
   children,
   variant = 'primary',
   size = 'md',
@@ -21,15 +21,12 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   className = '',
 }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
-  const [isPressed, setIsPressed] = React.useState(false);
-
-  const baseClasses = 'rounded font-medium transition-all duration-300 flex items-center justify-center';
+  const baseClasses = 'rounded font-medium transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantClasses = {
-    primary: `bg-navy-900 hover:bg-blue-800 text-white shadow-sm ${isPressed ? 'scale-95' : 'scale-100'}`,
-    secondary: `bg-blue-100 hover:bg-blue-200 text-navy-900 ${isPressed ? 'scale-95' : 'scale-100'}`,
-    outline: `border-2 border-navy-900 text-navy-900 hover:bg-blue-50 ${isPressed ? 'scale-95' : 'scale-100'}`,
+    primary: 'bg-navy-900 hover:bg-blue-800 text-white shadow-sm focus:ring-blue-500 active:scale-95',
+    secondary: 'bg-blue-100 hover:bg-blue-200 text-navy-900 focus:ring-blue-500 active:scale-95',
+    outline: 'border-2 border-navy-900 text-navy-900 hover:bg-blue-50 focus:ring-blue-500 active:scale-95',
   };
   
   const sizeClasses = {
@@ -39,31 +36,27 @@ const Button: React.FC<ButtonProps> = ({
   };
   
   const widthClass = fullWidth ? 'w-full' : '';
-  const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
-  const hoverClass = isHovered && !disabled ? 'transform translate-y-[-2px]' : '';
+  const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:transform hover:translate-y-[-2px] hover:shadow-lg';
   
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onMouseDown={() => setIsPressed(true)}
-      onMouseUp={() => setIsPressed(false)}
       className={`
         ${baseClasses}
         ${variantClasses[variant]}
         ${sizeClasses[size]}
         ${widthClass}
         ${disabledClass}
-        ${hoverClass}
         ${className}
       `}
     >
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';
 
 export default Button;

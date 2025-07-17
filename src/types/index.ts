@@ -3,6 +3,19 @@ export interface PromoCode {
   discount: number; // NPR discount (flat amount)
 }
 
+export type CheckoutStep = 'shipping' | 'confirmation' | 'platform' | 'payment' | 'receipt' | 'success';
+
+export type MachineType = 'French Press' | 'Mocha Pot' | 'Aeropress' | 'Espresso Machine' | 'Pour Over' | 'Drip Coffee Maker' | 'Other';
+
+export type PaymentPlatform = 'esewa' | 'khalti' | 'fonepay';
+
+export interface PaymentPlatformInfo {
+  key: PaymentPlatform;
+  name: string;
+  qr: string;
+  info: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -24,18 +37,18 @@ export interface Product {
 export interface CartItem {
   product: Product;
   quantity: number;
-  machine?: string;
+  machine?: MachineType;
 }
 
 export interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, quantity?: number, machine?: string) => void;
+  addToCart: (product: Product, quantity?: number, machine?: MachineType) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
   getCartTotal: () => number;
   getCartCount: () => number;
-  setMachineForItem: (productId: number, machine: string) => void;
+  setMachineForItem: (productId: number, machine: MachineType) => void;
 }
 
 export interface BlogPost {
