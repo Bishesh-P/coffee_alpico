@@ -42,7 +42,7 @@ export const seoConfig = {
       keywords: "coffee beans, best coffee in nepal, light roast, medium roast, dark roast, brewing equipment, alpico coffee, nepali coffee"
     },
     about: {
-      title: "Our Story | Alpico Coffee - Sustainable Mountain Coffee",
+      title: "Our Story | Alpico Coffee - Best Coffee in Nepal",
       description: "Learn about Alpico Coffee's journey from a small Portland roastery to a sustainable coffee company sourcing the finest alpine beans.",
       keywords: "coffee story, sustainable coffee, coffee roastery, Nepal coffee, coffee sourcing in Nepal, coffee farmers"
     },
