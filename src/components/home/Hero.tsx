@@ -14,8 +14,8 @@ const Hero = memo(() => {
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       </div>
 
-      <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
-        <div className="max-w-2xl pt-16 md:pt-0">
+      <div className="relative h-full container mx-auto px-4 flex flex-col justify-center items-start pt-20">
+        <div className="max-w-2xl mt-8">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 animate-fade-down leading-tight">
             {/* Discover the Art of <span className="text-blue-300">Alpine</span> Coffee
           </h1> */}

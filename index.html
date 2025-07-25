@@ -1,26 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <!-- Multiple favicon formats for better browser support -->
     <link rel="icon" type="image/svg+xml" href="/images/alpico_logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>Alpico Coffee</title>
+    <title>Alpico Coffee - Premium Nepal Coffee | Luxury Coffee Experience</title>
+    <meta name="description" content="Experience the finest premium coffee from Nepal. Alpico Coffee offers luxury coffee blends, artisan roasting, and exceptional quality from Nepal's best coffee regions.">
+    
     <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Preconnect for Pexels images CDN -->
     <link rel="preconnect" href="https://images.pexels.com" crossorigin>
-    <!-- Google Fonts with display=swap for faster paint -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Premium Google Fonts with display=swap for faster paint -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Preload main CSS for faster first paint -->
     <link rel="preload" as="style" href="/src/index.css" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
+    
     <!-- Preload LCP logo image for better LCP performance -->
     <link rel="preload" as="image" href="/images/Coffee_logo_white.svg" imagesrcset="/images/Coffee_logo_white.svg" />
+    
+    <!-- Premium theme color for mobile browsers -->
+    <meta name="theme-color" content="#0B1D51">
+    <meta name="msapplication-TileColor" content="#0B1D51">
   </head>
-  <body>
+  <body class="font-sans text-slate-900 bg-white antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

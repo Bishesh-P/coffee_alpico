@@ -11,38 +11,38 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     id: 1,
-    question: "How fresh is your coffee?",
-    answer: "We roast all our coffee beans to order and ship within 24-48 hours of roasting. This ensures you receive the freshest coffee possible, typically within 2-5 days of the roast date for optimal flavor.",
+    question: "How fresh is your Nepal coffee?",
+    answer: "We roast all our premium Arabica coffee beans fresh to order and ship within 24-48 hours of roasting. This ensures you receive the freshest Nepal coffee possible, typically within 2-5 days of the roast date for optimal flavor and aroma.",
     icon: <Coffee className="text-blue-600" size={24} />
   },
   {
     id: 2,
-    question: "What's your shipping policy?",
-    answer: "We offer free shipping on orders over Rs 1400. Orders under this amount have a flat shipping rate of NPR 150. All orders are processed within 1-2 business days within the Kathmandu Valley and typically arrive within 3-4 business days outside the valley.",
+    question: "What's your coffee delivery policy in Nepal?",
+    answer: "We offer free coffee delivery on orders over Rs 1400 throughout Nepal. Orders under this amount have a flat shipping rate of NPR 150. All coffee orders are processed within 1-2 business days within the Kathmandu Valley and typically arrive within 3-4 business days outside the valley.",
     icon: <Truck className="text-blue-600" size={24} />
   },
   {
     id: 3,
-    question: "Do you offer a satisfaction guarantee?",
-    answer: "Absolutely! We stand behind the quality of our coffee. If you're not completely satisfied with your purchase, contact us within 30 days for a full refund or exchange. Your satisfaction is our priority.",
+    question: "Do you guarantee the quality of your specialty coffee?",
+    answer: "Absolutely! We stand behind the quality of our specialty Nepal coffee. If you're not completely satisfied with your premium coffee purchase, contact us within 30 days for a full refund or exchange. Your coffee satisfaction is our priority.",
     icon: <Shield className="text-blue-600" size={24} />
   },
   {
     id: 4,
-    question: "How should I store my coffee?",
-    answer: "Store your coffee beans in an airtight container in a cool, dark place away from direct sunlight, heat, and moisture. Avoid storing in the refrigerator or freezer. Use within 2-4 weeks of the roast date for best flavor.",
+    question: "How should I store my coffee beans properly?",
+    answer: "Store your Arabica coffee beans in an airtight container in a cool, dark place away from direct sunlight, heat, and moisture. Avoid storing coffee in the refrigerator or freezer. Use within 2-4 weeks of the roast date for best coffee flavor.",
     icon: <Package className="text-blue-600" size={24} />
   },
   {
     id: 5,
-    question: "Do you offer wholesale or bulk pricing?",
-    answer: "Yes! We offer competitive wholesale pricing for cafes, restaurants, offices, and bulk orders. Contact our wholesale team at  alpicocoffeecompany@gmail.com for custom pricing and minimum order requirements.",
+    question: "Do you offer wholesale coffee or bulk coffee pricing?",
+    answer: "Yes! We offer competitive wholesale coffee pricing for cafes, restaurants, offices, and bulk coffee orders. Contact our wholesale team at alpicocoffeecompany@gmail.com for custom coffee pricing and minimum order requirements.",
     icon: <HelpCircle className="text-blue-600" size={24} />
   },
   {
     id: 6,
-    question: "What brewing methods work best with your coffee?",
-    answer: "Our coffees are versatile and work well with various brewing methods. Light roasts excel in pour-over and drip methods, medium roasts are perfect for espresso and French press, while dark roasts shine in espresso and cold brew preparations.",
+    question: "What coffee brewing methods work best with your beans?",
+    answer: "Our Nepal coffee beans are versatile and work well with various brewing methods. Light roast coffee excels in pour-over and drip coffee methods, medium roast coffee is perfect for espresso machines and French press, while dark roast coffee shines in espresso and cold brew preparations.",
     icon: <Clock className="text-blue-600" size={24} />
   }
 ];

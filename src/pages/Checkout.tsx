@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { supabase } from '../supabase-client';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
@@ -39,9 +39,22 @@ const machineOptions: readonly MachineType[] = [
 ] as const;
 
 const Checkout: React.FC = () => {
-  const { cart, clearCart, getCartTotal, setMachineForItem } = useCart();
+  const { cart, clearCart, getCartTotal, getCartCount, setMachineForItem, setVariantForItem } = useCart();
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<CheckoutStep>('shipping');
+  
+  // Check if cart has items that need variant selection
+  const hasItemsNeedingVariants = useMemo(() => {
+    return cart.some(item => 
+      !item.selectedVariant && 
+      item.product.variants && 
+      item.product.variants.length > 0
+    );
+  }, [cart]);
+  
+  // Set initial step based on whether variants are needed
+  const [currentStep, setCurrentStep] = useState<CheckoutStep>(
+    hasItemsNeedingVariants ? 'variants' : 'shipping'
+  );
   const [orderId, setOrderId] = useState<string>('');
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<string>('');
@@ -79,8 +92,34 @@ const Checkout: React.FC = () => {
     };
   }, [subtotal, formData.city]);
 
+  // Auto-proceed when all variants are selected
+  useEffect(() => {
+    if (currentStep === 'variants' && !hasItemsNeedingVariants) {
+      const timer = setTimeout(() => {
+        setCurrentStep('shipping');
+      }, 1000); // Reduced from 2 seconds to 1 second for faster flow
+      
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep, hasItemsNeedingVariants]);
+
+  // Auto-select variants when only one available option exists
+  useEffect(() => {
+    if (currentStep === 'variants') {
+      cart.forEach(item => {
+        if (!item.selectedVariant && item.product.variants && item.product.variants.length > 0) {
+          const availableVariants = item.product.variants.filter(v => v.inStock !== false);
+          if (availableVariants.length === 1) {
+            // Auto-select the only available variant
+            setVariantForItem(item.product.id, availableVariants[0]);
+          }
+        }
+      });
+    }
+  }, [currentStep, cart, setVariantForItem]);
+
   // Optimized handlers with useCallback
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   }, []);
@@ -90,6 +129,10 @@ const Checkout: React.FC = () => {
     if (file) {
       setReceiptFile(file);
     }
+  }, []);
+
+  const handleVariantSelectionComplete = useCallback(() => {
+    setCurrentStep('shipping');
   }, []);
 
   const handleConfirmOrder = useCallback(() => {
@@ -229,48 +272,91 @@ const Checkout: React.FC = () => {
       {/* Header Banner */}
       <div className="bg-navy-900 text-white py-8 md:py-12 px-4">
         <div className="container mx-auto">
-          <div className="flex items-center mb-4">
-            {currentStep !== 'shipping' && (
-              <button 
-                onClick={() => {
-                  const stepMap: Record<CheckoutStep, CheckoutStep> = {
-                    confirmation: 'shipping',
-                    platform: 'confirmation',
-                    payment: 'platform',
-                    receipt: 'payment',
-                    shipping: 'shipping',
-                    success: 'success'
-                  };
-                  setCurrentStep(stepMap[currentStep]);
-                }}
-                className="mr-4 text-blue-200 hover:text-white"
-              >
-                <ArrowLeft size={20} />
-              </button>
-            )}
-            <h1 className="text-2xl md:text-3xl font-serif font-bold">
-              {currentStep === 'shipping' && 'Shipping Information'}
-              {currentStep === 'confirmation' && 'Confirm Your Order'}
-              {currentStep === 'payment' && 'Payment'}
-              {currentStep === 'receipt' && 'Upload Receipt'}
-              {currentStep === 'success' && 'Order Confirmed'}
-            </h1>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center">
+              {!(currentStep === 'shipping' && !hasItemsNeedingVariants) && !(currentStep === 'variants') && (
+                <button 
+                  onClick={() => {
+                    const stepMap: Record<CheckoutStep, CheckoutStep> = {
+                      shipping: hasItemsNeedingVariants ? 'variants' : 'shipping',
+                      variants: 'variants',
+                      confirmation: 'shipping',
+                      platform: 'confirmation',
+                      payment: 'platform',
+                      receipt: 'payment',
+                      success: 'success'
+                    };
+                    setCurrentStep(stepMap[currentStep]);
+                  }}
+                  className="mr-4 text-blue-200 hover:text-white"
+                >
+                  <ArrowLeft size={20} />
+                </button>
+              )}
+              <h1 className="text-2xl md:text-3xl font-serif font-bold">
+                {currentStep === 'shipping' && 'Shipping Information'}
+                {currentStep === 'variants' && 'Select Product Options'}
+                {currentStep === 'confirmation' && 'Confirm Your Order'}
+                {currentStep === 'payment' && 'Payment'}
+                {currentStep === 'receipt' && 'Upload Receipt'}
+                {currentStep === 'platform' && 'Choose Payment Method'}
+                {currentStep === 'success' && 'Order Complete'}
+              </h1>
+            </div>
+            
+            {/* Quick Cart Summary */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 flex items-center space-x-3">
+              <div className="text-sm text-blue-100">
+                <span className="font-medium">{getCartCount()}</span> items
+              </div>
+              <div className="h-4 w-px bg-white/30"></div>
+              <div className="text-lg font-bold text-white">
+                NPR {total.toFixed(2)}
+              </div>
+              {isValley && shipping === 0 && subtotal > 1400 && (
+                <div className="text-xs text-green-300 font-medium">✓ Free Ship</div>
+              )}
+            </div>
           </div>
           
           {/* Progress Bar */}
           <div className="flex items-center space-x-4">
+            {/* Step 1: Variants (if needed) or Shipping */}
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              ['shipping', 'confirmation', 'payment', 'receipt', 'success'].includes(currentStep) 
+              ['variants', 'shipping', 'confirmation', 'platform', 'payment', 'receipt', 'success'].includes(currentStep) 
                 ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
             }`}>1</div>
+            
+            {/* Show shipping as step 2 if variants step exists */}
+            {hasItemsNeedingVariants && (
+              <>
+                <div className={`h-1 w-16 ${
+                  ['shipping', 'confirmation', 'platform', 'payment', 'receipt', 'success'].includes(currentStep) 
+                    ? 'bg-blue-600' : 'bg-gray-600'
+                }`}></div>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                  ['shipping', 'confirmation', 'platform', 'payment', 'receipt', 'success'].includes(currentStep) 
+                    ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
+                }`}>2</div>
+              </>
+            )}
+            
             <div className={`h-1 w-16 ${
-              ['confirmation', 'payment', 'receipt', 'success'].includes(currentStep) 
+              ['confirmation', 'platform', 'payment', 'receipt', 'success'].includes(currentStep) 
                 ? 'bg-blue-600' : 'bg-gray-600'
             }`}></div>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              ['confirmation', 'payment', 'receipt', 'success'].includes(currentStep) 
+              ['confirmation', 'platform', 'payment', 'receipt', 'success'].includes(currentStep) 
                 ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
-            }`}>2</div>
+            }`}>{hasItemsNeedingVariants ? '3' : '2'}</div>
+            <div className={`h-1 w-16 ${
+              ['platform', 'payment', 'receipt', 'success'].includes(currentStep) 
+                ? 'bg-blue-600' : 'bg-gray-600'
+            }`}></div>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+              ['platform', 'payment', 'receipt', 'success'].includes(currentStep) 
+                ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
+            }`}>{hasItemsNeedingVariants ? '4' : '3'}</div>
             <div className={`h-1 w-16 ${
               ['payment', 'receipt', 'success'].includes(currentStep) 
                 ? 'bg-blue-600' : 'bg-gray-600'
@@ -278,7 +364,7 @@ const Checkout: React.FC = () => {
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
               ['payment', 'receipt', 'success'].includes(currentStep) 
                 ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
-            }`}>3</div>
+            }`}>{hasItemsNeedingVariants ? '5' : '4'}</div>
             <div className={`h-1 w-16 ${
               ['receipt', 'success'].includes(currentStep) 
                 ? 'bg-blue-600' : 'bg-gray-600'
@@ -286,7 +372,7 @@ const Checkout: React.FC = () => {
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
               ['receipt', 'success'].includes(currentStep) 
                 ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
-            }`}>4</div>
+            }`}>{hasItemsNeedingVariants ? '6' : '5'}</div>
             <div className={`h-1 w-16 ${
               currentStep === 'success' ? 'bg-blue-600' : 'bg-gray-600'
             }`}></div>
@@ -304,25 +390,84 @@ const Checkout: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-md p-6">
+                {/* Brewing Method Summary - Always Visible */}
+                {cart.filter(item => 
+                  ['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category) && 
+                  !item.product.name.toLowerCase().includes('drip coffee bags') &&
+                  item.machine
+                ).length > 0 && (
+                  <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h3 className="text-sm font-semibold text-blue-900 mb-3">☕ Selected Brewing Methods</h3>
+                    <div className="space-y-2">
+                      {cart.filter(item => 
+                        ['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category) && 
+                        !item.product.name.toLowerCase().includes('drip coffee bags') &&
+                        item.machine
+                      ).map(item => (
+                        <div key={item.product.id} className="flex items-center justify-between">
+                          <span className="text-sm text-blue-800">{item.product.name}</span>
+                          <span className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded-full">
+                            ✓ {item.machine}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
                 <form onSubmit={handleShippingSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Brewing machine selection for coffee products */}
-                  {cart.filter(item => ['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category)).map(item => (
-                    <div key={item.product.id} className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Select brewing machine for <span className="font-semibold">{item.product.name}</span>:
+                  {/* Brewing machine selection for coffee products - Enhanced UX (excluding drip bags) */}
+                  {cart.filter(item => 
+                    ['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category) && 
+                    !item.product.name.toLowerCase().includes('drip coffee bags')
+                  ).map(item => (
+                    <div key={item.product.id} className={`md:col-span-2 p-4 rounded-lg border transition-all duration-200 ${
+                      item.machine 
+                        ? 'bg-gray-50 border-gray-300' 
+                        : 'bg-gray-50 border-gray-300'
+                    }`}>
+                      <label className="block text-sm font-semibold mb-3">
+                        <span className="flex items-center gap-2">
+                          {item.machine ? (
+                            <>
+                              <span className="text-green-600">✅</span>
+                              <span className="text-gray-800">
+                                Brewing Method Selected for <span className="font-bold">{item.product.name}</span>
+                              </span>
+                              <span className="text-sm text-green-600 bg-green-100 px-2 py-1 rounded-full">
+                                {item.machine}
+                              </span>
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-gray-600">🔧</span>
+                              <span className="text-gray-800">
+                                Choose Brewing Method for <span className="text-gray-900 font-bold">{item.product.name}</span>
+                              </span>
+                            </>
+                          )}
+                        </span>
                       </label>
-                      <select
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                        value={item.machine || ''}
-                        required
-                        onChange={e => setMachineForItem(item.product.id, e.target.value as MachineType)}
-                      >
-                        <option value="" disabled>Select machine</option>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                         {machineOptions.map(opt => (
-                          <option key={opt} value={opt}>{opt}</option>
+                          <button
+                            key={opt}
+                            type="button"
+                            onClick={() => setMachineForItem(item.product.id, opt as MachineType, item.selectedVariant?.id)}
+                            className={`p-3 text-sm font-medium rounded-lg border-2 transition-all duration-200 transform hover:scale-105 ${
+                              item.machine === opt
+                                ? 'border-blue-600 bg-blue-600 text-white shadow-lg ring-2 ring-blue-200 ring-opacity-50 scale-105'
+                                : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50 hover:shadow-md'
+                            }`}
+                          >
+                            {item.machine === opt && (
+                              <span className="inline-block mr-1">✓</span>
+                            )}
+                            {opt}
+                          </button>
                         ))}
-                      </select>
+                      </div>
                     </div>
                   ))}
                     <div>
@@ -397,17 +542,33 @@ const Checkout: React.FC = () => {
                     </div>
                     <div>
                       <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                        City*
+                        City* <span className="text-xs text-gray-500">(Free shipping in valley cities for orders above NPR 1400)</span>
                       </label>
-                      <input
-                        type="text"
+                      <select
                         id="city"
                         name="city"
                         value={formData.city}
                         onChange={handleChange}
                         required
                         className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                      />
+                      >
+                        <option value="">Select City</option>
+                        <optgroup label="📍 Kathmandu Valley (Free Shipping on NPR 1400+)">
+                          <option value="Kathmandu">Kathmandu</option>
+                          <option value="Lalitpur">Lalitpur</option>
+                          <option value="Bhaktapur">Bhaktapur</option>
+                        </optgroup>
+                        <optgroup label="🏔️ Other Cities">
+                          <option value="Pokhara">Pokhara</option>
+                          <option value="Chitwan">Chitwan</option>
+                          <option value="Butwal">Butwal</option>
+                          <option value="Biratnagar">Biratnagar</option>
+                          <option value="Birgunj">Birgunj</option>
+                          <option value="Dharan">Dharan</option>
+                          <option value="Hetauda">Hetauda</option>
+                          <option value="Other">Other (Please specify in address)</option>
+                        </optgroup>
+                      </select>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
@@ -459,7 +620,97 @@ const Checkout: React.FC = () => {
           </div>
         )}
 
-        {/* Step 2: Order Confirmation */}
+        {/* Step 2: Variant Selection */}
+        {currentStep === 'variants' && (
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <h2 className="text-2xl font-bold text-navy-900 mb-6">Select Product Options</h2>
+              <p className="text-gray-600 mb-8">
+                Please select the size/variant for products that have multiple options.
+              </p>
+              
+              <div className="space-y-8">
+                {cart
+                  .filter(item => !item.selectedVariant && item.product.variants && item.product.variants.length > 0)
+                  .length === 0 ? (
+                    <div className="text-center py-8">
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                        <div className="text-green-800 font-medium mb-2">
+                          ✓ All product options have been selected
+                        </div>
+                        <div className="text-green-600 text-sm">
+                          Automatically proceeding to shipping details in 1 second...
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    cart
+                      .filter(item => !item.selectedVariant && item.product.variants && item.product.variants.length > 0)
+                      .map(item => (
+                        <div key={item.product.id} className="border border-gray-200 rounded-lg p-6">
+                          <div className="flex items-start mb-4">
+                            <img 
+                              src={item.product.image} 
+                              alt={item.product.name}
+                              className="w-16 h-16 object-cover rounded mr-4"
+                            />
+                            <div>
+                              <h3 className="text-lg font-bold text-navy-900">{item.product.name}</h3>
+                              <p className="text-gray-600">Quantity: {item.quantity}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {item.product.variants?.map(variant => (
+                              <button
+                                key={variant.id}
+                                onClick={() => setVariantForItem(item.product.id, variant)}
+                                className={`p-5 border-2 rounded-xl transition-all duration-200 text-left hover:shadow-lg ${
+                                  variant.inStock === false 
+                                    ? 'opacity-40 cursor-not-allowed border-gray-200 bg-gray-50' 
+                                    : 'cursor-pointer border-gray-200 hover:border-blue-400 hover:bg-blue-50 active:scale-95'
+                                }`}
+                                disabled={variant.inStock === false}
+                              >
+                                <div className="flex justify-between items-start mb-2">
+                                  <div className="font-bold text-lg text-navy-900">{variant.name}</div>
+                                  <div className="text-blue-800 font-bold text-lg">NPR {variant.price.toFixed(2)}</div>
+                                </div>
+                                <div className="text-sm text-gray-600 mb-1">{variant.details.volume}</div>
+                                {variant.inStock === false && (
+                                  <div className="text-red-500 text-sm font-medium">Out of Stock</div>
+                                )}
+                                {variant.inStock !== false && (
+                                  <div className="text-green-600 text-xs font-medium mt-2">✓ Available</div>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))
+                  )
+                }
+              </div>
+              
+              <div className="mt-8 flex justify-end">
+                <Button
+                  onClick={handleVariantSelectionComplete}
+                  variant="primary"
+                  size="lg"
+                  disabled={cart.some(item => 
+                    !item.selectedVariant && 
+                    item.product.variants && 
+                    item.product.variants.length > 0
+                  )}
+                >
+                  Continue to Order Review
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step 3: Order Confirmation */}
         {currentStep === 'confirmation' && (
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-md p-8">
@@ -492,12 +743,15 @@ const Checkout: React.FC = () => {
                         <div>
                           <h4 className="font-medium">{item.product.name}</h4>
                           <p className="text-gray-600">Qty: {item.quantity}</p>
+                          {item.selectedVariant && (
+                            <p className="text-sm text-blue-700 mt-1">{item.selectedVariant.name}</p>
+                          )}
                           {['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category) && item.machine && (
                             <p className="text-xs text-blue-700 mt-1">Machine: {item.machine}</p>
                           )}
                         </div>
                       </div>
-                      <p className="font-medium">NPR {(item.product.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-medium">NPR {((item.selectedVariant?.price || item.product.price) * item.quantity).toFixed(2)}</p>
                     </div>
                   ))}
                 </div>
@@ -538,6 +792,31 @@ const Checkout: React.FC = () => {
         {/* Step 3: Payment Platform Selection */}
         {currentStep === 'platform' && (
           <div className="max-w-2xl mx-auto">
+            {/* Brewing Method Summary in Platform Step */}
+            {cart.filter(item => 
+              ['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category) && 
+              !item.product.name.toLowerCase().includes('drip coffee bags') &&
+              item.machine
+            ).length > 0 && (
+              <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h3 className="text-sm font-semibold text-blue-900 mb-3">☕ Your Brewing Methods</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {cart.filter(item => 
+                    ['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category) && 
+                    !item.product.name.toLowerCase().includes('drip coffee bags') &&
+                    item.machine
+                  ).map(item => (
+                    <div key={item.product.id} className="flex items-center justify-between bg-white p-2 rounded border">
+                      <span className="text-sm text-gray-700">{item.product.name}</span>
+                      <span className="px-2 py-1 bg-blue-600 text-white text-xs font-medium rounded-full">
+                        ✓ {item.machine}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
               <h2 className="text-2xl font-bold text-navy-900 mb-6">Select Payment Platform</h2>
               <form onSubmit={handlePlatformSelect}>

@@ -7,11 +7,12 @@ import { generateProductSchema, generateBreadcrumbSchema } from '../utils/struct
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 import Button from '../components/common/Button';
-import { Product } from '../types';
+import { Product, ProductVariant } from '../types';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>();
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
@@ -20,14 +21,30 @@ const ProductDetail: React.FC = () => {
     const productId = parseInt(id || '0');
     const foundProduct = products.find(p => p.id === productId) || null;
     setProduct(foundProduct);
+    
+    // Set default variant if product has variants
+    if (foundProduct?.variants && foundProduct.variants.length > 0) {
+      setSelectedVariant(foundProduct.variants[0]);
+    } else {
+      setSelectedVariant(undefined);
+    }
   }, [id]);
+
+  const currentPrice = selectedVariant ? selectedVariant.price : product?.price || 0;
+  const currentImage = selectedVariant ? selectedVariant.image : product?.image || '';
+  const isOutOfStock = product?.inStock === false || (selectedVariant && selectedVariant.inStock === false);
 
   const handleAddToCart = () => {
     if (product) {
-      addToCart(product, quantity);
+      addToCart(product, quantity, undefined, selectedVariant);
       setAdded(true);
       setTimeout(() => setAdded(false), 2000);
     }
+  };
+
+  const handleVariantChange = (variant: ProductVariant) => {
+    setSelectedVariant(variant);
+    setQuantity(1); // Reset quantity when variant changes
   };
 
   if (!product) {
@@ -88,7 +105,7 @@ const ProductDetail: React.FC = () => {
           {/* Product Image */}
           <div className="bg-white p-4 rounded-lg shadow-md">
             <img 
-              src={product.image} 
+              src={currentImage} 
               alt={product.name} 
               className="w-full h-auto rounded"
             />
@@ -100,11 +117,43 @@ const ProductDetail: React.FC = () => {
               {product.name}
             </h1>
             <p className="text-xl md:text-2xl text-blue-800 font-medium mb-4">
-              NPR {product.price.toFixed(2)}
+              NPR {currentPrice.toFixed(2)}
             </p>
             <p className="text-gray-700 mb-6 leading-relaxed">
               {product.description}
             </p>
+
+            {/* Variant Selection */}
+            {product.variants && product.variants.length > 0 && (
+              <div className="mb-6">
+                <h3 className="font-bold text-navy-900 mb-3">
+                  {product.category === 'merch' ? 'Color Options:' : 'Size Options:'}
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {product.variants.map((variant) => (
+                    <button
+                      key={variant.id}
+                      onClick={() => handleVariantChange(variant)}
+                      className={`p-4 border-2 rounded-lg transition-all duration-200 text-left ${
+                        selectedVariant?.id === variant.id
+                          ? 'border-blue-600 bg-blue-50'
+                          : 'border-gray-200 hover:border-blue-300'
+                      } ${
+                        variant.inStock === false ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                      }`}
+                      disabled={variant.inStock === false}
+                    >
+                      <div className="font-medium text-navy-900">{variant.name}</div>
+                      <div className="text-sm text-gray-600">{variant.details.volume}</div>
+                      <div className="text-blue-800 font-medium mt-1">NPR {variant.price.toFixed(2)}</div>
+                      {variant.inStock === false && (
+                        <div className="text-red-500 text-xs mt-1">Out of Stock</div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             
             {/* Product Specs */}
             <div className="bg-blue-50 p-4 rounded-lg mb-6">
@@ -132,8 +181,16 @@ const ProductDetail: React.FC = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="font-medium text-blue-800 w-32">Weight:</span> 
-                  <span>{product.details.weight}</span>
+                  <span>
+                    {selectedVariant ? selectedVariant.details.weight : product.details.weight}
+                  </span>
                 </li>
+                {selectedVariant && (
+                  <li className="flex items-start">
+                    <span className="font-medium text-blue-800 w-32">Volume:</span> 
+                    <span>{selectedVariant.details.volume}</span>
+                  </li>
+                )}
               </ul>
             </div>
 
@@ -148,7 +205,7 @@ const ProductDetail: React.FC = () => {
                   value={quantity}
                   onChange={(e) => setQuantity(parseInt(e.target.value))}
                   className="py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  disabled={product.inStock === false}
+                  disabled={isOutOfStock}
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                     <option key={num} value={num}>{num}</option>
@@ -161,10 +218,10 @@ const ProductDetail: React.FC = () => {
                 variant="primary"
                 size="lg"
                 className="w-full md:w-auto flex items-center justify-center gap-2"
-                disabled={product.inStock === false}
+                disabled={isOutOfStock}
               >
                 <ShoppingBag size={18} />
-                {product.inStock === false ? 'Out of Stock' : (added ? 'Added to Cart!' : 'Add to Cart')}
+                {isOutOfStock ? 'Out of Stock' : (added ? 'Added to Cart!' : 'Add to Cart')}
               </Button>
             </div>
 

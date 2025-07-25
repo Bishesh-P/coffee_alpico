@@ -1,51 +1,87 @@
 import React, { createContext, useContext, useState } from 'react';
-import { CartContextType, CartItem, Product, MachineType } from '../types';
+import { CartContextType, CartItem, Product, MachineType, ProductVariant } from '../types';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product, quantity: number = 1, machine?: MachineType) => {
+  const addToCart = (product: Product, quantity: number = 1, machine?: MachineType, selectedVariant?: ProductVariant) => {
     setCart((prevCart) => {
-      // Check if product already exists in cart
-      const existingItem = prevCart.find((item) => item.product.id === product.id);
+      // Create a unique key for the cart item (product + variant combination)
+      const cartKey = selectedVariant ? `${product.id}-${selectedVariant.id}` : `${product.id}`;
+      
+      // Check if this specific product+variant combination already exists in cart
+      const existingItem = prevCart.find((item) => {
+        const itemKey = item.selectedVariant ? `${item.product.id}-${item.selectedVariant.id}` : `${item.product.id}`;
+        return itemKey === cartKey;
+      });
+      
       if (existingItem) {
-        // Update quantity if product exists
-        return prevCart.map((item) =>
-          item.product.id === product.id
+        // Update quantity if product+variant exists
+        return prevCart.map((item) => {
+          const itemKey = item.selectedVariant ? `${item.product.id}-${item.selectedVariant.id}` : `${item.product.id}`;
+          return itemKey === cartKey
             ? { ...item, quantity: item.quantity + quantity, machine: machine || item.machine }
-            : item
-        );
+            : item;
+        });
       } else {
         // Add new item to cart
-        return [...prevCart, { product, quantity, machine }];
+        return [...prevCart, { product, quantity, machine, selectedVariant }];
       }
     });
   };
 
-  const setMachineForItem = (productId: number, machine: MachineType) => {
+  const setMachineForItem = (productId: number, machine: MachineType, variantId?: string) => {
     setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.product.id === productId ? { ...item, machine } : item
-      )
+      prevCart.map((item) => {
+        const matchesProduct = item.product.id === productId;
+        const matchesVariant = variantId 
+          ? item.selectedVariant?.id === variantId 
+          : !item.selectedVariant;
+        
+        return matchesProduct && matchesVariant ? { ...item, machine } : item;
+      })
     );
   };
 
-  const removeFromCart = (productId: number) => {
-    setCart((prevCart) => prevCart.filter((item) => item.product.id !== productId));
+  const removeFromCart = (productId: number, variantId?: string) => {
+    setCart((prevCart) => prevCart.filter((item) => {
+      const matchesProduct = item.product.id === productId;
+      const matchesVariant = variantId 
+        ? item.selectedVariant?.id === variantId 
+        : !item.selectedVariant;
+      
+      return !(matchesProduct && matchesVariant);
+    }));
   };
 
-  const updateQuantity = (productId: number, quantity: number) => {
+  const updateQuantity = (productId: number, quantity: number, variantId?: string) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(productId, variantId);
       return;
     }
     
     setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
-      )
+      prevCart.map((item) => {
+        const matchesProduct = item.product.id === productId;
+        const matchesVariant = variantId 
+          ? item.selectedVariant?.id === variantId 
+          : !item.selectedVariant;
+        
+        return matchesProduct && matchesVariant ? { ...item, quantity } : item;
+      })
+    );
+  };
+
+  const setVariantForItem = (productId: number, variant: ProductVariant) => {
+    setCart((prevCart) =>
+      prevCart.map((item) => {
+        if (item.product.id === productId && !item.selectedVariant) {
+          return { ...item, selectedVariant: variant };
+        }
+        return item;
+      })
     );
   };
 
@@ -55,7 +91,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const getCartTotal = () => {
     return cart.reduce((total, item) => {
-      return total + item.product.price * item.quantity;
+      const price = item.selectedVariant ? item.selectedVariant.price : item.product.price;
+      return total + price * item.quantity;
     }, 0);
   };
 
@@ -73,7 +110,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearCart,
         getCartTotal,
         getCartCount,
-        setMachineForItem
+        setMachineForItem,
+        setVariantForItem
       }}
     >
       {children}

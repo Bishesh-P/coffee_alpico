@@ -36,10 +36,10 @@ const About: React.FC = () => {
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="relative container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-4">
-            Our Story
+            Nepal's Premium Coffee Story
           </h1>
           <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto tracking-wide">
-            From a small roastery to a craft coffee company with a passion for exceptional beans and sustainable practices.
+            From a small specialty coffee roastery to Nepal's leading coffee company with a passion for exceptional Arabica beans and sustainable coffee farming practices.
           </p>
         </div>
       </div>
@@ -49,10 +49,10 @@ const About: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-serif font-bold text-navy-900 mb-6">
-              Our Mission
+              Our Mission - Best Coffee in Nepal
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed tracking-wide">
-              At Alpico Coffee, we believe that coffee is more than just a beverage, it's an experience that connects people across cultures and continents. Our mission is to source the finest beans, roast them with precision and care, and deliver an exceptional cup that honors the hard work of farmers and the rich heritage of coffee from the farms of Nepal.
+              At Alpico Coffee, we believe that specialty coffee is more than just a beverage—it's an experience that connects people across cultures and continents. Our mission is to source the finest Arabica coffee beans from Nepal's mountain regions, roast them with precision and care, and deliver an exceptional cup that honors the hard work of local coffee farmers and the rich heritage of Nepali coffee culture.
             </p>
           </div>
 

@@ -32,19 +32,19 @@ export const seoConfig = {
   // Page-specific SEO data
   pages: {
     home: {
-      title: "Premium Arabica Coffee | Alpico Coffee",
-      description: "Discover exceptional mountain-grown coffee beans, expertly roasted and sustainably sourced from alpine regions worldwide. Shop premium coffee online.",
-      keywords: "Nepali premium coffee, Arabica coffee, Nepal coffee, specialty coffee, coffee beans, alpico coffee"
+      title: "Best Coffee in Nepal | Premium Arabica Coffee Beans | Alpico Coffee",
+      description: "Discover Nepal's best coffee roaster. Premium Arabica coffee beans, specialty coffee, and brewing equipment. Sustainably sourced from local farmers. Shop online now.",
+      keywords: "best coffee in nepal, nepal coffee, premium arabica coffee, specialty coffee nepal, coffee beans nepal, alpico coffee, coffee roaster nepal, nepal coffee online"
     },
     products: {
-      title: "Premium Coffee & Equipment | Alpico Coffee",
-      description: "Browse our collection of premium coffee beans and professional brewing equipment. From light to dark roasts, find your perfect coffee.",
-      keywords: "coffee beans, best coffee in nepal, light roast, medium roast, dark roast, brewing equipment, alpico coffee, nepali coffee"
+      title: "Premium Coffee Beans & Equipment | Best Coffee Shop Nepal | Alpico Coffee",
+      description: "Browse Nepal's finest coffee collection - premium Arabica beans, light to dark roasts, and professional brewing equipment. Best coffee shop in Nepal with online delivery.",
+      keywords: "coffee beans nepal, best coffee shop nepal, light roast coffee, medium roast coffee, dark roast coffee, coffee equipment nepal, french press nepal, moka pot nepal, alpico coffee nepal"
     },
     about: {
-      title: "Our Story | Alpico Coffee - Best Coffee in Nepal",
-      description: "Learn about Alpico Coffee's journey from a small Portland roastery to a sustainable coffee company sourcing the finest alpine beans.",
-      keywords: "coffee story, sustainable coffee, coffee roastery, Nepal coffee, coffee sourcing in Nepal, coffee farmers"
+      title: "About Us | Nepal's Premier Coffee Roaster | Best Coffee in Nepal | Alpico Coffee",
+      description: "Learn about Alpico Coffee, Nepal's leading specialty coffee roaster. Our journey from small roastery to Nepal's best coffee company sourcing premium beans from local farmers.",
+      keywords: "nepal coffee company, best coffee roaster nepal, specialty coffee nepal, nepal coffee story, sustainable coffee nepal, coffee farmers nepal, premium coffee nepal"
     },
     contact: {
       title: "Contact Us | Alpico Coffee - Get in Touch",
@@ -61,29 +61,29 @@ export const seoConfig = {
   // Product categories for dynamic SEO
   productCategories: {
     "light-roast": {
-      title: "Light Roast Coffee Beans | Bright & Floral | Alpico Coffee",
-      description: "Explore our selection of light roast coffee beans with bright, floral notes and vibrant acidity. Perfect for pour-over brewing.",
-      keywords: "light roast coffee, alpico coffee, light roast coffee in nepal, pour over coffee"
+      title: "Light Roast Coffee Beans Nepal | Bright & Floral Coffee | Alpico Coffee",
+      description: "Explore Nepal's finest light roast coffee beans with bright, floral notes and vibrant acidity. Perfect for pour-over brewing. Premium Arabica from local farms.",
+      keywords: "light roast coffee nepal, light roast coffee beans, pour over coffee nepal, bright coffee nepal, floral coffee, nepal arabica light roast"
     },
     "medium-roast": {
-      title: "Medium Roast Coffee | Balanced & Smooth | Alpico Coffee",
-      description: "Discover our medium roast coffee collection from alpico coffee featuring balanced flavors with notes of chocolate, caramel, and fruit.",
-      keywords: "medium roast coffee, alpico coffee, medium roast coffee in nepal, espresso beans"
+      title: "Medium Roast Coffee Nepal | Balanced Espresso Beans | Alpico Coffee",
+      description: "Discover our premium medium roast coffee collection featuring balanced flavors with notes of chocolate, caramel, and fruit. Perfect espresso beans from Nepal.",
+      keywords: "medium roast coffee nepal, espresso beans nepal, balanced coffee, chocolate coffee notes, caramel coffee, nepal medium roast"
     },
     "dark-roast": {
-      title: "Dark Roast Coffee | Bold & Rich | Alpico Coffee",
-      description: "Experience our dark roast coffee beans from alpico coffee, rich flavors and notes of dark chocolate and spice.",
-      keywords: "dark roast coffee, alpico coffee, dark roast coffee in nepal, dark chocolate coffee"
+      title: "Dark Roast Coffee Nepal | Bold & Rich Coffee Beans | Alpico Coffee",
+      description: "Experience our dark roast coffee beans with bold, rich flavors and notes of dark chocolate and spice. Premium dark roast coffee from Nepal's mountains.",
+      keywords: "dark roast coffee nepal, bold coffee nepal, rich coffee beans, dark chocolate coffee, spice coffee notes, nepal dark roast"
     },
     "equipment": {
-      title: "Coffee Equipment & Brewing Gear | Alpico Coffee",
-      description: "Professional coffee brewing equipment including grinders, pour-over drippers, French presses, and more.",
-      keywords: "coffee equipment, french press, coffee grinder, pour over dripper, Mocha pot, Aeropress, V60, Chemex"
+      title: "Coffee Equipment Nepal | French Press, Moka Pot & Brewing Gear | Alpico Coffee",
+      description: "Professional coffee brewing equipment in Nepal including grinders, pour-over drippers, French presses, moka pots and more. Best coffee equipment store.",
+      keywords: "coffee equipment nepal, french press nepal, moka pot nepal, coffee grinder nepal, pour over dripper, aeropress nepal, v60 nepal, chemex nepal, coffee gear nepal"
     },
     "merch": {
-      title: "Coffee Merchandise | Alpico Coffee Gear & Apparel",
-      description: "Show your coffee love with Alpico Coffee merchandise including mugs, apparel, and accessories.",
-      keywords: "coffee merchandise, coffee mugs, coffee apparel, coffee accessories, coffee gear, alpico coffee merch"
+      title: "Coffee Merchandise Nepal | Coffee Mugs & Apparel | Alpico Coffee",
+      description: "Show your coffee love with Alpico Coffee merchandise including premium mugs, apparel, and accessories. Best coffee merchandise in Nepal.",
+      keywords: "coffee merchandise nepal, coffee mugs nepal, coffee apparel nepal, coffee accessories nepal, coffee gear nepal, alpico coffee merch nepal"
     }
   }
 };

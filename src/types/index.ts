@@ -3,7 +3,7 @@ export interface PromoCode {
   discount: number; // NPR discount (flat amount)
 }
 
-export type CheckoutStep = 'shipping' | 'confirmation' | 'platform' | 'payment' | 'receipt' | 'success';
+export type CheckoutStep = 'shipping' | 'variants' | 'confirmation' | 'platform' | 'payment' | 'receipt' | 'success';
 
 export type MachineType = 'French Press' | 'Mocha Pot' | 'Aeropress' | 'Espresso Machine' | 'Pour Over' | 'Drip Coffee Maker' | 'Other';
 
@@ -14,6 +14,18 @@ export interface PaymentPlatformInfo {
   name: string;
   qr: string;
   info: string;
+}
+
+export interface ProductVariant {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  details: {
+    volume: string;
+    weight: string;
+  };
+  inStock?: boolean;
 }
 
 export interface Product {
@@ -31,6 +43,7 @@ export interface Product {
     flavorNotes: string[];
     weight: string;
   };
+  variants?: ProductVariant[];
   promoCodes?: PromoCode[];
 }
 
@@ -38,17 +51,19 @@ export interface CartItem {
   product: Product;
   quantity: number;
   machine?: MachineType;
+  selectedVariant?: ProductVariant;
 }
 
 export interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, quantity?: number, machine?: MachineType) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  addToCart: (product: Product, quantity?: number, machine?: MachineType, selectedVariant?: ProductVariant) => void;
+  removeFromCart: (productId: number, variantId?: string) => void;
+  updateQuantity: (productId: number, quantity: number, variantId?: string) => void;
   clearCart: () => void;
   getCartTotal: () => number;
   getCartCount: () => number;
-  setMachineForItem: (productId: number, machine: MachineType) => void;
+  setMachineForItem: (productId: number, machine: MachineType, variantId?: string) => void;
+  setVariantForItem: (productId: number, variant: ProductVariant) => void;
 }
 
 export interface BlogPost {
