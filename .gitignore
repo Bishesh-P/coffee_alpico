@@ -23,3 +23,19 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Stock Management - Personal Reference (Local Only)
+STOCK_MANAGEMENT.md
+
+# Internal Documentation - Keep Private
+EASY_STOCK_MANAGEMENT.md
+shopping-experience-optimizations.md
+test-checkout-flow.md
+
+# Development Notes - Local Only
+update-stock.js
+src/# Code Citations.md
+
+# Personal Development Files
+.bolt/
+.bolt/
