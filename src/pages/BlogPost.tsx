@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -14,8 +14,28 @@ import Button from '../components/common/Button';
 const BlogPost: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { getPost } = useBlog();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageSrc, setImageSrc] = useState('');
   
   const post = id ? getPost(id) : undefined;
+
+  // Fallback image URL
+  const fallbackImage = 'https://images.pexels.com/photos/13836025/pexels-photo-13836025.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+
+  useEffect(() => {
+    if (post?.image) {
+      const img = new Image();
+      img.onload = () => {
+        setImageSrc(post.image);
+        setImageLoaded(true);
+      };
+      img.onerror = () => {
+        setImageSrc(fallbackImage);
+        setImageLoaded(true);
+      };
+      img.src = post.image;
+    }
+  }, [post?.image, fallbackImage]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -78,8 +98,10 @@ const BlogPost: React.FC = () => {
       
       {/* Hero Section */}
       <div 
-        className="relative py-32 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${post.image})` }}
+        className="relative py-32 bg-cover bg-center bg-no-repeat bg-gray-300"
+        style={{ 
+          backgroundImage: imageLoaded ? `url(${imageSrc})` : `url(${fallbackImage})` 
+        }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="relative container mx-auto px-4">

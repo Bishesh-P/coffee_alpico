@@ -75,11 +75,15 @@ const Blog: React.FC = () => {
               {featuredPosts.slice(0, 2).map((post) => (
                 <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                   <Link to={`/blog/${post.id}`}>
-                    <div className="h-64 overflow-hidden">
+                    <div className="h-64 overflow-hidden bg-gray-200">
                       <img 
                         src={post.image} 
                         alt={post.title}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://images.pexels.com/photos/13836025/pexels-photo-13836025.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+                        }}
                       />
                     </div>
                   </Link>
@@ -165,11 +169,15 @@ const Blog: React.FC = () => {
               {filteredPosts.map((post) => (
                 <article key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                   <Link to={`/blog/${post.id}`}>
-                    <div className="h-48 overflow-hidden">
+                    <div className="h-48 overflow-hidden bg-gray-200">
                       <img 
                         src={post.image} 
                         alt={post.title}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://images.pexels.com/photos/13836025/pexels-photo-13836025.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+                        }}
                       />
                     </div>
                   </Link>

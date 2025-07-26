@@ -615,7 +615,11 @@ const Checkout: React.FC = () => {
             </div>
             
             <div>
-              <CartSummary showCheckoutButton={false} />
+              <CartSummary 
+                showCheckoutButton={false} 
+                overrideShipping={shipping}
+                overrideTotal={total}
+              />
             </div>
           </div>
         )}

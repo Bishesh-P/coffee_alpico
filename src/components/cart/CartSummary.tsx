@@ -5,19 +5,28 @@ import Button from '../common/Button';
 
 interface CartSummaryProps {
   showCheckoutButton?: boolean;
+  overrideShipping?: number;
+  overrideTotal?: number;
 }
 
 const CartSummary: React.FC<CartSummaryProps> = ({ 
-  showCheckoutButton = true 
+  showCheckoutButton = true,
+  overrideShipping,
+  overrideTotal
 }) => {
   const { getCartTotal, getCartCount } = useCart();
-  // Promo code state removed
 
   // Calculate subtotal
   const subtotal = getCartTotal();
-  // New shipping logic (moved to parent for accuracy, but keep fallback here)
-  const shipping = subtotal < 1400 && subtotal > 0 ? 150 : 0;
-  const total = subtotal + shipping;
+  
+  // Use override values if provided (from parent component), otherwise use default logic
+  const shipping = overrideShipping !== undefined 
+    ? overrideShipping 
+    : (subtotal < 1400 && subtotal > 0 ? 150 : 0);
+    
+  const total = overrideTotal !== undefined 
+    ? overrideTotal 
+    : (subtotal + shipping);
 
   // Promo code logic removed
 
@@ -43,7 +52,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         <div className="border-t border-gray-200 pt-3 mt-3">
           <div className="flex justify-between font-bold">
             <span className="text-gray-800">Total</span>
-            <span className="text-navy-900">NPR {total > 0 ? total.toFixed(2) : '0.00'}</span>
+            <span className="text-navy-900">NPR {total.toFixed(2)}</span>
           </div>
         </div>
       </div>

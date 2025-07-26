@@ -56,72 +56,96 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section className="py-10 bg-gradient-to-br from-blue-50 to-white">
-      <div className="container mx-auto px-4">
-        <div className="gap-12 items-start">
-          {/* grid grid-cols-1 lg:grid-cols-2  */}
+    <section className="py-8 bg-gradient-to-br from-blue-50 via-white to-slate-50 relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-400 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-blue-900 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="gap-8 items-start">
           {/* FAQ Content */}
           <div>
-            <div className="text-left mb-8">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy-900 mb-4">
+            <div className="text-center mb-10 max-w-3xl mx-auto">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-navy-600 rounded-xl mb-5 shadow-lg">
+                <HelpCircle className="text-white" size={24} />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy-900 mb-5 bg-gradient-to-r from-navy-900 to-blue-800 bg-clip-text text-transparent">
                 Frequently Asked Questions
               </h2>
-              <p className="text-blue-800 ">
-                {/* max-w-lg */}
+              <p className="text-lg text-blue-700 max-w-2xl mx-auto leading-relaxed">
                 Got questions about our coffee, shipping, or brewing? Find answers to the most common questions below.
               </p>
             </div>
 
-            <div className="space-y-4">
-              {faqData.map((faq) => (
+            <div className="space-y-4 mb-12">
+              {faqData.map((faq, index) => (
                 <div
                   key={faq.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg"
+                  className="group bg-white/80 backdrop-blur-sm rounded-xl shadow-md border border-white/50 overflow-hidden transition-all duration-500 hover:shadow-lg hover:bg-white hover:scale-[1.005] hover:-translate-y-0.5"
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                    animation: 'fadeInUp 0.6s ease-out forwards'
+                  }}
                 >
                   {/* Question Section */}
                   <button
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full p-4 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+                    className="w-full p-4 text-left focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-1 transition-all duration-300"
+                    aria-expanded={openItem === faq.id}
+                    aria-controls={`faq-answer-${faq.id}`}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-3 flex-1">
                         <div className={`
-                          flex-shrink-0 p-2 rounded-full transition-all duration-300
-                          ${openItem === faq.id ? 'bg-blue-100' : 'bg-gray-100'}
+                          flex-shrink-0 p-2 rounded-lg transition-all duration-500 shadow-sm
+                          ${openItem === faq.id 
+                            ? 'bg-gradient-to-br from-blue-500 to-navy-600 text-white shadow-md scale-105' 
+                            : 'bg-gradient-to-br from-gray-100 to-gray-200 text-blue-600 group-hover:from-blue-100 group-hover:to-blue-200'
+                          }
                         `}>
-                          {faq.icon}
+                          {React.cloneElement(faq.icon as React.ReactElement, { size: 18 })}
                         </div>
                         <h3 className={`
-                          font-bold text-lg transition-colors duration-300
-                          ${openItem === faq.id ? 'text-blue-800' : 'text-navy-900'}
+                          font-semibold text-base md:text-lg transition-all duration-300 leading-tight
+                          ${openItem === faq.id ? 'text-blue-800' : 'text-navy-900 group-hover:text-blue-700'}
                         `}>
                           {faq.question}
                         </h3>
                       </div>
-                      <ChevronDown 
-                        className={`
-                          transition-all duration-300 flex-shrink-0
-                          ${openItem === faq.id 
-                            ? 'rotate-180 text-blue-600' 
-                            : 'text-gray-400'
-                          }
-                        `} 
-                        size={20} 
-                      />
+                      <div className={`
+                        flex-shrink-0 ml-3 p-1.5 rounded-full transition-all duration-500
+                        ${openItem === faq.id ? 'bg-blue-100' : 'bg-gray-100 group-hover:bg-blue-50'}
+                      `}>
+                        <ChevronDown 
+                          className={`
+                            transition-all duration-500 ease-out
+                            ${openItem === faq.id 
+                              ? 'rotate-180 text-blue-600 scale-105' 
+                              : 'text-gray-500 group-hover:text-blue-500'
+                            }
+                          `} 
+                          size={16} 
+                        />
+                      </div>
                     </div>
                   </button>
 
                   {/* Answer Section - Expandable */}
-                  <div className={`
-                    transition-all duration-500 ease-in-out overflow-hidden
-                    ${openItem === faq.id 
-                      ? 'max-h-96 opacity-100' 
-                      : 'max-h-0 opacity-0'
-                    }
-                  `}>
-                    <div className="px-6 pb-6">
-                      <div className="border-t border-blue-100 pt-4">
-                        <p className="text-gray-700 leading-relaxed">
+                  <div 
+                    id={`faq-answer-${faq.id}`}
+                    className={`
+                      transition-all duration-700 ease-in-out overflow-hidden
+                      ${openItem === faq.id 
+                        ? 'max-h-64 opacity-100' 
+                        : 'max-h-0 opacity-0'
+                      }
+                    `}
+                  >
+                    <div className="px-4 pb-4">
+                      <div className="border-t border-blue-200 pt-3">
+                        <p className="text-gray-700 leading-relaxed text-sm md:text-base">
                           {faq.answer}
                         </p>
                       </div>
@@ -130,58 +154,82 @@ const FAQ: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
-              <br></br>
-          {/* Image Section */}
-          <div className="lg:pl-8">
-            <div className="relative">
-              <div className="overflow-hidden rounded-lg shadow-lg">
-                <img 
-                  src="https://images.pexels.com/photos/13736391/pexels-photo-13736391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                  alt="Man Preparing Espresso in Cafe" 
-                  className="w-full h-96 object-cover filter grayscale hover:filter-none transition-all duration-700 transform hover:scale-105"
-                />
-              </div>
-              
-              {/* Overlay text */}
-              <div className="absolute inset-0 bg-black bg-opacity-30 hover:bg-opacity-10 transition-all duration-700 rounded-lg flex items-end">
-                <div className="p-6 text-white">
-                  <h3 className="text-xl font-bold mb-2">Expert Coffee Guidance</h3>
-                  <p className="text-sm opacity-90">
-                    Our team is here to help you find the perfect coffee and brewing method for your taste.
-                  </p>
-                </div>
-              </div>
             </div>
+            
+            {/* Enhanced Image Section */}
+            <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-8 items-start">
+                {/* Left: Coffee Expert Image */}
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-navy-600/20 rounded-3xl blur-2xl group-hover:blur-xl transition-all duration-700"></div>
+                  <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+                    <img 
+                      src="https://images.pexels.com/photos/13736391/pexels-photo-13736391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                      alt="Professional barista preparing artisanal espresso with precision and expertise" 
+                      className="w-full h-[450px] object-cover filter grayscale hover:filter-none transition-all duration-1000 transform group-hover:scale-105"
+                      loading="lazy"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'https://images.pexels.com/photos/13836025/pexels-photo-13836025.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+                      }}
+                    />
+                    
+                    {/* Enhanced Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent hover:from-black/50 transition-all duration-700 rounded-3xl flex items-end">
+                      <div className="p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <div className="flex items-center mb-3">
+                          <div className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                          <span className="text-green-400 font-semibold text-sm uppercase tracking-wider">Expert Available</span>
+                        </div>
+                        <h3 className="text-2xl lg:text-3xl font-bold mb-3 font-serif">Expert Coffee Guidance</h3>
+                        <p className="text-blue-100 text-base opacity-90 leading-relaxed">
+                          Our certified baristas are here to help you discover the perfect coffee and brewing method tailored to your unique taste preferences.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            {/* Additional decorative element */}
-            <div className="mt-6 bg-white rounded-lg shadow-md p-6">
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-navy-900 mb-2">
-                  Still have questions?
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Our coffee experts are here to help you find the perfect brew.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Link 
-                    to="/contact"
-                    className="inline-flex items-center justify-center px-6 py-3 bg-navy-900 text-white rounded-lg hover:bg-blue-800 transition-colors font-medium"
-                    role="button"
-                    aria-label="Go to contact page"
-                  >
-                    Contact Us
-                  </Link>
-                  <a 
-                    href="mailto:alpicocoffeecompany@gmail.com" 
-                    className="inline-flex items-center justify-center px-6 py-3 border-2 border-navy-900 text-navy-900 rounded-lg hover:bg-blue-50 transition-colors font-medium"
-                  >
-                    Email Support
-                  </a>
+                {/* Right: Contact Card */}
+                <div>
+                  {/* Main Contact Card */}
+                  <div className="bg-gradient-to-br from-white via-blue-50/50 to-white backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 p-8 group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-[450px] flex flex-col justify-center">
+                    <div className="text-center">
+                      <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-navy-600 rounded-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                        <HelpCircle className="text-white" size={32} />
+                      </div>
+                      <h3 className="text-2xl lg:text-3xl font-bold text-navy-900 mb-4 font-serif">
+                        Still have questions?
+                      </h3>
+                      <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+                        Our coffee experts are here to help you find the perfect brew and answer any questions about our premium Nepal coffee.
+                      </p>
+                      
+                      <div className="space-y-4">
+                        <Link 
+                          to="/contact"
+                          className="group/btn inline-flex items-center justify-center w-full px-8 py-4 bg-gradient-to-r from-navy-900 to-blue-800 text-white rounded-xl hover:from-blue-800 hover:to-navy-700 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                          role="button"
+                          aria-label="Navigate to contact page for personalized assistance"
+                        >
+                          <span className="mr-2">Contact Our Experts</span>
+                          <div className="transform group-hover/btn:translate-x-1 transition-transform duration-300">→</div>
+                        </Link>
+                        
+                        <a 
+                          href="mailto:alpicocoffeecompany@gmail.com" 
+                          className="group/btn inline-flex items-center justify-center w-full px-8 py-4 border-2 border-navy-900 text-navy-900 rounded-xl hover:bg-navy-900 hover:text-white transition-all duration-300 font-semibold text-lg shadow-sm hover:shadow-lg transform hover:-translate-y-1"
+                          aria-label="Send email to our coffee experts"
+                        >
+                          <span className="mr-2">Email Support</span>
+                          <div className="transform group-hover/btn:translate-x-1 transition-transform duration-300">✉</div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </section>
