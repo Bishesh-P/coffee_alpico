@@ -20,3 +20,4 @@ const LoadingSpinner = memo<LoadingSpinnerProps>(({ size = 'md', className = '' 
 LoadingSpinner.displayName = 'LoadingSpinner';
 
 export default LoadingSpinner;
+

@@ -52,7 +52,7 @@ const About: React.FC = () => {
               Our Mission - Best Coffee in Nepal
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed tracking-wide">
-              At Alpico Coffee, we believe that specialty coffee is more than just a beverage—it's an experience that connects people across cultures and continents. Our mission is to source the finest Arabica coffee beans from Nepal's mountain regions, roast them with precision and care, and deliver an exceptional cup that honors the hard work of local coffee farmers and the rich heritage of Nepali coffee culture.
+              At Alpico Coffee, we believe that specialty coffee is more than just a beverage, it's an experience that connects people across cultures and continents. Our mission is to source the finest Arabica coffee beans from Nepal's mountain regions, roast them with precision and care, and deliver an exceptional cup that honors the hard work of local coffee farmers and the rich heritage of Nepali coffee culture.
             </p>
           </div>
 
@@ -181,10 +181,10 @@ const About: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="font-bold text-navy-900 text-xl mb-1">Elena Martinez</h3>
+              <h3 className="font-bold text-navy-900 text-xl mb-1">Bishesh Pokharel</h3>
               <p className="text-blue-800 mb-3">Founder</p>
               <p className="text-gray-600 max-w-xs mx-auto">
-                Elena travels to different parts of Nepal to find the best coffee beans and build relationships with our partner farms.
+                Bishesh travels to different parts of Nepal to find the best coffee beans and build relationships with our partner farms.
               </p>
             </div>
             

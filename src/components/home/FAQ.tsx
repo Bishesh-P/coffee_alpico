@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown, Coffee, Truck, Shield, Clock, HelpCircle, Package } from 'lucide-react';
 
 interface FAQItem {
@@ -163,12 +164,12 @@ const FAQ: React.FC = () => {
                   Our coffee experts are here to help you find the perfect brew.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <a 
-                    href="/contact" 
+                  <Link 
+                    to="/contact" 
                     className="inline-flex items-center justify-center px-6 py-3 bg-navy-900 text-white rounded-lg hover:bg-blue-800 transition-colors font-medium"
                   >
                     Contact Us
-                  </a>
+                  </Link>
                   <a 
                     href="mailto:alpicocoffeecompany@gmail.com" 
                     className="inline-flex items-center justify-center px-6 py-3 border-2 border-navy-900 text-navy-900 rounded-lg hover:bg-blue-50 transition-colors font-medium"
