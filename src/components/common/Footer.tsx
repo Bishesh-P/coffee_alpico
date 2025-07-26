@@ -10,20 +10,16 @@ const Footer: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      // Insert email into Supabase 'Email' table
       try {
         const { error } = await supabase.from('Email').insert([{ email }]);
-        if (!error) {
-          setSubscribed(true);
-          setEmail('');
-          setTimeout(() => {
-            setSubscribed(false);
-          }, 3000);
-        } else {
-          alert('Failed to subscribe. Please try again.');
-        }
-      } catch (err) {
-        alert('An error occurred. Please try again.');
+        if (error) throw error;
+        setSubscribed(true);
+        setEmail('');
+        setTimeout(() => {
+          setSubscribed(false);
+        }, 3000);
+      } catch (error) {
+        console.error('Error subscribing:', error);
       }
     }
   };

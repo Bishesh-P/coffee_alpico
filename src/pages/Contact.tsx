@@ -23,7 +23,7 @@ const Contact: React.FC = () => {
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Store contact form data in Supabase 'Contact us' table
+    
     try {
       const { error } = await supabase.from('contact_us').insert([
         {
@@ -33,22 +33,22 @@ const Contact: React.FC = () => {
           message: formData.message
         }
       ]);
-      if (!error) {
-        setFormSubmitted(true);
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-        setTimeout(() => {
-          setFormSubmitted(false);
-        }, 3000);
-      } else {
-        alert('Failed to send message. Please try again.');
-      }
-    } catch (err) {
-      alert('An error occurred. Please try again.');
+      
+      if (error) throw error;
+      
+      setFormSubmitted(true);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      setTimeout(() => {
+        setFormSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
     }
   };
 

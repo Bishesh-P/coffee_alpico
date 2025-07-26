@@ -165,8 +165,10 @@ const FAQ: React.FC = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Link 
-                    to="/contact" 
+                    to="/contact"
                     className="inline-flex items-center justify-center px-6 py-3 bg-navy-900 text-white rounded-lg hover:bg-blue-800 transition-colors font-medium"
+                    role="button"
+                    aria-label="Go to contact page"
                   >
                     Contact Us
                   </Link>
