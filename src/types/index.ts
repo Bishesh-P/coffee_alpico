@@ -7,12 +7,13 @@ export type CheckoutStep = 'shipping' | 'variants' | 'confirmation' | 'platform'
 
 export type MachineType = 'French Press' | 'Mocha Pot' | 'Aeropress' | 'Espresso Machine' | 'Pour Over' | 'Drip Coffee Maker' | 'Other';
 
-export type PaymentPlatform = 'esewa' | 'khalti' | 'fonepay';
+export type PaymentPlatform = 'esewa' | 'khalti' | 'banktransfer';
 
 export interface PaymentPlatformInfo {
   key: PaymentPlatform;
   name: string;
   qr: string;
+  logo?: string;
   info: string;
 }
 

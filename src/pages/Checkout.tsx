@@ -12,19 +12,22 @@ const paymentPlatforms: readonly PaymentPlatformInfo[] = [
     key: 'esewa',
     name: 'eSewa',
     qr: '/images/qr-esewa.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Esewa_logo.webp',
     info: 'Scan with eSewa app',
   },
   {
     key: 'khalti',
     name: 'Khalti',
     qr: '/images/qr-khalti.png',
+    logo: 'https://cdn.nayathegana.com/services.khalti.com/static/images/khalti-ime-logo.png',
     info: 'Scan with Khalti app',
   },
   {
-    key: 'fonepay',
-    name: 'Fonepay',
-    qr: '/images/qr-fonepay.png',
-    info: 'Scan with Fonepay app',
+    key: 'banktransfer',
+    name: 'Bank Transfer',
+    qr: '/images/qr-bank.png',
+    logo: 'https://thumbs.dreamstime.com/b/bank-transfer-line-icon-monochrome-simple-bank-transfer-outline-icon-templates-web-design-infographics-bank-transfer-icon-253732914.jpg',
+    info: 'Direct bank transfer',
   },
 ] as const;
 
@@ -826,23 +829,29 @@ const Checkout: React.FC = () => {
               <form onSubmit={handlePlatformSelect}>
                 <div className="flex flex-col md:flex-row justify-center gap-6 mb-8">
                   {paymentPlatforms.map((platform) => (
-                    <label key={platform.key} className={`cursor-pointer border rounded-lg p-4 flex-1 flex flex-col items-center transition-all duration-200 ${selectedPlatform === platform.key ? 'border-blue-600 bg-blue-50' : 'border-gray-300 bg-white'}`}>
+                    <label key={platform.key} className={`cursor-pointer border rounded-lg p-4 flex-1 flex flex-col items-center transition-all duration-200 hover:shadow-lg ${selectedPlatform === platform.key ? 'border-blue-600 bg-blue-50 shadow-md' : 'border-gray-300 bg-white'}`}>
                       <input
                         type="radio"
                         name="paymentPlatform"
                         value={platform.key}
                         checked={selectedPlatform === platform.key}
                         onChange={() => setSelectedPlatform(platform.key)}
-                        className="mb-2"
+                        className="mb-3"
                       />
-                      <img src={platform.qr} alt={platform.name + ' QR'} className="w-20 h-20 object-contain mb-2" />
-                      <span className="font-bold text-lg">{platform.name}</span>
+                      <div className="w-24 h-24 flex items-center justify-center mb-3 bg-gray-50 rounded-lg p-2">
+                        <img 
+                          src={platform.logo || platform.qr} 
+                          alt={platform.name + ' Logo'} 
+                          className="max-w-full max-h-full object-contain" 
+                        />
+                      </div>
+                      <span className="font-bold text-lg text-gray-800">{platform.name}</span>
                       <span className="text-sm text-gray-500 mt-1">{platform.info}</span>
                     </label>
                   ))}
                 </div>
                 <Button type="submit" variant="primary" size="lg" disabled={!selectedPlatform}>
-                  Continue to QR Payment
+                  Continue to Payment
                 </Button>
               </form>
             </div>
@@ -851,37 +860,64 @@ const Checkout: React.FC = () => {
 
         {/* Step 4: QR Code Payment */}
         {currentStep === 'payment' && (
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <div className="max-w-2xl mx-auto px-4">
+            <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 lg:p-8 text-center">
               <div className="mb-6">
                 <QrCode size={48} className="mx-auto text-navy-900 mb-4" />
-                <h2 className="text-2xl font-bold text-navy-900 mb-2">Scan QR Code to Pay</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-2">
+                  {selectedPlatform === 'banktransfer' ? 'Bank Transfer Payment' : 'Scan QR Code to Pay'}
+                </h2>
                 <p className="text-gray-600">Order ID: <span className="font-mono font-bold">{orderId}</span></p>
-                <p className="text-2xl font-bold text-blue-800 mt-4">NPR {total.toFixed(2)}</p>
+                <p className="text-xl sm:text-2xl font-bold text-blue-800 mt-4">NPR {total.toFixed(2)}</p>
               </div>
 
-              {/* Platform-specific QR Code */}
-              <div className="bg-gray-100 p-8 rounded-lg mb-6 inline-block">
-                <div className="w-64 h-64 bg-white border-2 border-gray-300 rounded-lg flex items-center justify-center">
-                  {selectedPlatform ? (
-                    <img
-                      src={paymentPlatforms.find(p => p.key === selectedPlatform)?.qr}
-                      alt={selectedPlatform + ' QR'}
-                      className="w-56 h-56 object-contain"
-                    />
-                  ) : (
-                    <div className="text-center">
-                      <QrCode size={120} className="mx-auto text-gray-400 mb-4" />
-                      <p className="text-sm text-gray-500">Select a payment platform</p>
+              {/* Platform-specific QR Code or Bank Details */}
+              <div className="bg-gray-100 p-4 sm:p-6 lg:p-8 rounded-lg mb-6 mx-auto max-w-sm">
+                {selectedPlatform === 'banktransfer' ? (
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-6 text-left">
+                    <h3 className="font-bold text-lg text-navy-900 mb-4 text-center">Bank Transfer Details</h3>
+                    <div className="space-y-2 text-sm">
+                      <div><strong>Bank Name:</strong> [Your Bank Name]</div>
+                      <div><strong>Account Name:</strong> Alpico Coffee</div>
+                      <div><strong>Account Number:</strong> [Account Number]</div>
+                      <div><strong>Amount:</strong> NPR {total.toFixed(2)}</div>
+                      <div className="text-blue-700 text-xs mt-3">
+                        <strong>Note:</strong> Please include your Order ID ({orderId}) in the transfer description
+                      </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <div className="w-full aspect-square max-w-[280px] sm:max-w-[320px] mx-auto bg-white border-2 border-gray-300 rounded-lg flex items-center justify-center">
+                    {selectedPlatform ? (
+                      <img
+                        src={paymentPlatforms.find(p => p.key === selectedPlatform)?.qr}
+                        alt={selectedPlatform + ' QR'}
+                        className="w-[90%] h-[90%] object-contain"
+                      />
+                    ) : (
+                      <div className="text-center">
+                        <QrCode size={120} className="mx-auto text-gray-400 mb-4" />
+                        <p className="text-sm text-gray-500">Select a payment platform</p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
-              <div className="text-sm text-gray-600 mb-6">
-                <p>• Scan the QR code with your {selectedPlatform ? paymentPlatforms.find(p => p.key === selectedPlatform)?.name : 'selected'} app</p>
-                <p>• Complete the payment of NPR {total.toFixed(2)}</p>
-                <p>• Take a screenshot of the payment confirmation</p>
+              <div className="text-xs sm:text-sm text-gray-600 mb-6 space-y-1">
+                {selectedPlatform === 'banktransfer' ? (
+                  <>
+                    <p>• Use the bank details shown above for direct transfer</p>
+                    <p>• Transfer NPR {total.toFixed(2)} to the specified account</p>
+                    <p>• Keep the bank transfer receipt for upload</p>
+                  </>
+                ) : (
+                  <>
+                    <p>• Scan the QR code with your {selectedPlatform ? paymentPlatforms.find(p => p.key === selectedPlatform)?.name : 'selected'} app</p>
+                    <p>• Complete the payment of NPR {total.toFixed(2)}</p>
+                    <p>• Take a screenshot of the payment confirmation</p>
+                  </>
+                )}
               </div>
 
               <Button onClick={handlePaymentConfirm} variant="primary" size="lg">

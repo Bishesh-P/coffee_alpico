@@ -80,4 +80,5 @@ function App() {
     </HelmetProvider>
   );
 }
+
 export default App;
