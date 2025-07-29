@@ -5,7 +5,6 @@ import { useCart } from '../context/CartContext';
 import { CheckCircle, Upload, Instagram, QrCode, ArrowLeft } from 'lucide-react';
 import CartSummary from '../components/cart/CartSummary';
 import Button from '../components/common/Button';
-import jsPDF from 'jspdf';
 import type { CheckoutStep, PaymentPlatformInfo, MachineType } from '../types';
 
 const paymentPlatforms: readonly PaymentPlatformInfo[] = [
@@ -196,6 +195,9 @@ const Checkout: React.FC = () => {
   // PDF Generation Function
   const generateOrderPDF = useCallback(async () => {
     try {
+      // Dynamic import of jsPDF to avoid build issues
+      const { default: jsPDF } = await import('jspdf');
+      
       // Get saved order details if available (for cash on delivery)
       const savedOrderDetails = localStorage.getItem('orderDetails');
       const orderDetails = savedOrderDetails ? JSON.parse(savedOrderDetails) : null;
