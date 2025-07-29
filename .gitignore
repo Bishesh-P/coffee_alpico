@@ -39,3 +39,10 @@ src/# Code Citations.md
 # Personal Development Files
 .bolt/
 .bolt/
+
+# Documentation Files - Development Reference Only
+PRODUCT_REMOVAL_SUMMARY.md
+PRODUCT_LABELS_GUIDE.md
+PDF_IMPLEMENTATION_GUIDE.md
+LABELS_SETUP_COMPLETE.md
+CHECKOUT_TOTAL_FIX.md

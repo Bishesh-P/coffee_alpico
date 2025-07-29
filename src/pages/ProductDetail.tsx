@@ -147,7 +147,7 @@ const ProductDetail: React.FC = () => {
                       <div className="text-sm text-gray-600">{variant.details.volume}</div>
                       <div className="text-blue-800 font-medium mt-1">NPR {variant.price.toFixed(2)}</div>
                       {variant.inStock === false && (
-                        <div className="text-red-500 text-xs mt-1">Out of Stock</div>
+                        <div className="text-red-500 text-xs mt-1">Sold Out</div>
                       )}
                     </button>
                   ))}
@@ -221,7 +221,7 @@ const ProductDetail: React.FC = () => {
                 disabled={isOutOfStock}
               >
                 <ShoppingBag size={18} />
-                {isOutOfStock ? 'Out of Stock' : (added ? 'Added to Cart!' : 'Add to Cart')}
+                {isOutOfStock ? 'Sold Out' : (added ? 'Added to Cart!' : 'Add to Cart')}
               </Button>
             </div>
 

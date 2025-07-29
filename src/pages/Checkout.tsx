@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext';
 import { CheckCircle, Upload, Instagram, QrCode, ArrowLeft } from 'lucide-react';
 import CartSummary from '../components/cart/CartSummary';
 import Button from '../components/common/Button';
+import jsPDF from 'jspdf';
 import type { CheckoutStep, PaymentPlatformInfo, MachineType } from '../types';
 
 const paymentPlatforms: readonly PaymentPlatformInfo[] = [
@@ -23,11 +24,11 @@ const paymentPlatforms: readonly PaymentPlatformInfo[] = [
     info: 'Scan with Khalti app',
   },
   {
-    key: 'banktransfer',
-    name: 'Bank Transfer',
-    qr: '/images/qr-bank.png',
-    logo: 'https://thumbs.dreamstime.com/b/bank-transfer-line-icon-monochrome-simple-bank-transfer-outline-icon-templates-web-design-infographics-bank-transfer-icon-253732914.jpg',
-    info: 'Direct bank transfer',
+    key: 'cashondelivery',
+    name: 'Cash on Delivery',
+    qr: '/images/cod-icon.png',
+    logo: 'https://cdn-icons-png.flaticon.com/512/3135/3135706.png',
+    info: 'Pay when you receive',
   },
 ] as const;
 
@@ -147,13 +148,228 @@ const Checkout: React.FC = () => {
   const handlePlatformSelect = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (selectedPlatform) {
-      setCurrentStep('payment');
+      if (selectedPlatform === 'cashondelivery') {
+        // Generate orderId if not already set
+        const currentOrderId = orderId || `ALP${Date.now().toString().slice(-8)}`;
+        if (!orderId) {
+          setOrderId(currentOrderId);
+        }
+        
+        // Debug logging
+        console.log('Cash on Delivery Debug:', {
+          total,
+          subtotal,
+          shipping,
+          currentOrderId
+        });
+        
+        // Save order details to localStorage BEFORE clearing cart
+        const orderDetails = {
+          orderId: currentOrderId,
+          total: total,
+          subtotal: subtotal,
+          shipping: shipping,
+          paymentMethod: selectedPlatform,
+          formData: formData,
+          cart: cart.map(item => ({
+            ...item,
+            finalPrice: (item.selectedVariant?.price || item.product.price) * item.quantity
+          }))
+        };
+        localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+        
+        console.log('Saved order details:', orderDetails);
+        
+        // For cash on delivery, skip payment steps and go directly to success
+        clearCart();
+        setCurrentStep('success');
+      } else {
+        setCurrentStep('payment');
+      }
     }
-  }, [selectedPlatform]);
+  }, [selectedPlatform, clearCart, orderId, setOrderId, total, subtotal, shipping, formData, cart]);
 
   const handlePaymentConfirm = useCallback(() => {
     setCurrentStep('receipt');
   }, []);
+
+  // PDF Generation Function
+  const generateOrderPDF = useCallback(async () => {
+    try {
+      // Get saved order details if available (for cash on delivery)
+      const savedOrderDetails = localStorage.getItem('orderDetails');
+      const orderDetails = savedOrderDetails ? JSON.parse(savedOrderDetails) : null;
+      
+      // Use saved details if available, otherwise use current state
+      const displayCart = orderDetails?.cart || cart;
+      const displaySubtotal = orderDetails?.subtotal || subtotal;
+      const displayShipping = orderDetails?.shipping || shipping;
+      const displayTotal = orderDetails?.total || total;
+      const displayFormData = orderDetails?.formData || formData;
+      
+      // Debug logging for total calculation
+      console.log('PDF Generation Debug:', {
+        savedOrderDetails: !!savedOrderDetails,
+        displaySubtotal,
+        displayShipping,
+        displayTotal,
+        cartLength: displayCart?.length || 0
+      });
+      
+      // Create new jsPDF instance
+      const pdf = new jsPDF();
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const margin = 20;
+      let yPosition = 30;
+      
+      // Helper function to add text with word wrap
+      const addWrappedText = (text: string, x: number, y: number, maxWidth: number, fontSize = 10) => {
+        pdf.setFontSize(fontSize);
+        const lines = pdf.splitTextToSize(text, maxWidth);
+        pdf.text(lines, x, y);
+        return y + (lines.length * fontSize * 0.5);
+      };
+      
+      // Header
+      pdf.setFontSize(18);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('ALPICO COFFEE', pageWidth / 2, yPosition, { align: 'center' });
+      yPosition += 10;
+      
+      pdf.setFontSize(14);
+      pdf.text('ORDER CONFIRMATION', pageWidth / 2, yPosition, { align: 'center' });
+      yPosition += 20;
+      
+      // Order Info
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Order Details:', margin, yPosition);
+      yPosition += 10;
+      
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      pdf.text(`Order ID: ${orderId}`, margin, yPosition);
+      yPosition += 6;
+      pdf.text(`Date: ${new Date().toLocaleDateString()}`, margin, yPosition);
+      yPosition += 6;
+      pdf.text(`Status: Order Confirmed`, margin, yPosition);
+      yPosition += 15;
+      
+      // Customer Details
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Customer Information:', margin, yPosition);
+      yPosition += 10;
+      
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      pdf.text(`Name: ${displayFormData.firstName} ${displayFormData.lastName}`, margin, yPosition);
+      yPosition += 6;
+      pdf.text(`Email: ${displayFormData.email}`, margin, yPosition);
+      yPosition += 6;
+      pdf.text(`Phone: ${displayFormData.phone}`, margin, yPosition);
+      yPosition += 6;
+      yPosition = addWrappedText(`Address: ${displayFormData.address}`, margin, yPosition, pageWidth - 2 * margin);
+      yPosition += 2;
+      pdf.text(`City: ${displayFormData.city}, State: ${displayFormData.state}`, margin, yPosition);
+      yPosition += 6;
+      pdf.text(`Occupation: ${displayFormData.occupation}`, margin, yPosition);
+      yPosition += 15;
+      
+      // Order Items
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Order Items:', margin, yPosition);
+      yPosition += 10;
+      
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      
+      if (displayCart && displayCart.length > 0) {
+        displayCart.forEach((item: any) => {
+          // Calculate correct price for each item
+          const itemPrice = item.selectedVariant?.price || item.product.price;
+          const lineTotal = itemPrice * item.quantity;
+          
+          // Item name with variant
+          const variant = item.selectedVariant ? ` (${item.selectedVariant.name})` : '';
+          const machine = item.machine ? ` - Brewing: ${item.machine}` : '';
+          const itemName = `${item.product.name}${variant}${machine}`;
+          
+          yPosition = addWrappedText(itemName, margin, yPosition, pageWidth - 100);
+          pdf.text(`Qty: ${item.quantity} x NPR ${itemPrice.toFixed(2)} = NPR ${lineTotal.toFixed(2)}`, pageWidth - 80, yPosition - 6, { align: 'right' });
+          yPosition += 8;
+        });
+      } else {
+        pdf.text('No items in order.', margin, yPosition);
+        yPosition += 10;
+      }
+      
+      yPosition += 10;
+      
+      // Payment Information
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Payment Information:', margin, yPosition);
+      yPosition += 10;
+      
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      const paymentMethodName = paymentPlatforms.find(p => p.key === selectedPlatform)?.name || 'Selected Payment Method';
+      const paymentStatus = selectedPlatform === 'cashondelivery' ? 'Will be paid on delivery' : 'Completed online';
+      
+      pdf.text(`Payment Method: ${paymentMethodName}`, margin, yPosition);
+      yPosition += 6;
+      pdf.text(`Payment Status: ${paymentStatus}`, margin, yPosition);
+      yPosition += 15;
+      
+      // Order Summary
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Order Summary:', margin, yPosition);
+      yPosition += 10;
+      
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      
+      // Create a box for the summary
+      const summaryStartY = yPosition;
+      const summaryHeight = 25;
+      pdf.rect(margin, summaryStartY - 5, pageWidth - 2 * margin, summaryHeight);
+      
+      yPosition += 2;
+      pdf.text(`Subtotal:`, margin + 5, yPosition);
+      pdf.text(`NPR ${displaySubtotal.toFixed(2)}`, pageWidth - margin - 5, yPosition, { align: 'right' });
+      yPosition += 6;
+      
+      pdf.text(`Shipping:`, margin + 5, yPosition);
+      pdf.text(`${displayShipping === 0 ? 'Free' : `NPR ${displayShipping.toFixed(2)}`}`, pageWidth - margin - 5, yPosition, { align: 'right' });
+      yPosition += 8;
+      
+      // Total with bold font
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(12);
+      pdf.text(`Total:`, margin + 5, yPosition);
+      pdf.text(`NPR ${displayTotal.toFixed(2)}`, pageWidth - margin - 5, yPosition, { align: 'right' });
+      
+      // Footer
+      yPosition += 20;
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      pdf.text('Thank you for your order!', pageWidth / 2, yPosition, { align: 'center' });
+      yPosition += 6;
+      pdf.text('For queries, contact us on Instagram: @alpico.coffee', pageWidth / 2, yPosition, { align: 'center' });
+      
+      // Save the PDF
+      pdf.save(`Alpico_Order_${orderId || 'details'}.pdf`);
+      
+      return true;
+    } catch (error) {
+      console.error('PDF generation error:', error);
+      alert('Error generating PDF. Please try again.');
+      return false;
+    }
+  }, [cart, subtotal, shipping, total, formData, orderId, selectedPlatform, paymentPlatforms]);
 
   // Save receipt URL to database
   const saveReceiptToDatabase = useCallback(async (orderId: string, receiptUrl: string) => {
@@ -187,7 +403,7 @@ const Checkout: React.FC = () => {
       items: cart.map(item => ({
         product_id: item.product.id,
         name: item.product.name,
-        price: item.product.price,
+        price: item.selectedVariant?.price || item.product.price,
         quantity: item.quantity,
         machine: item.machine || null
       })),
@@ -685,7 +901,7 @@ const Checkout: React.FC = () => {
                                 </div>
                                 <div className="text-sm text-gray-600 mb-1">{variant.details.volume}</div>
                                 {variant.inStock === false && (
-                                  <div className="text-red-500 text-sm font-medium">Out of Stock</div>
+                                  <div className="text-red-500 text-sm font-medium">Sold Out</div>
                                 )}
                                 {variant.inStock !== false && (
                                   <div className="text-green-600 text-xs font-medium mt-2">✓ Available</div>
@@ -865,24 +1081,22 @@ const Checkout: React.FC = () => {
               <div className="mb-6">
                 <QrCode size={48} className="mx-auto text-navy-900 mb-4" />
                 <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-2">
-                  {selectedPlatform === 'banktransfer' ? 'Bank Transfer Payment' : 'Scan QR Code to Pay'}
+                  {selectedPlatform === 'cashondelivery' ? 'Cash on Delivery' : 'Scan QR Code to Pay'}
                 </h2>
                 <p className="text-gray-600">Order ID: <span className="font-mono font-bold">{orderId}</span></p>
                 <p className="text-xl sm:text-2xl font-bold text-blue-800 mt-4">NPR {total.toFixed(2)}</p>
               </div>
 
-              {/* Platform-specific QR Code or Bank Details */}
+              {/* Platform-specific QR Code or COD Details */}
               <div className="bg-gray-100 p-4 sm:p-6 lg:p-8 rounded-lg mb-6 mx-auto max-w-sm">
-                {selectedPlatform === 'banktransfer' ? (
-                  <div className="bg-white border-2 border-gray-300 rounded-lg p-6 text-left">
-                    <h3 className="font-bold text-lg text-navy-900 mb-4 text-center">Bank Transfer Details</h3>
-                    <div className="space-y-2 text-sm">
-                      <div><strong>Bank Name:</strong> [Your Bank Name]</div>
-                      <div><strong>Account Name:</strong> Alpico Coffee</div>
-                      <div><strong>Account Number:</strong> [Account Number]</div>
-                      <div><strong>Amount:</strong> NPR {total.toFixed(2)}</div>
+                {selectedPlatform === 'cashondelivery' ? (
+                  <div className="bg-white border-2 border-gray-300 rounded-lg p-6 text-center">
+                    <div className="text-6xl mb-4">💰</div>
+                    <h3 className="font-bold text-lg text-navy-900 mb-4">Cash on Delivery</h3>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div>Pay NPR {total.toFixed(2)} when your order arrives</div>
                       <div className="text-blue-700 text-xs mt-3">
-                        <strong>Note:</strong> Please include your Order ID ({orderId}) in the transfer description
+                        <strong>Note:</strong> Please keep exact change ready for delivery
                       </div>
                     </div>
                   </div>
@@ -905,11 +1119,11 @@ const Checkout: React.FC = () => {
               </div>
 
               <div className="text-xs sm:text-sm text-gray-600 mb-6 space-y-1">
-                {selectedPlatform === 'banktransfer' ? (
+                {selectedPlatform === 'cashondelivery' ? (
                   <>
-                    <p>• Use the bank details shown above for direct transfer</p>
-                    <p>• Transfer NPR {total.toFixed(2)} to the specified account</p>
-                    <p>• Keep the bank transfer receipt for upload</p>
+                    <p>• You will pay NPR {total.toFixed(2)} when your order is delivered</p>
+                    <p>• Please keep exact change ready</p>
+                    <p>• Your order will be confirmed and prepared for delivery</p>
                   </>
                 ) : (
                   <>
@@ -989,18 +1203,43 @@ const Checkout: React.FC = () => {
         )}
 
         {/* Step 5: Success */}
-        {currentStep === 'success' && (
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <CheckCircle size={64} className="mx-auto text-green-600 mb-6" />
-              <h2 className="text-3xl font-bold text-navy-900 mb-4">Order Confirmed!</h2>
-              <div className="bg-green-50 p-6 rounded-lg mb-6">
-                <p className="text-lg font-medium text-green-800 mb-2">
-                  Order ID: <span className="font-mono">{orderId}</span>
-                </p>
-                <p className="text-green-700">
-                  Your order will be delivered soon. We'll send you tracking details via email.
-                </p>
+        {currentStep === 'success' && (() => {
+          // Get saved order details for display (in case cart was cleared)
+          const savedOrderDetails = localStorage.getItem('orderDetails');
+          const orderDetails = savedOrderDetails ? JSON.parse(savedOrderDetails) : null;
+          const displayTotal = orderDetails?.total || total;
+          
+          // Debug logging
+          console.log('Success Page Debug:', {
+            savedOrderDetails: !!savedOrderDetails,
+            orderDetails,
+            displayTotal,
+            currentTotal: total,
+            selectedPlatform
+          });
+          
+          return (
+            <div className="max-w-2xl mx-auto">
+              <div className="bg-white rounded-lg shadow-md p-8 text-center">
+                <CheckCircle size={64} className="mx-auto text-green-600 mb-6" />
+                <h2 className="text-3xl font-bold text-navy-900 mb-4">Order Confirmed!</h2>
+                <div className="bg-green-50 p-6 rounded-lg mb-6">
+                  <p className="text-lg font-medium text-green-800 mb-2">
+                    Order ID: <span className="font-mono">{orderId}</span>
+                  </p>
+                  <p className="text-green-700">
+                    {selectedPlatform === 'cashondelivery' 
+                      ? 'Your order will be delivered soon. Please keep NPR ' + displayTotal.toFixed(2) + ' ready for cash payment on delivery.'
+                      : 'Your order will be delivered soon. We\'ll send you tracking details via email.'
+                    }
+                  </p>
+                  {selectedPlatform === 'cashondelivery' && (
+                    <div className="mt-3 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
+                      <p className="text-yellow-800 text-sm">
+                        <strong>💰 Cash on Delivery:</strong> Please have exact change ready - NPR {displayTotal.toFixed(2)}
+                      </p>
+                    </div>
+                  )}
               </div>
               <div className="bg-blue-50 p-4 rounded-lg mb-6">
                 <p className="text-blue-800 mb-2">
@@ -1031,125 +1270,19 @@ const Checkout: React.FC = () => {
                   Continue Shopping
                 </Button>
                 <button
-                  onClick={async () => {
-                    const generatePDFContent = () => `
-                      <style>
-                        html, body { margin: 0 !important; padding: 0 !important; }
-                        @page { margin: 0; }
-                        .alpico-pdf-container { width: 700px; margin: 0 auto; background: #fff; padding: 32px; font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; box-sizing: border-box; }
-                        .alpico-title { font-size: 2rem; font-weight: bold; color: #1e293b; margin-bottom: 1.2rem; }
-                        .alpico-status { background: #e6fffa; padding: 1rem 2rem; border-radius: 8px; margin-bottom: 1.2rem; }
-                        .alpico-status b { font-size: 1.1rem; }
-                        .alpico-status span { font-family: monospace; }
-                        .alpico-status .alpico-status-msg { color: #047857; margin-top: 0.3rem; display: block; }
-                        .alpico-section-title { font-size: 1.1rem; font-weight: bold; margin: 1.5rem 0 0.5rem; }
-                        .alpico-shipping { background: #f0f9ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.2rem; font-size: 1rem; }
-                        .alpico-shipping b { color: #0f172a; }
-                        .alpico-items-table { width: 100%; border-collapse: collapse; margin-bottom: 1.2rem; }
-                        .alpico-items-table th { background: #f1f5f9; text-align: left; padding: 10px; border-bottom: 2px solid #e5e7eb; font-size: 1rem; }
-                        .alpico-items-table td { padding: 10px; border-bottom: 1px solid #e5e7eb; font-size: 1rem; }
-                        .alpico-items-table td:last-child, .alpico-items-table th:last-child { text-align: right; }
-                        .alpico-summary { background: #f0f9ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.2rem; font-size: 1rem; }
-                        .alpico-summary-row { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
-                        .alpico-summary-row:last-child { font-weight: bold; font-size: 1.1rem; border-top: 1px solid #e5e7eb; padding-top: 0.5rem; margin-bottom: 0; }
-                      </style>
-                      <div class='alpico-pdf-container'>
-                        <div class='alpico-title'>Order Confirmed!</div>
-                        <div class='alpico-status'>
-                          <b>Order ID:</b> <span>${orderId}</span>
-                          <span class='alpico-status-msg'>Your order will be delivered soon. We'll send you tracking details via email.</span>
-                        </div>
-                        <div class='alpico-section-title'>Shipping Details</div>
-                        <div class='alpico-shipping'>
-                          <b>Name:</b> ${formData.firstName} ${formData.lastName}<br/>
-                          <b>Address:</b> ${formData.address}<br/>
-                          <b>City:</b> ${formData.city}<br/>
-                          <b>State:</b> ${formData.state}<br/>
-                          <b>Occupation:</b> ${formData.occupation}<br/>
-                          <b>Email:</b> ${formData.email}<br/>
-                          <b>Phone:</b> ${formData.phone}
-                        </div>
-                        <div class='alpico-section-title'>Order Items</div>
-                        <table class='alpico-items-table'>
-                          <thead>
-                            <tr>
-                              <th>Product</th>
-                              <th>Qty</th>
-                              <th>Price</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            ${cart?.length ? cart.map(item => `
-                              <tr>
-                                <td>${item.product.name}</td>
-                                <td style='text-align:right;'>${item.quantity}</td>
-                                <td style='text-align:right;'>NPR ${(item.product.price * item.quantity).toFixed(2)}</td>
-                              </tr>
-                            `).join('') : `<tr><td colspan='3' style='text-align:center;color:#64748b;'>No items in order.</td></tr>`}
-                          </tbody>
-                        </table>
-                        <div class='alpico-summary'>
-                          <div class='alpico-summary-row'><span>Subtotal:</span><span>NPR ${subtotal.toFixed(2)}</span></div>
-                          <div class='alpico-summary-row'><span>Shipping:</span><span>${shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}</span></div>
-                          <div class='alpico-summary-row'><span>Total:</span><span>NPR ${total.toFixed(2)}</span></div>
-                        </div>
-                      </div>
-                    `;
-                    
-                    try {
-                      const printable = document.createElement('div');
-                      printable.innerHTML = generatePDFContent();
-                      document.body.appendChild(printable);
-                      
-                      const html2pdf = await loadHtml2Pdf();
-                      if (html2pdf) {
-                        await html2pdf()
-                          .set({
-                            margin: 0.5,
-                            filename: `Order_${orderId || 'details'}.pdf`,
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 2 },
-                            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                          })
-                          .from(printable)
-                          .save();
-                      } else {
-                        alert('PDF download is not available. Please contact support.');
-                      }
-                      document.body.removeChild(printable);
-                    } catch (error) {
-                      console.error('PDF generation error:', error);
-                      alert('Error generating PDF. Please try again.');
-                    }
-                  }}
-                  className="w-full py-2 text-blue-700 hover:text-navy-900 border border-blue-700 rounded-lg"
+                  onClick={generateOrderPDF}
+                  className="w-full py-3 text-white bg-red-600 hover:bg-red-700 border border-red-600 rounded-lg font-medium transition-colors duration-200"
                 >
-                  Download Order Details (PDF)
+                  📄 Download Order Summary (PDF)
                 </button>
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
       </div>
     </div>
   );
-};
-
-
-// Lazy load html2pdf.js when needed
-const loadHtml2Pdf = (): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    if ((window as any).html2pdf) {
-      resolve((window as any).html2pdf);
-      return;
-    }
-    
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-    script.onload = () => resolve((window as any).html2pdf);
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
 };
 
 export default Checkout;

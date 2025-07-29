@@ -7,7 +7,7 @@ export type CheckoutStep = 'shipping' | 'variants' | 'confirmation' | 'platform'
 
 export type MachineType = 'French Press' | 'Mocha Pot' | 'Aeropress' | 'Espresso Machine' | 'Pour Over' | 'Drip Coffee Maker' | 'Other';
 
-export type PaymentPlatform = 'esewa' | 'khalti' | 'banktransfer';
+export type PaymentPlatform = 'esewa' | 'khalti' | 'cashondelivery';
 
 export interface PaymentPlatformInfo {
   key: PaymentPlatform;
@@ -29,6 +29,13 @@ export interface ProductVariant {
   inStock?: boolean;
 }
 
+export interface ProductLabel {
+  text: string;
+  color: string;
+  bgColor: string;
+  borderColor?: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -38,6 +45,7 @@ export interface Product {
   category: string;
   featured: boolean;
   inStock?: boolean;
+  label?: ProductLabel;
   details: {
     origin: string;
     roastLevel: string;

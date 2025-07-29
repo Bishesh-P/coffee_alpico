@@ -51,8 +51,15 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
           {/* Premium overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           
-          {/* Premium badge */}
-          {product.category === 'coffee' && (
+          {/* Product Label */}
+          {product.label && (
+            <div className={`absolute top-3 right-3 ${product.label.bgColor} ${product.label.color} px-3 py-1 rounded-full text-xs font-bold shadow-lg transform rotate-3 transition-transform duration-300 hover:rotate-0 border-2 ${product.label.borderColor || ''}`}>
+              {product.label.text}
+            </div>
+          )}
+          
+          {/* Premium badge - moved to left to avoid conflicts */}
+          {product.category === 'coffee' && !product.label && (
             <div className="absolute top-4 left-4 bg-gradient-to-r from-premium-gold-500 to-premium-gold-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-premium">
               Premium Quality
             </div>
@@ -114,7 +121,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
             disabled={isOutOfStock}
           >
             <ShoppingBag size={16} className="transition-transform duration-300 group-hover:rotate-12" />
-            {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+            {isOutOfStock ? 'Sold Out' : 'Add to Cart'}
           </Button>
           <Link
             to={`/products/${product.id}`}

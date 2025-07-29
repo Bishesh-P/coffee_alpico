@@ -7,11 +7,9 @@ import ProductCard from '../components/products/ProductCard';
 import ProductFilter from '../components/products/ProductFilter';
 
 const Products: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState('combo-offers');
 
-  const filteredProducts = activeCategory === 'all'
-    ? products
-    : products.filter(product => product.category === activeCategory);
+  const filteredProducts = products.filter(product => product.category === activeCategory);
 
   // // Get SEO data for current category
   // const currentCategorySEO = activeCategory === 'all' 
@@ -23,12 +21,9 @@ const Products: React.FC = () => {
     const categoryKeys = Object.keys(seoConfig.productCategories);
     
     // Get SEO data for current category
-    const currentCategorySEO =
-      activeCategory === 'all'
-        ? seoConfig.pages.products
-        : categoryKeys.includes(activeCategory)
-          ? seoConfig.productCategories[activeCategory as keyof typeof seoConfig.productCategories]
-          : seoConfig.pages.products;
+    const currentCategorySEO = categoryKeys.includes(activeCategory)
+      ? seoConfig.productCategories[activeCategory as keyof typeof seoConfig.productCategories]
+      : seoConfig.pages.products;
     // ...existing code...
 
   // Breadcrumb schema
@@ -37,10 +32,8 @@ const Products: React.FC = () => {
     { name: 'Products', url: '/products' }
   ];
 
-  if (activeCategory !== 'all') {
-    const categoryName = categories.find(cat => cat.id === activeCategory)?.name || 'Category';
-    breadcrumbItems.push({ name: categoryName, url: `/products?category=${activeCategory}` });
-  }
+  const categoryName = categories.find(cat => cat.id === activeCategory)?.name || 'Category';
+  breadcrumbItems.push({ name: categoryName, url: `/products?category=${activeCategory}` });
 
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
 

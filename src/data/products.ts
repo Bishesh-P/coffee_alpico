@@ -1,4 +1,5 @@
 import { Product } from '../types';
+import { PRODUCT_LABELS } from '../utils/productLabels';
 
 // ===== STOCK MANAGEMENT CONFIGURATION =====
 // 🎯 SUPER EASY INVENTORY MANAGEMENT SYSTEM
@@ -57,15 +58,22 @@ const STOCK_CONFIG = {
     
     // 🎽 MERCHANDISE
     201: true, // Alpico Coffee Mug 🎽
-    202: true, // Alpico Travel Tumbler 🎽
+    202: false, // Alpico Travel Tumbler ❌ OUT OF STOCK
     203: true, // Alpico Coffee T-Shirt 🎽
-    204: true, // Alpico Bag 🎽
-    205: true, // Alpico Coffee Hoodie 🎽
-    206: true, // Alpico Coffee Beans Keychain 🎽
-    207: true, // Alpico Coffee Coasters Set 🎽
-    208: true, // Alpico Coffee Cap 🎽
-    209: true, // Alpico Coffee Notebook 🎽
+    204: false, // Alpico Bag ❌ REMOVING
+    205: false, // Alpico Coffee Hoodie ❌ OUT OF STOCK
+    206: false, // Alpico Coffee Beans Keychain ❌ REMOVING
+    207: false, // Alpico Coffee Coasters Set ❌ REMOVING
+    208: false, // Alpico Coffee Cap ❌ REMOVING
+    209: false, // Alpico Coffee Notebook ❌ OUT OF STOCK
     210: true, // Alpico Coffee Stickers Pack 🎽
+    
+    // 🎁 COMBO OFFERS
+    301: true, // French Press + Coffee Combo 🎁
+    302: true, // Coffee + Alpico Mug Combo 🎁
+    303: true, // Complete Coffee Starter Kit 🎁
+    304: true, // Pour Over + Coffee Bundle 🎁
+    305: true, // Coffee Lover's Premium Pack 🎁
   } as Record<number, boolean>,
   
   // 🎨 INDIVIDUAL VARIANT STOCK STATUS (Sizes, Colors, etc.)
@@ -124,14 +132,19 @@ const STOCK_CONFIG = {
     "tshirt-navy": true,          // Navy T-Shirt 🎽
     "tshirt-white": true,         // White T-Shirt 🎽
     "tshirt-black": false,        // Black T-Shirt ❌ OUT OF STOCK
-    "bag-natural": true,          // Natural Canvas Bag 🎽
-    "bag-black": true,            // Black Canvas Bag 🎽
-    "hoodie-charcoal": true,      // Charcoal Hoodie 🎽
-    "hoodie-navy": true,          // Navy Hoodie 🎽
+    "bag-natural": false,        // Natural Canvas Bag ❌ REMOVED
+    "bag-black": false,          // Black Canvas Bag ❌ REMOVED
+    "hoodie-charcoal": false,     // Charcoal Hoodie ❌ OUT OF STOCK
+    "hoodie-navy": false,         // Navy Hoodie ❌ OUT OF STOCK
     "hoodie-black": false,        // Black Hoodie ❌ OUT OF STOCK
     "cap-navy": true,             // Navy Cap 🎽
     "cap-black": true,            // Black Cap 🎽
     "cap-khaki": false,           // Khaki Cap ❌ OUT OF STOCK
+    
+    // 🎁 COMBO VARIANTS
+    "combo-light-mug": true,      // Light Roast + Free Mug 🎁
+    "combo-medium-mug": true,     // Medium Roast + Free Mug 🎁
+    "combo-dark-mug": true,       // Dark Roast + Free Mug 🎁
   } as Record<string, boolean>
 };
 
@@ -182,6 +195,7 @@ export const products: Product[] = [
     category: "light-roast",
     featured: true,
     inStock: getProductStock(1),
+    label: PRODUCT_LABELS.BESTSELLER,
     details: {
       origin: "Palpa",
       roastLevel: "Light",
@@ -700,6 +714,7 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: true,
+    label: PRODUCT_LABELS.STAFF_PICK,
     details: {
       origin: "Borosilicate Glass",
       roastLevel: "Brewing Equipment",
@@ -762,6 +777,8 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
+    inStock: getProductStock(103),
+    label: PRODUCT_LABELS.NEW_ARRIVAL,
     details: {
       origin: "Ceramic Construction",
       roastLevel: "Brewing Equipment",
@@ -900,6 +917,8 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "merch",
     featured: true,
+    inStock: getProductStock(201),
+    label: PRODUCT_LABELS.ECO_FRIENDLY,
     details: {
       origin: "Ceramic",
       roastLevel: "Merchandise",
@@ -1046,46 +1065,6 @@ export const products: Product[] = [
     // promoCodes removed for global promo
   },
   {
-    id: 204,
-    name: "Alpico Bag",
-    price: 1029, // Base price for natural
-    description: "Eco-friendly canvas bag with Alpico Coffee branding. Perfect for carrying your coffee beans and daily essentials. Available in multiple colors.",
-    image: "https://images.pexels.com/photos/5650026/pexels-photo-5650026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "merch",
-    featured: false,
-    details: {
-      origin: "Canvas Cotton",
-      roastLevel: "Merchandise",
-      flavorNotes: ["Eco-Friendly", "40cm x 35cm", "Strong Handles"],
-      weight: "150g"
-    },
-    variants: [
-      {
-        id: "bag-natural",
-        name: "Natural Canvas",
-        price: 1029,
-        image: "https://images.pexels.com/photos/5650026/pexels-photo-5650026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "150g",
-          volume: "40cm x 35cm"
-        },
-        inStock: true
-      },
-      {
-        id: "bag-black",
-        name: "Jet Black",
-        price: 1029,
-        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "150g",
-          volume: "40cm x 35cm"
-        },
-        inStock: true
-      }
-    ],
-    // promoCodes removed for global promo
-  },
-  {
     id: 205,
     name: "Alpico Coffee Hoodie",
     price: 3199, // Base price for charcoal
@@ -1137,91 +1116,6 @@ export const products: Product[] = [
     // promoCodes removed for global promo
   },
   {
-    id: 206,
-    name: "Alpico Coffee Beans Keychain",
-    price: 519,
-    description: "Charming coffee bean-shaped keychain crafted from sustainable bamboo wood with precision laser-engraved Alpico logo. Hand-finished with natural oils for durability and smooth feel. Comes with sturdy metal ring.",
-    image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "merch",
-    featured: false,
-    details: {
-      origin: "Sustainable Wood",
-      roastLevel: "Merchandise",
-      flavorNotes: ["Laser Engraved", "Coffee Bean Shape", "Metal Ring"],
-      weight: "15g"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
-    id: 207,
-    name: "Alpico Coffee Coasters Set",
-    price: 899,
-    description: "Premium set of 4 natural cork coasters featuring unique Alpico Coffee designs inspired by coffee culture. Made from sustainably harvested cork that's water-resistant and heat-protective up to 100°C.",
-    image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "merch",
-    featured: false,
-    details: {
-      origin: "Natural Cork",
-      roastLevel: "Merchandise",
-      flavorNotes: ["Set of 4", "Water Resistant", "10cm Diameter"],
-      weight: "120g"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
-    id: 208,
-    name: "Alpico Coffee Cap",
-    price: 1279, // Base price for navy
-    description: "Adjustable baseball cap with embroidered Alpico Coffee logo. Perfect for coffee runs and casual wear. Available in multiple colors.",
-    image: "https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "merch",
-    featured: false,
-    details: {
-      origin: "Cotton Twill",
-      roastLevel: "Merchandise",
-      flavorNotes: ["Adjustable Strap", "Embroidered Logo", "One Size Fits All"],
-      weight: "85g"
-    },
-    variants: [
-      {
-        id: "cap-navy",
-        name: "Navy Blue",
-        price: 1279,
-        image: "https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "85g",
-          volume: "One Size"
-        },
-        inStock: true
-      },
-      {
-        id: "cap-black",
-        name: "Classic Black",
-        price: 1279,
-        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "85g",
-          volume: "One Size"
-        },
-        inStock: true
-      },
-      {
-        id: "cap-khaki",
-        name: "Khaki Tan",
-        price: 1279,
-        image: "https://images.pexels.com/photos/5650026/pexels-photo-5650026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "85g",
-          volume: "One Size"
-        },
-        inStock: false
-      }
-    ],
-    // promoCodes removed for global promo
-  },
-  {
     id: 209,
     name: "Alpico Coffee Notebook",
     price: 769,
@@ -1254,13 +1148,138 @@ export const products: Product[] = [
     },
     variants: [],
     // promoCodes removed for global promo
+  },
+
+  // 🎁 COMBO OFFERS - Special Bundle Deals
+  {
+    id: 301,
+    name: "French Press + Coffee Combo",
+    price: 4200, // Discounted combo price
+    description: "Perfect coffee brewing starter kit! Includes our premium French Press Coffee Maker paired with 500g of your choice medium roast ground coffee. Everything you need for the perfect coffee experience at home. Save NPR 350 compared to buying separately!",
+    image: "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "combo-offers",
+    featured: true,
+    inStock: getProductStock(301),
+    label: PRODUCT_LABELS.HOT_DEAL,
+    details: {
+      origin: "Combo Bundle",
+      roastLevel: "Bundle Deal",
+      flavorNotes: ["French Press", "500g Ground Coffee", "Perfect for Beginners"],
+      weight: "French Press + 500g Coffee"
+    },
+    variants: []
+  },
+  {
+    id: 302,
+    name: "Coffee + Free Alpico Mug",
+    price: 1050, // Same as coffee price, mug is free
+    description: "Get our signature Alpico Coffee Mug absolutely FREE with any 500g coffee purchase! Choose from our premium light, medium, or dark roast coffee and receive our beautiful ceramic mug as a complimentary gift. Limited time offer!",
+    image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "combo-offers",
+    featured: true,
+    inStock: getProductStock(302),
+    label: PRODUCT_LABELS.LIMITED_EDITION,
+    details: {
+      origin: "Combo Bundle",
+      roastLevel: "Bundle Deal",
+      flavorNotes: ["500g Premium Coffee", "Free Ceramic Mug", "Perfect Gift"],
+      weight: "500g Coffee + Mug"
+    },
+    variants: [
+      {
+        id: "combo-light-mug",
+        name: "Light Roast + Free Mug",
+        price: 1050,
+        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          weight: "500g + Mug",
+          volume: "20-25 cups + Mug"
+        },
+        inStock: getVariantStock("combo-light-mug")
+      },
+      {
+        id: "combo-medium-mug",
+        name: "Medium Roast + Free Mug",
+        price: 1050,
+        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          weight: "500g + Mug",
+          volume: "20-25 cups + Mug"
+        },
+        inStock: getVariantStock("combo-medium-mug")
+      },
+      {
+        id: "combo-dark-mug",
+        name: "Dark Roast + Free Mug",
+        price: 1050,
+        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          weight: "500g + Mug",
+          volume: "20-25 cups + Mug"
+        },
+        inStock: getVariantStock("combo-dark-mug")
+      }
+    ]
+  },
+  {
+    id: 303,
+    name: "Complete Coffee Starter Kit",
+    price: 6500, // Great value bundle
+    description: "Everything a coffee enthusiast needs! This comprehensive starter kit includes Pour Over V60 Dripper, 1kg premium coffee beans, Alpico mug, and coffee filters. Perfect for gifting or starting your coffee journey. Save NPR 500!",
+    image: "https://images.pexels.com/photos/4226764/pexels-photo-4226764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "combo-offers",
+    featured: true,
+    inStock: getProductStock(303),
+    label: PRODUCT_LABELS.MUST_HAVE,
+    details: {
+      origin: "Complete Bundle",
+      roastLevel: "Starter Kit",
+      flavorNotes: ["Pour Over Dripper", "1kg Coffee", "Mug", "Filters"],
+      weight: "Complete Kit"
+    },
+    variants: []
+  },
+  {
+    id: 304,
+    name: "Pour Over Coffee Bundle",
+    price: 3800, // Discounted bundle price
+    description: "Master the art of pour over coffee! Includes our precision Pour Over V60 Dripper with 500g of specially selected light roast coffee, perfect for pour over brewing. Ideal for coffee purists who appreciate nuanced flavors.",
+    image: "https://images.pexels.com/photos/4226903/pexels-photo-4226903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "combo-offers",
+    featured: true,
+    inStock: getProductStock(304),
+    details: {
+      origin: "Specialty Bundle",
+      roastLevel: "Pour Over Optimized",
+      flavorNotes: ["V60 Dripper", "Light Roast Coffee", "Perfect Extraction"],
+      weight: "Pour Over Kit + 500g"
+    },
+    variants: []
+  },
+  {
+    id: 305,
+    name: "Coffee Lover's Premium Pack",
+    price: 8900, // Premium bundle with significant savings
+    description: "The ultimate coffee experience! Includes Burr Coffee Grinder, French Press, 1kg whole beans, Alpico mug, travel tumbler, and coffee scale. Everything you need for cafe-quality coffee at home. Save NPR 800!",
+    image: "https://images.pexels.com/photos/4226856/pexels-photo-4226856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "combo-offers",
+    featured: true,
+    inStock: getProductStock(305),
+    label: PRODUCT_LABELS.PREMIUM,
+    details: {
+      origin: "Premium Bundle",
+      roastLevel: "Complete Experience",
+      flavorNotes: ["Professional Equipment", "Premium Coffee", "Complete Setup"],
+      weight: "Full Kit + 1kg Coffee"
+    },
+    variants: []
   }
 ];
 
 export const categories = [
-  { id: 'all', name: 'All Products' },
-  { id: 'light-roast', name: 'Light Roast' },
-  { id: 'medium-roast', name: 'Medium Roast' },
+  { id: 'combo-offers', name: 'Combo Offers' },
+  { id: 'light-roast', name: 'Medium Light Roast' },
+  { id: 'medium-roast', name: 'Medium Dark Roast' },
   { id: 'dark-roast', name: 'Dark Roast' },
   { id: 'equipment', name: 'Equipment' },
   { id: 'merch', name: 'Merchandise' },
