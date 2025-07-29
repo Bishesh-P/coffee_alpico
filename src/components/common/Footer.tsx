@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
               <span className="text-white group-hover:text-blue-100 transition-colors">Alpico Coffee</span>
             </Link>
             <p className="text-blue-100 mb-6 leading-relaxed">
-            Alpico sources quality Nepali beans, roasts them and delivers fresh premium coffee to customers and business. We source and roast the finest beans from high altitude in Nepal.
+            Alpico sources quality Nepali beans, roasts them and delivers fresh premium coffee to customers and business.
             </p>
             <div className="flex space-x-6">
               <a href="https://www.instagram.com/alpicocoffee/" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
