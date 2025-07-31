@@ -6,6 +6,7 @@ import { CheckCircle, Upload, Instagram, QrCode, ArrowLeft } from 'lucide-react'
 import CartSummary from '../components/cart/CartSummary';
 import Button from '../components/common/Button';
 import type { CheckoutStep, PaymentPlatformInfo, MachineType } from '../types';
+import { CustomerInfoManager } from '../utils/customerInfo';
 
 const paymentPlatforms: readonly PaymentPlatformInfo[] = [
   {
@@ -61,6 +62,8 @@ const Checkout: React.FC = () => {
   const [orderId, setOrderId] = useState<string>('');
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<string>('');
+  const [saveInfo, setSaveInfo] = useState<boolean>(false);
+  const [isLoadingCustomerInfo, setIsLoadingCustomerInfo] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -105,6 +108,28 @@ const Checkout: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [currentStep, hasItemsNeedingVariants]);
+
+  // Load saved customer information on component mount
+  useEffect(() => {
+    const loadSavedCustomerInfo = () => {
+      if (CustomerInfoManager.exists()) {
+        setIsLoadingCustomerInfo(true);
+        try {
+          const savedInfo = CustomerInfoManager.load();
+          if (savedInfo) {
+            setFormData(savedInfo);
+            setSaveInfo(true); // Check the save checkbox if info was loaded
+          }
+        } catch (error) {
+          console.warn('Failed to load saved customer information:', error);
+        } finally {
+          setIsLoadingCustomerInfo(false);
+        }
+      }
+    };
+
+    loadSavedCustomerInfo();
+  }, []);
 
   // Auto-select variants when only one available option exists
   useEffect(() => {
@@ -387,6 +412,17 @@ const Checkout: React.FC = () => {
 
   const handleShippingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Save customer information if checkbox is checked
+    if (saveInfo) {
+      try {
+        CustomerInfoManager.save(formData);
+      } catch (error) {
+        console.warn('Failed to save customer information:', error);
+        // Don't block the checkout process if saving fails
+      }
+    }
+    
     // Prepare user/order data for Supabase (without receipt_url)
     const userDetails = {
       order_id: orderId || `ALP${Date.now().toString().slice(-8)}`,
@@ -637,6 +673,15 @@ const Checkout: React.FC = () => {
                 )}
                 
                 <form onSubmit={handleShippingSubmit}>
+                  {isLoadingCustomerInfo && (
+                    <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                        <span className="text-sm text-blue-800">Loading your saved information...</span>
+                      </div>
+                    </div>
+                  )}
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Brewing machine selection for coffee products - Enhanced UX (excluding drip bags) */}
                   {cart.filter(item => 
@@ -819,6 +864,52 @@ const Checkout: React.FC = () => {
                           required
                           className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
                         />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Save Information Checkbox */}
+                  <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex items-start space-x-3">
+                      <input
+                        type="checkbox"
+                        id="saveInfo"
+                        checked={saveInfo}
+                        onChange={(e) => setSaveInfo(e.target.checked)}
+                        className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <div className="flex-1">
+                        <label htmlFor="saveInfo" className="text-sm font-medium text-gray-700 cursor-pointer">
+                          Save my information for next time
+                        </label>
+                        <p className="text-xs text-gray-500 mt-1">
+                          We'll securely save your details locally on your device to make future checkouts faster. 
+                          {CustomerInfoManager.exists() && (
+                            <span className="text-blue-600 font-medium"> (Previously saved information loaded)</span>
+                          )}
+                        </p>
+                        {CustomerInfoManager.exists() && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              CustomerInfoManager.clear();
+                              setFormData({
+                                firstName: '',
+                                lastName: '',
+                                email: '',
+                                phone: '',
+                                address: '',
+                                city: '',
+                                state: '',
+                                occupation: ''
+                              });
+                              setSaveInfo(false);
+                            }}
+                            className="text-xs text-red-600 hover:text-red-800 mt-1 underline"
+                          >
+                            Clear saved information
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
