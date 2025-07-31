@@ -32,10 +32,10 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 text-2xl font-serif font-bold mb-6 group">
               <Coffee className="text-blue-200 group-hover:text-blue-100 transition-colors" />
-              <span className="text-white group-hover:text-blue-100 transition-colors">Alpico Coffee</span>
+              <span className="text-white group-hover:text-blue-100 transition-colors">Customer Support</span>
             </Link>
             <p className="text-blue-100 mb-6 leading-relaxed">
-            Alpico sources quality Nepali beans, roasts them and delivers fresh premium coffee to customers and business.
+              For any questions or support, feel free to message us directly on our social media channels. We’re just a DM away.
             </p>
             <div className="flex space-x-6">
               <a href="https://www.instagram.com/alpicocoffee/" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">

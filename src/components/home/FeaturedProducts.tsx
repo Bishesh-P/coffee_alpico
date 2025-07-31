@@ -2,7 +2,7 @@
 //Extra code to shuffle the featured products
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { products } from '../../data/products';
+import { discountedProducts as products } from '../../data/products';
 import { ArrowRight } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import Button from '../common/Button';
@@ -88,12 +88,25 @@ const FeaturedProducts: React.FC = () => {
                       {product.name}
                     </h3>
                   </Link>
-                  <p className="text-blue-800 font-medium mt-1">
-                    NPR {product.variants && product.variants.length > 0 
-                      ? `${Math.min(...product.variants.map(v => v.price)).toFixed(2)} - ${Math.max(...product.variants.map(v => v.price)).toFixed(2)}`
-                      : product.price.toFixed(2)
-                    }
-                  </p>
+                  <div className="mt-1">
+                    {/* Show discounted price logic for featured products */}
+                    {product.originalPrice ? (
+                      <div className="flex items-center gap-2">
+                        <span className="text-gray-500 line-through text-sm">NPR {product.originalPrice.toFixed(2)}</span>
+                        <span className="text-blue-800 font-bold">NPR {product.price.toFixed(2)}</span>
+                        <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                          {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                        </span>
+                      </div>
+                    ) : (
+                      <p className="text-blue-800 font-medium">
+                        NPR {product.variants && product.variants.length > 0 
+                          ? `${Math.min(...product.variants.map(v => v.price)).toFixed(2)} - ${Math.max(...product.variants.map(v => v.price)).toFixed(2)}`
+                          : product.price.toFixed(2)
+                        }
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <p className="text-gray-600 mb-4 text-sm line-clamp-2">
                   {product.description}

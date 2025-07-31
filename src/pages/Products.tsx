@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SEOHead from '../components/common/SEOHead';
 import { seoConfig } from '../config/seo';
 import { generateBreadcrumbSchema } from '../utils/structuredData';
-import { products, categories } from '../data/products';
+import { discountedProducts as products, categories } from '../data/products';
 import ProductCard from '../components/products/ProductCard';
 import ProductFilter from '../components/products/ProductFilter';
 

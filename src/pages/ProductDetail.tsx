@@ -4,7 +4,7 @@ import { ArrowLeft, ShoppingBag, Coffee, PackageCheck, Truck } from 'lucide-reac
 import SEOHead from '../components/common/SEOHead';
 import { generateProductSEO } from '../config/seo';
 import { generateProductSchema, generateBreadcrumbSchema } from '../utils/structuredData';
-import { products } from '../data/products';
+import { discountedProducts as products } from '../data/products';
 import { useCart } from '../context/CartContext';
 import Button from '../components/common/Button';
 import { Product, ProductVariant } from '../types';
@@ -116,9 +116,36 @@ const ProductDetail: React.FC = () => {
             <h1 className="text-2xl md:text-3xl font-serif font-bold text-navy-900 mb-2">
               {product.name}
             </h1>
-            <p className="text-xl md:text-2xl text-blue-800 font-medium mb-4">
-              NPR {currentPrice.toFixed(2)}
-            </p>
+            <div className="mb-4">
+              {/* Show discounted price logic */}
+              {selectedVariant ? (
+                // Variant pricing
+                selectedVariant.originalPrice ? (
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-500 line-through text-lg">NPR {selectedVariant.originalPrice.toFixed(2)}</span>
+                    <span className="text-xl md:text-2xl text-blue-800 font-bold">NPR {selectedVariant.price.toFixed(2)}</span>
+                    <span className="bg-red-500 text-white text-sm px-3 py-1 rounded-full font-medium">
+                      {Math.round(((selectedVariant.originalPrice - selectedVariant.price) / selectedVariant.originalPrice) * 100)}% OFF
+                    </span>
+                  </div>
+                ) : (
+                  <p className="text-xl md:text-2xl text-blue-800 font-medium">NPR {selectedVariant.price.toFixed(2)}</p>
+                )
+              ) : (
+                // Product base pricing
+                product.originalPrice ? (
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-500 line-through text-lg">NPR {product.originalPrice.toFixed(2)}</span>
+                    <span className="text-xl md:text-2xl text-blue-800 font-bold">NPR {product.price.toFixed(2)}</span>
+                    <span className="bg-red-500 text-white text-sm px-3 py-1 rounded-full font-medium">
+                      {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                    </span>
+                  </div>
+                ) : (
+                  <p className="text-xl md:text-2xl text-blue-800 font-medium">NPR {currentPrice.toFixed(2)}</p>
+                )
+              )}
+            </div>
             <p className="text-gray-700 mb-6 leading-relaxed">
               {product.description}
             </p>
@@ -145,7 +172,19 @@ const ProductDetail: React.FC = () => {
                     >
                       <div className="font-medium text-navy-900">{variant.name}</div>
                       <div className="text-sm text-gray-600">{variant.details.volume}</div>
-                      <div className="text-blue-800 font-medium mt-1">NPR {variant.price.toFixed(2)}</div>
+                      <div className="mt-1">
+                        {variant.originalPrice ? (
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-500 line-through text-sm">NPR {variant.originalPrice.toFixed(2)}</span>
+                            <span className="text-blue-800 font-bold">NPR {variant.price.toFixed(2)}</span>
+                            <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded font-medium">
+                              {Math.round(((variant.originalPrice - variant.price) / variant.originalPrice) * 100)}% OFF
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="text-blue-800 font-medium">NPR {variant.price.toFixed(2)}</div>
+                        )}
+                      </div>
                       {variant.inStock === false && (
                         <div className="text-red-500 text-xs mt-1">Sold Out</div>
                       )}

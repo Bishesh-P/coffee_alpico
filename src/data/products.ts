@@ -1,5 +1,6 @@
 import { Product } from '../types';
 import { PRODUCT_LABELS } from '../utils/productLabels';
+import { applyAllDiscounts } from '../utils/discountManager';
 
 // ===== STOCK MANAGEMENT CONFIGURATION =====
 // 🎯 SUPER EASY INVENTORY MANAGEMENT SYSTEM
@@ -1275,6 +1276,10 @@ export const products: Product[] = [
     variants: []
   }
 ];
+
+// 🎯 APPLY DISCOUNTS AUTOMATICALLY
+// This applies all discounts from discountManager.ts to the products
+export const discountedProducts = products.map(applyAllDiscounts);
 
 export const categories = [
   { id: 'combo-offers', name: 'Combo Offers' },

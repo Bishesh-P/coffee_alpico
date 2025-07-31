@@ -21,6 +21,7 @@ export interface ProductVariant {
   id: string;
   name: string;
   price: number;
+  originalPrice?: number; // For showing crossed-out original price
   image: string;
   details: {
     volume: string;
@@ -40,6 +41,7 @@ export interface Product {
   id: number;
   name: string;
   price: number;
+  originalPrice?: number; // For showing crossed-out original price
   description: string;
   image: string;
   category: string;

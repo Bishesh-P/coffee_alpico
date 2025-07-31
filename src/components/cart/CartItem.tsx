@@ -51,9 +51,36 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <p className="text-sm text-gray-600 mb-2">
           {product.details.origin} • {product.details.roastLevel}
         </p>
-        <p className="text-blue-800 font-medium">
-          NPR {currentPrice.toFixed(2)}
-        </p>
+        <div>
+          {/* Show discounted price logic */}
+          {selectedVariant ? (
+            // Variant pricing
+            selectedVariant.originalPrice ? (
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500 line-through text-sm">NPR {selectedVariant.originalPrice.toFixed(2)}</span>
+                <span className="text-blue-800 font-bold">NPR {selectedVariant.price.toFixed(2)}</span>
+                <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded font-medium">
+                  {Math.round(((selectedVariant.originalPrice - selectedVariant.price) / selectedVariant.originalPrice) * 100)}% OFF
+                </span>
+              </div>
+            ) : (
+              <p className="text-blue-800 font-medium">NPR {selectedVariant.price.toFixed(2)}</p>
+            )
+          ) : (
+            // Product base pricing
+            product.originalPrice ? (
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500 line-through text-sm">NPR {product.originalPrice.toFixed(2)}</span>
+                <span className="text-blue-800 font-bold">NPR {product.price.toFixed(2)}</span>
+                <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded font-medium">
+                  {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                </span>
+              </div>
+            ) : (
+              <p className="text-blue-800 font-medium">NPR {currentPrice.toFixed(2)}</p>
+            )
+          )}
+        </div>
       </div>
       
       <div className="flex items-center mt-4 sm:mt-0">
