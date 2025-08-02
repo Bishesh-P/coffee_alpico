@@ -5,6 +5,8 @@ import SEOHead from '../components/common/SEOHead';
 import { seoConfig } from '../config/seo';
 import { localBusinessSchema, generateBreadcrumbSchema } from '../utils/structuredData';
 import Button from '../components/common/Button';
+import SEOFriendlyFAQ from '../components/common/SEOFriendlyFAQ';
+import { contactFAQs } from '../data/faqData';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +17,15 @@ const Contact: React.FC = () => {
   });
   
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [openFAQItems, setOpenFAQItems] = useState<string[]>([]);
+
+  const toggleFAQItem = (id: string) => {
+    setOpenFAQItems(prev => 
+      prev.includes(id) 
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    );
+  };
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -257,52 +268,13 @@ const Contact: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-serif font-bold text-navy-900 mb-12 text-center">
-            Frequently Asked Questions
-          </h2>
-          
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="font-bold text-navy-900 text-lg mb-2">
-                Do you offer wholesale pricing for cafes and restaurants?
-              </h3>
-              <p className="text-gray-700">
-                Yes, we offer wholesale pricing and custom blends for cafes, restaurants, and offices. Please contact our wholesale team at <a href="mailto:alpicocoffeecompany@gmail.com" className="font-bold text-navy-700">alpicocoffeecompany@gmail.com</a> for more information. If you are from Nepal, you can also reach us at <a href="tel:+977-9869062187" className="font-bold text-navy-700">+977-9869-062-187</a>.
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="font-bold text-navy-900 text-lg mb-2">
-                How soon after roasting do you deliver your coffee(in Nepal)?
-              </h3>
-              <p className="text-gray-700">
-                We ship all orders within 24-48 hours of roasting to ensure you receive the freshest coffee possible. This means your coffee arrives at peak flavor.
-              </p>
-            </div>
-            {/* Question Change about export */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="font-bold text-navy-900 text-lg mb-2">
-                Does Alpico coffee export to other countries?
-              </h3>
-              <p className="text-gray-700">
-                Yes, Alpico Coffee exports to over a dozen countries worldwide. We are committed to sharing the unique flavors of Nepali coffee with coffee lovers everywhere. Alpico actively exports premium-grade roasted and green coffee beans to international markets.
-              </p>
-            </div>
-            {/* contact for Export */}
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="font-bold text-navy-900 text-lg mb-2">
-                How can I contact Alpico Coffee for export inquiries?
-              </h3>
-              <p className="text-gray-700">
-                For export inquiries, please reach out to us via email at <a href="mailto:alpicocoffeecompany@gmail.com" className="font-bold text-navy-700">alpicocoffeecompany@gmail.com</a> or call us at <a href="tel:+977-9869062187" className="font-bold text-navy-700">+977-9869-062-187</a>. Our team will be happy to assist you with all your export needs.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SEOFriendlyFAQ
+        faqs={contactFAQs}
+        title="Support & FAQ"
+        className="py-20 bg-blue-50"
+        openItems={openFAQItems}
+        toggleItem={toggleFAQItem}
+      />
     </div>
   );
 };
