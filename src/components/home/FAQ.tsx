@@ -13,7 +13,7 @@ const faqData: FAQItem[] = [
   {
     id: 1,
     question: "How fresh is your coffee?",
-    answer: "We roast all our premium Arabica coffee beans fresh to order and ship within 24-48 hours of roasting. This ensures you receive the freshest Nepal coffee possible, typically within 2-5 days of the roast date for optimal flavor and aroma.",
+    answer: "We roast all beans fresh to order and ship within 24-48 hours of roasting. This ensures you receive the freshest Nepal coffee possible, typically within 2-5 days of the roast date for optimal flavor and aroma.",
     icon: <Coffee className="text-blue-600" size={24} />
   },
   {
