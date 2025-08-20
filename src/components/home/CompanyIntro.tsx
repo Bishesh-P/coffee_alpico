@@ -20,7 +20,7 @@ const CompanyIntro: React.FC = () => {
 
             </p>
             <p className="text-gray-700 mb-8 leading-relaxed">
-              We export premium Nepali coffee tailored to your specific demands from green beans to roasted blends. Our team carefully sources, processes, and packs each order to meet your preferred quality, quantity, and roast profile. For further details, please visit our <Link to="/contact" className="text-blue-600 hover:underline">Contact us</Link> page. Send us an enquiry and we will get back to you as soon as possible.
+              We export best Nepali coffee tailored to your specific demands from green beans to roasted blends. Our team carefully sources, processes, and packs each order to meet your preferred quality, quantity, and roast profile. For further details, please visit our <Link to="/contact" className="text-blue-600 hover:underline">Contact us</Link> page. Send us an enquiry and we will get back to you as soon as possible.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">

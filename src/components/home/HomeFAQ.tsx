@@ -256,7 +256,7 @@ const HomeFAQ: React.FC<HomeFAQProps> = ({ faqs, openItems, toggleItem }) => {
                         Still have questions?
                       </h3>
                       <p className="text-gray-600 mb-4 sm:mb-6 lg:mb-8 text-sm sm:text-base lg:text-lg leading-relaxed px-2">
-                        Our coffee experts are here to help you find the perfect brew and answer any questions about our premium Nepal coffee.
+                        Our coffee experts are here to help you find the perfect brew and answer any questions about coffee.
                       </p>
                       
                       <div className="space-y-2 sm:space-y-3 lg:space-y-4 px-2">

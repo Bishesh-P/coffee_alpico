@@ -22,7 +22,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   // Use override values if provided (from parent component), otherwise use default logic
   const shipping = overrideShipping !== undefined 
     ? overrideShipping 
-    : (subtotal < 1400 && subtotal > 0 ? 150 : 0);
+    : (subtotal < 2000 && subtotal > 0 ? 150 : 0);
     
   const total = overrideTotal !== undefined 
     ? overrideTotal 

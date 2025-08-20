@@ -67,17 +67,17 @@ const Products: React.FC = () => {
       />
       
       {/* Header Banner */}
-      <div className="bg-navy-900 text-white py-16 md:py-20 px-4">
+      <div className="bg-navy-900 text-white py-12 px-4">
         <div className="container mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-serif font-bold mb-4 animate-fade-down">
             Our Coffee & Equipment Collection
           </h1>
-          <p className="max-w-2xl mx-auto text-blue-100 animate-fade-up mb-8">
+          <p className="max-w-2xl mx-auto text-blue-100 animate-fade-up mb-6">
             Browse our carefully curated collection of premium coffees and professional brewing equipment. From light to dark roasts and essential coffee gear.
           </p>
           
           {/* Search Bar */}
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md mx-auto pb-4">
             <ProductSearchBar 
               products={allProducts}
               onSearchResults={handleSearchResults}

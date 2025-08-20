@@ -12,26 +12,26 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     id: 1,
-    question: "How fresh is your Nepal coffee?",
+    question: "How fresh is your coffee?",
     answer: "We roast all our premium Arabica coffee beans fresh to order and ship within 24-48 hours of roasting. This ensures you receive the freshest Nepal coffee possible, typically within 2-5 days of the roast date for optimal flavor and aroma.",
     icon: <Coffee className="text-blue-600" size={24} />
   },
   {
     id: 2,
     question: "What's your coffee delivery policy in Nepal?",
-    answer: "We offer free coffee delivery on orders over Rs 1400 throughout Nepal. Orders under this amount have a flat shipping rate of NPR 150. All coffee orders are processed within 1-2 business days within the Kathmandu Valley and typically arrive within 3-4 business days outside the valley.",
+    answer: "We offer free coffee delivery on orders over Rs 2000 within the Kathmandu Valley (Kathmandu, Bhaktapur, and Lalitpur). Orders outside the valley have a flat shipping rate of NPR 150 regardless of order amount. All coffee orders are processed within 1-2 business days within the Kathmandu Valley and typically arrive within 3-4 business days outside the valley.",
     icon: <Truck className="text-blue-600" size={24} />
   },
   {
     id: 3,
     question: "Do you guarantee the quality of your specialty coffee?",
-    answer: "Absolutely! We stand behind the quality of our specialty Nepal coffee. If you're not completely satisfied with your premium coffee purchase, contact us within 30 days for a full refund or exchange. Your coffee satisfaction is our priority.",
+    answer: "Absolutely! We stand behind the quality of our specialty Nepal coffee. If you recieve any defective coffee or any issue in quality within 30 days, we will directly refund or exchange your coffee. Your coffee satisfaction is our priority.",
     icon: <Shield className="text-blue-600" size={24} />
   },
   {
     id: 4,
     question: "How should I store my coffee beans properly?",
-    answer: "Store your Arabica coffee beans in an airtight container in a cool, dark place away from direct sunlight, heat, and moisture. Avoid storing coffee in the refrigerator or freezer. Use within 2-4 weeks of the roast date for best coffee flavor.",
+    answer: "Store your coffee beans in an airtight container in a cool, dark place away from direct sunlight, heat, and moisture. Avoid storing coffee in the refrigerator or freezer. Use within 2-4 weeks of the roast date for best coffee flavor.",
     icon: <Package className="text-blue-600" size={24} />
   },
   {
@@ -43,7 +43,7 @@ const faqData: FAQItem[] = [
   {
     id: 6,
     question: "What coffee brewing methods work best with your beans?",
-    answer: "Our Nepal coffee beans are versatile and work well with various brewing methods. Light roast coffee excels in pour-over and drip coffee methods, medium roast coffee is perfect for espresso machines and French press, while dark roast coffee shines in espresso and cold brew preparations.",
+    answer: "Our coffee beans are versatile and work well with various brewing methods.Medium Light roast coffee is best for  pour-over and drip coffee methods, Medium Dark roast coffee is perfect for espresso machines and French press, while Dark roast coffee shines in espresso and cold brew preparations.",
     icon: <Clock className="text-blue-600" size={24} />
   }
 ];
@@ -202,7 +202,7 @@ const FAQ: React.FC = () => {
                         Still have questions?
                       </h3>
                       <p className="text-gray-600 mb-4 sm:mb-6 lg:mb-8 text-sm sm:text-base lg:text-lg leading-relaxed px-2">
-                        Our coffee experts are here to help you find the perfect brew and answer any questions about our premium Nepal coffee.
+                        Our coffee experts are here to help you find the perfect brew and answer any questions about coffee.
                       </p>
                       
                       <div className="space-y-2 sm:space-y-3 lg:space-y-4 px-2">

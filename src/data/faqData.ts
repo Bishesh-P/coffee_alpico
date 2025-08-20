@@ -15,7 +15,7 @@ export const homeFAQs: FAQItem[] = [
   {
     id: "shipping-delivery",
     question: "What's your coffee delivery policy in Nepal?",
-    answer: "We offer free coffee delivery on orders over Rs 1400 throughout Nepal. Orders under this amount have a flat shipping rate of NPR 150. All coffee orders are processed within 1-2 business days within the Kathmandu Valley and typically arrive within 3-4 business days outside the valley.",
+    answer: "We offer free coffee delivery on orders over Rs 2000 within the Kathmandu Valley (Kathmandu, Bhaktapur, and Lalitpur). Orders outside the valley have a flat shipping rate of NPR 150 regardless of order amount. All coffee orders are processed within 1-2 business days within the Kathmandu Valley and typically arrive within 3-4 business days outside the valley.",
     iconName: "Truck"
   },
   {

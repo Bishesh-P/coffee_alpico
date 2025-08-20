@@ -85,10 +85,10 @@ const Checkout: React.FC = () => {
     
     if (subtotal === 0) {
       shippingCost = 0;
-    } else if (valleyCheck && subtotal > 1400) {
-      shippingCost = 0;
+    } else if (valleyCheck && subtotal >= 2000) {
+      shippingCost = 0; // Free shipping for valley cities with orders >= NPR 2000
     } else {
-      shippingCost = 150;
+      shippingCost = 150; // NPR 150 for all other cases (valley < 2000 or outside valley)
     }
     
     return {
@@ -570,7 +570,7 @@ const Checkout: React.FC = () => {
               <div className="text-lg font-bold text-white">
                 NPR {total.toFixed(2)}
               </div>
-              {isValley && shipping === 0 && subtotal > 1400 && (
+              {isValley && shipping === 0 && subtotal >= 2000 && (
                 <div className="text-xs text-green-300 font-medium">✓ Free Ship</div>
               )}
             </div>
@@ -808,7 +808,7 @@ const Checkout: React.FC = () => {
                     </div>
                     <div>
                       <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                        City* <span className="text-xs text-gray-500">(Free shipping in valley cities for orders above NPR 1400)</span>
+                        City* <span className="text-xs text-gray-500">(Free shipping in valley cities for orders above NPR 2000)</span>
                       </label>
                       <select
                         id="city"
@@ -819,7 +819,7 @@ const Checkout: React.FC = () => {
                         className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
                       >
                         <option value="">Select City</option>
-                        <optgroup label="📍 Kathmandu Valley (Free Shipping on NPR 1400+)">
+                        <optgroup label="📍 Kathmandu Valley (Free Shipping on NPR 2000+)">
                           <option value="Kathmandu">Kathmandu</option>
                           <option value="Lalitpur">Lalitpur</option>
                           <option value="Bhaktapur">Bhaktapur</option>
@@ -1084,10 +1084,10 @@ const Checkout: React.FC = () => {
                   <span>Shipping:</span>
                   <span>{shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}</span>
                 </div>
-                {/* Only show free shipping message for valley cities and subtotal below 1400 */}
-                {isValley && shipping > 0 && subtotal > 0 && subtotal < 1400 && (
+                {/* Only show free shipping message for valley cities and subtotal below 2000 */}
+                {isValley && shipping > 0 && subtotal > 0 && subtotal < 2000 && (
                   <div className="text-sm text-blue-700 italic mb-2">
-                    Add NPR {(1400 - subtotal).toFixed(2)} more for free shipping(inside valley)
+                    Add NPR {(2000 - subtotal).toFixed(2)} more for free shipping(inside valley)
                   </div>
                 )}
                 <div className="flex justify-between font-bold text-lg border-t pt-2">
