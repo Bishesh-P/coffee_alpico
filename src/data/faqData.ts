@@ -8,7 +8,7 @@ export interface FAQItem {
 export const homeFAQs: FAQItem[] = [
   {
     id: "coffee-freshness",
-    question: "How fresh is your Nepal coffee?",
+    question: "How fresh is your coffee?",
     answer: "We roast all our premium Arabica coffee beans fresh to order and ship within 24-48 hours of roasting. This ensures you receive the freshest Nepal coffee possible, typically within 2-5 days of the roast date for optimal flavor and aroma.",
     iconName: "Coffee"
   },
