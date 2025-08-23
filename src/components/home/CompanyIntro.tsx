@@ -23,6 +23,16 @@ const CompanyIntro: React.FC = () => {
               Alpico stands for giving people the best coffee experience possible. We want every cup to make you feel proud of Nepali coffee and excited about your day. More than just coffee, we aim to make everyday moments special, connect people, and celebrate the unique flavors and story of Nepal’s coffee.
             </p>
 
+            {/* Mobile-first image placed between text and feature icons */}
+            <div className="lg:hidden w-full mb-8">
+              <img
+                src="https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                alt="Warm, small-batch roasted Nepali coffee beans representing quality and care"
+                className="rounded-lg w-full h-auto max-h-[65vh] object-contain shadow-md"
+                loading="lazy"
+              />
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-blue-100 p-3 rounded-full mb-3">
@@ -51,7 +61,8 @@ const CompanyIntro: React.FC = () => {
             </Link>
           </div>
 
-          <div className="w-full">
+          {/* Desktop/tablet image on the right; hidden on mobile to avoid duplicate display */}
+          <div className="w-full hidden lg:block">
             <img
               src="https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
               alt="Warm, small-batch roasted Nepali coffee beans representing quality and care"
