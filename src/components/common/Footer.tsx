@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../../supabase-client';
 import { Link } from 'react-router-dom';
-import { Coffee, Instagram, Facebook, Mail, Linkedin } from 'lucide-react';
+import { Instagram, Facebook, Mail, Linkedin } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -30,21 +30,24 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Logo and About */}
           <div className="col-span-1 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 text-2xl font-serif font-bold mb-6 group">
-              <Coffee className="text-blue-200 group-hover:text-blue-100 transition-colors" />
-              <span className="text-white group-hover:text-blue-100 transition-colors">Customer Support</span>
+            <Link to="/" className="flex items-center gap-2 text-2xl font-serif font-bold mb-3 group">
+              <img
+                src="/images/Coffee_logo_white.svg"
+                alt="Alpico Coffee Logo"
+                className="h-20 w-auto object-contain transition-transform group-hover:scale-105"
+              />
             </Link>
-            <p className="text-blue-100 mb-6 leading-relaxed">
+            { <p className="text-blue-100 mb-6 leading-relaxed">
               For any questions or support, feel free to message us directly on our social media channels. We’re just a DM away.
-            </p>
+            </p> }
             <div className="flex space-x-6">
-              <a href="https://www.instagram.com/alpicocoffee/" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
+              <a href="https://www.instagram.com/alpicocoffee/" target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
                 <Instagram size={24} />
               </a>
-              <a href="https://www.facebook.com/p/Alpico-Coffee-61568604861071/" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
+              <a href="https://www.facebook.com/p/Alpico-Coffee-61568604861071/" target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
                 <Facebook size={24} />
               </a>
-              <a href="https://www.linkedin.com/company/alpico-coffee/" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
+              <a href="https://www.linkedin.com/company/alpico-coffee/" target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
                 <Linkedin size={24} />
               </a>
             </div>

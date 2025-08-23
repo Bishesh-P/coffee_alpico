@@ -53,7 +53,7 @@ const FeaturedProducts: React.FC = () => {
             Our Featured Coffees
           </h2>
           <p className="text-blue-800 max-w-2xl mx-auto">
-            Discover our most popular and exceptional coffee selections, hand-picked for their unique flavor profiles and quality.
+            Our most popular and exceptional coffee products, we assure the best quality of the products we offer.
           </p>
         </div>
 

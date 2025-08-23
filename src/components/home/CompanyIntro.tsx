@@ -13,14 +13,14 @@ const CompanyIntro: React.FC = () => {
               What we Believe In & What we Stand For ?
             </h2>
             <p className="text-gray-700 mb-6 leading-relaxed">
-              At Alpico Coffee, we're dedicated to the art and science of exceptional coffee. For over a period of time, we've sourced beans from the Nepal's finest growing regions, building direct relationships with farmers who share our passion for quality and sustainability.
+              At Alpico, coffee is more than just a drink, it’s a special part of your day that gives energy, focus, and a little happiness. We think Nepali coffee is amazing, and it should be enjoyed and loved not just in Nepal, but all over the world. Every cup is made with care, showing the hard work of farmers and the skill of roasters.
               <blockquote className="border-l-4 border-gray-300 pl-4 italic text-gray-600 font-medium mt-4">
                   For us, it’s not just about selling coffee, it’s about making every cup special.
               </blockquote>
 
             </p>
             <p className="text-gray-700 mb-8 leading-relaxed">
-              We export best Nepali coffee tailored to your specific demands from green beans to roasted blends. Our team carefully sources, processes, and packs each order to meet your preferred quality, quantity, and roast profile. For further details, please visit our <Link to="/contact" className="text-blue-600 hover:underline">Contact us</Link> page. Send us an enquiry and we will get back to you as soon as possible.
+              Alpico stands for giving people the best coffee experience possible. We want every cup to make you feel proud of Nepali coffee and excited about your day. More than just coffee, we aim to make everyday moments special, connect people, and celebrate the unique flavors and story of Nepal’s coffee.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
@@ -51,39 +51,13 @@ const CompanyIntro: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
-            <div className="flex flex-col gap-6">
-              <img 
-                src="https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                alt="Coffee beans being roasted" 
-                className="rounded-lg w-full aspect-[4/3] object-cover shadow-md"
-                style={{ minHeight: '180px', maxHeight: '260px' }}
-                loading="lazy"
-              />
-              <img 
-                src="https://images.pexels.com/photos/3840447/pexels-photo-3840447.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"  
-                alt="Container loaded in the ship" 
-                className="rounded-lg w-full aspect-[4/3] object-cover shadow-md"
-                style={{ minHeight: '180px', maxHeight: '260px' }}
-                loading="lazy"
-              />
-            </div>
-            <div className="flex flex-col gap-6 pt-8">
-              <img 
-                src="https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                alt="Coffee cupping session" 
-                className="rounded-lg w-full aspect-[16/9] object-cover shadow-md"
-                style={{ minHeight: '120px', maxHeight: '200px' }}
-                loading="lazy"
-              />
-              <img 
-                src="https://images.pexels.com/photos/19926887/pexels-photo-19926887.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                alt="Container ship in harbor" 
-                className="rounded-lg w-full aspect-[16/9] object-cover shadow-md"
-                style={{ minHeight: '120px', maxHeight: '200px' }}
-                loading="lazy"
-              />
-            </div>
+          <div className="w-full">
+            <img
+              src="https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="Warm, small-batch roasted Nepali coffee beans representing quality and care"
+              className="rounded-lg w-full h-auto max-h-[75vh] object-contain shadow-md"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>

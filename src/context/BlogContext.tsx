@@ -68,7 +68,7 @@ Pour-over coffee is as much about the journey as the destination. With practice 
     publishedAt: '2024-01-15',
     tags: ['brewing', 'pour-over', 'guide', 'technique'],
     featured: true,
-    image: 'https://images.pexels.com/photos/4391470/pexels-photo-4391470.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    image: 'https://images.pexels.com/photos/27915657/pexels-photo-27915657.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
     readTime: 8
   },
   {
