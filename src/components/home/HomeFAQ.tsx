@@ -237,7 +237,7 @@ const HomeFAQ: React.FC<HomeFAQProps> = ({ faqs, openItems, toggleItem }) => {
                         </div>
                         <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold mb-1 lg:mb-3 font-serif">Expert Coffee Guidance</h3>
                         <p className="text-blue-100 text-xs sm:text-sm lg:text-base opacity-90 leading-relaxed">
-                          Our certified baristas are here to help you discover the perfect coffee and brewing method tailored to your unique taste preferences.
+                          Don't know about the roast profile , grind size, or brewing method? Our certified baristas can guide you to your best coffee experience.
                         </p>
                       </div>
                     </div>
