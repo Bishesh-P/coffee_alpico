@@ -1,5 +1,5 @@
 import React from 'react';
-import { /*Award,*/ Coffee, Leaf, Globe, Users, Heart, Star } from 'lucide-react';
+import { /*Award,*/ Coffee, Leaf, Globe, Users, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import SEOHead from '../components/common/SEOHead';
 import { seoConfig } from '../config/seo';
 import { organizationSchema, generateBreadcrumbSchema } from '../utils/structuredData';
@@ -15,6 +15,65 @@ const About: React.FC = () => {
     "@context": "https://schema.org",
     "@graph": [organizationSchema, breadcrumbSchema]
   };
+
+  // Testimonials shown in the "What Our Customers Say" section
+  const testimonials = [
+    {
+      quote:
+        "Alpico's coffee is absolutely incredible! The floral notes and bright acidity make every morning special. Knowing it's sustainably sourced makes it even better.",
+      author: 'Priya S.',
+      location: 'Mumbai',
+      rating: 5,
+    },
+    {
+      quote:
+        'Balanced, sweet, and super fresh. Their medium roast has become my daily go-to—works great for both pour-over and moka pot.',
+      author: 'Arjun K.',
+      location: 'Kathmandu',
+      rating: 5,
+    },
+    {
+      quote:
+        'I appreciate the transparency about origins and process. You can taste the care from farm to cup. Fast delivery too!',
+      author: 'Maya R.',
+      location: 'Pune',
+      rating: 4,
+    },
+    {
+      quote:
+        'Fantastic crema for espresso and a smooth finish. Customer support helped me pick the right grind—perfect experience.',
+      author: 'Sanjay T.',
+      location: 'Delhi',
+      rating: 5,
+    },
+    {
+      quote:
+        'The aroma is next level. Their freshness promise is real—beans arrived just two days after roasting.',
+      author: 'Nisha P.',
+      location: 'Bengaluru',
+      rating: 5,
+    },
+    {
+      quote:
+        'Great value for specialty quality. The notes of chocolate and citrus are consistent across bags—very impressed.',
+      author: 'Ravi S.',
+      location: 'Hyderabad',
+      rating: 4,
+    },
+  ];
+
+  // Slider state for testimonials
+  const [currentTestimonial, setCurrentTestimonial] = React.useState(0);
+  const totalTestimonials = testimonials.length;
+  const goNext = React.useCallback(() => {
+    setCurrentTestimonial((i) => (i + 1) % totalTestimonials);
+  }, [totalTestimonials]);
+
+  const goPrev = React.useCallback(() => {
+    setCurrentTestimonial((i) => (i - 1 + totalTestimonials) % totalTestimonials);
+  }, [totalTestimonials]);
+
+  // Auto-rotation removed: users navigate via arrows only
 
   return (
     <div className="pt-20 md:pt-16">
@@ -36,10 +95,10 @@ const About: React.FC = () => {
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="relative container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-4">
-            Nepal's Premium Coffee Story
+            Our Story
           </h1>
           <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto tracking-wide">
-            From a small specialty coffee roastery to Nepal's leading coffee company with a passion for exceptional Arabica beans and sustainable coffee farming practices.
+            From the farms to your cup, you need to know how Alpico Coffee is defining coffee in Nepal and beyond.
           </p>
         </div>
       </div>
@@ -52,7 +111,7 @@ const About: React.FC = () => {
               Our Mission - Best Coffee in Nepal
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed tracking-wide">
-              At Alpico Coffee, we believe that specialty coffee is more than just a beverage, it's an experience that connects people across cultures and continents. Our mission is to source the finest Arabica coffee beans from Nepal's mountain regions, roast them with precision and care, and deliver an exceptional cup that honors the hard work of local coffee farmers and the rich heritage of Nepali coffee culture.
+              At Alpico Coffee, we believe that coffee is more than just a beverage, it's an experience that connects people across cultures and continents. Our mission is to source the finest Arabica coffee beans from Nepal's finest regions, roast them with precision for best taste possible, and deliver an exceptional cup that honors the hard work of local coffee farmers to Nepal and the world.
             </p>
           </div>
 
@@ -66,7 +125,7 @@ const About: React.FC = () => {
             </div>
             <div>
               <h3 className="text-2xl font-serif font-bold text-navy-900 mb-4 tracking-wide">
-                Our Values(What we stand for)
+                Our Values
               </h3>
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -126,17 +185,46 @@ const About: React.FC = () => {
                     Where It All Began
                   </h3>
                   <p className="text-gray-700 mb-4 leading-relaxed">
-                    Our story begins in the misty mountains of Nepal, where coffee grows at elevations that touch the clouds. Founder Bishesh Pokharel discovered his passion for coffee during countless early mornings spent with local farmers in Sindhupalchowk, watching the sunrise paint the Himalayan peaks while the aroma of freshly picked coffee cherries filled the air.
+                    In the hills of Nepal, where the mountains touch the sky, our story begins. 
+                    While many left to work abroad, our founder Bishesh chose to stay and build something here. 
+                    That’s when he discovered the hidden strength of Nepali coffee. 
+                    Our land can grow world-class beans but the journey was not easy.     
                   </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    What started as a curiosity about the perfect cup became a mission to showcase Nepal's incredible coffee potential to the world. Bishesh realized that Nepal's unique terroir – the combination of altitude, climate, and rich soil – could produce coffee that rivaled the world's finest origins.
-                  </p>
+
+                    <p className="text-gray-700 leading-relaxed">
+                      Farmers worked hard, yet many coffee companies struggled with quality and production.
+                      Nepal still had to import coffee from outside and it wasn’t nearly as good as ours. 
+                      To make it worse, the best Nepali beans were exported abroad, while people here were left with lower-quality coffee. 
+                      Bishesh knew this had to change.  
+                      That’s how Alpico Coffee began with a dream to bring the finest Nepali coffee back home. 
+                    </p>
+                    {/* <p className="text-gray-700 mb-4 leading-relaxed">
+                        In the hills of Nepal, where the mountains touch the sky, our story begins. 
+                        While many left to work abroad, our founder Bishesh chose to stay and build something here. 
+                    </p>
+
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      That’s when he discovered the hidden strength of Nepali coffee. 
+                      Our land can grow world-class beans but the journey was not easy. 
+                    </p>
+
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      Farmers worked hard, yet many coffee companies struggled with quality and production.
+                      Nepal still had to import coffee from outside and it wasn’t nearly as good as ours. 
+                    </p>
+
+                    <p className="text-gray-700 leading-relaxed">
+                      To make it worse, the best Nepali beans were exported abroad, while people here were left with lower-quality coffee. 
+                      Bishesh knew this had to change.  
+                      That’s how Alpico Coffee began with a dream to bring the finest Nepali coffee back home. 
+                    </p> */}
+
                 </div>
                 <div>
                   <img 
                     src="https://images.pexels.com/photos/4629633/pexels-photo-4629633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
                     alt="Coffee farmer in Nepal mountains" 
-                    className="rounded-lg shadow-md w-full"
+                    className="rounded-lg shadow-md w-11/12 md:w-10/12 mx-auto max-h-72 sm:max-h-80 lg:max-h-96"
                   />
                 </div>
               </div>
@@ -176,13 +264,13 @@ const About: React.FC = () => {
                   <div>
                     <h4 className="text-lg font-bold text-blue-800 mb-3">The Early Days</h4>
                     <p className="text-gray-700 leading-relaxed">
-                      Starting with a single roaster and endless enthusiasm, we spent countless hours perfecting our roasting profiles. Each batch was a learning experience, each cup a step closer to our vision. We personally visited farming communities in Gulmi, Gorkha, and Sindhupalchowk, building relationships that would become the foundation of our supply chain.
+                      We started without any equipment, only determination and countless hours spent searching for the best coffee. Along the way, we met many people who had been working with coffee in regions like Kavre, Sindhupalchowk, and Gulmi. These connections grew into strong relationships, which later became the foundation of our supply chain.
                     </p>
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-blue-800 mb-3">Learning and Growing</h4>
                     <p className="text-gray-700 leading-relaxed">
-                      We learned that great coffee isn't just about the final product – it's about the entire journey. From understanding soil conditions to mastering roasting techniques, from packaging that preserves freshness to building relationships with customers who share our passion. Every challenge taught us something valuable.
+                      We learned that great coffee isn't just about the final product – it's about the entire journey. From understanding soil conditions to mastering roasting techniques, from packaging that preserves freshness to building relationships with customers who share our vision. Every challenge taught us something valuable.
                     </p>
                   </div>
                 </div>
@@ -227,40 +315,7 @@ const About: React.FC = () => {
               </div>
             </div>
 
-            {/* Timeline */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-serif font-bold text-navy-900 mb-8 text-center">
-                Our Journey in Milestones
-              </h3>
-              <div className="space-y-8">
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="md:w-1/3">
-                    <div className="bg-blue-50 p-6 rounded-lg h-full border-l-4 border-blue-600">
-                      <h4 className="font-bold text-navy-900 mb-2">2024 - The Beginning</h4>
-                      <p className="text-gray-700 text-sm">
-                        Founded with a vision to showcase Nepal's coffee excellence. Started with direct relationships with farmers in three key regions.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="md:w-1/3">
-                    <div className="bg-blue-50 p-6 rounded-lg h-full border-l-4 border-blue-600">
-                      <h4 className="font-bold text-navy-900 mb-2">2025 - Expanding Horizons</h4>
-                      <p className="text-gray-700 text-sm">
-                        Established our roasting facility and began supplying premium coffee to discerning customers across Nepal and beyond.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="md:w-1/3">
-                    <div className="bg-blue-50 p-6 rounded-lg h-full border-l-4 border-blue-600">
-                      <h4 className="font-bold text-navy-900 mb-2">Today - Global Dreams</h4>
-                      <p className="text-gray-700 text-sm">
-                        Exporting to international markets while maintaining our commitment to quality, sustainability, and community development.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Timeline removed per request */}
           </div>
         </div>
       </section>
@@ -273,8 +328,8 @@ const About: React.FC = () => {
               The Journey of Coffee: From Beans to Cup
             </h2>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-              Discover the fascinating process that transforms humble coffee cherries from Nepal's mountain slopes 
-              into the perfect cup of Alpico coffee. Each step is a testament to craftsmanship and dedication.
+              This is the process that transforms coffee cherries from Nepal's mountain slopes 
+              into the perfect cup of Alpico coffee. Each step tells the story of our effort and love for coffee
             </p>
           </div>
 
@@ -308,7 +363,7 @@ const About: React.FC = () => {
                   </div>
                   <div className="mt-3 pt-3 border-t border-green-200">
                     <p className="text-xs text-green-700 italic text-center">
-                      "Coffee plants can live and produce for over 100 years in Nepal's mountain conditions"
+                      "Coffee plants can produce for 20-40 years for commercial production."
                     </p>
                   </div>
                 </div>
@@ -318,14 +373,12 @@ const About: React.FC = () => {
                   🌱 Growing in Paradise
                 </h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Our journey begins at altitudes of 1,200-2,000 meters in the pristine mountains of Nepal. 
+                  Our journey begins at altitudes of 1,200-1,600 meters in the pristine mountains of Nepal. 
                   Coffee plants thrive in the cool mountain air, rich volcanic soil, and perfect balance of 
-                  sunshine and rainfall. Each plant takes 3-5 years to mature and produce its first harvest.
+                  sunshine and rainfall. Each plant takes approximately 4 years to mature and produce its first harvest.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  The coffee arabica species we grow belongs to the Typica and Bourbon varieties, which have been 
-                  cultivated in Nepal since the 1930s. These heirloom varieties produce exceptional cup quality 
-                  but require careful attention to soil composition, shade management, and seasonal care.
+                  The coffee arabica species we grow belongs to the Typica and Bourbon varieties, also we use Catura varieties. Coffee in Nepal are shade grown. This means the coffee plants are grown under the shade of taller trees, instead of out in open fields with full sun.
                 </p>
                 <div className="bg-blue-50 p-4 rounded-lg mb-4">
                   <h4 className="font-bold text-blue-800 mb-2">Why Altitude Matters</h4>
@@ -341,11 +394,11 @@ const About: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div className="bg-green-100 p-3 rounded">
-                    <div className="font-bold text-green-800">18-25°C</div>
+                    <div className="font-bold text-green-800">18-24°C</div>
                     <div className="text-xs text-green-600">Ideal Temperature</div>
                   </div>
                   <div className="bg-blue-100 p-3 rounded">
-                    <div className="font-bold text-blue-800">1,500mm</div>
+                    <div className="font-bold text-blue-800">2,000mm</div>
                     <div className="text-xs text-blue-600">Annual Rainfall</div>
                   </div>
                 </div>
@@ -408,10 +461,9 @@ const About: React.FC = () => {
                   🍒 Hand-Picked Perfection
                 </h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  During harvest season (November to March), skilled farmers carefully hand-pick only 
+                  During harvest season (November to March) Mangshir to Chaitra, skilled farmers carefully hand-pick only 
                   the ripest, red coffee cherries. This selective picking ensures optimal sweetness 
-                  and flavor development. A single tree yields about 2,000 cherries annually - enough 
-                  for just one pound of roasted coffee!
+                  and flavor development. A single tree yields about 2,000 cherries annually .
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   The harvesting process requires multiple passes through the same trees as cherries ripen 
@@ -506,7 +558,7 @@ const About: React.FC = () => {
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   Within 12 hours of picking, cherries undergo processing to remove the outer fruit and 
                   reveal the green coffee beans inside. We use both washed and natural processing methods, 
-                  each creating unique flavor profiles. The beans are then carefully dried to the perfect 
+                  each creating unique flavor profiles. Also sometimes we use Anaerobic fermentation processing method. The beans are then carefully dried to the perfect 
                   moisture content of 10-12%.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
@@ -589,9 +641,6 @@ const About: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-red-100 p-2 rounded text-center">
-                    <span className="text-xs font-medium text-red-800">Our Signature: Medium Roast</span>
-                  </div>
                   <div className="mt-3 pt-3 border-t border-red-200">
                     <p className="text-xs text-red-700 italic text-center">
                       "The 'first crack' sound tells our roasters when perfection begins"
@@ -605,7 +654,7 @@ const About: React.FC = () => {
                 </h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   This is where science meets artistry. Our master roasters carefully monitor time, 
-                  temperature, and airflow to develop each origin's unique characteristics. The Maillard 
+                  temperature, and airflow to develop each origin's unique characteristics. Generally, the obtained green beans doesnot have any defined taste and aroma. Hence, roasting brings the flavour to the coffee. The Maillard 
                   reaction creates hundreds of flavor compounds, transforming green beans into aromatic, 
                   brown coffee ready for brewing.
                 </p>
@@ -693,8 +742,20 @@ const About: React.FC = () => {
                       <span className="text-xs text-gray-700">French Press</span>
                     </div>
                   </div>
-                  <div className="bg-purple-100 p-2 rounded text-center">
-                    <span className="text-xs font-medium text-purple-800">Pro Tip: Grind 30 seconds before brewing</span>
+                  {/* Grind sizes moved here below the image section */}
+                  <div className="mt-2 grid grid-cols-3 gap-2 text-[11px] sm:text-xs text-center">
+                    <div>
+                      <div className="font-semibold text-purple-700">Espresso</div>
+                      <div className="text-gray-600">Grind: Fine</div>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-purple-700">Pour Over</div>
+                      <div className="text-gray-600">Grind: Medium</div>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-purple-700">French Press</div>
+                      <div className="text-gray-600">Grind: Coarse</div>
+                    </div>
                   </div>
                   <div className="mt-3 pt-3 border-t border-purple-200">
                     <p className="text-xs text-purple-700 italic text-center">
@@ -710,8 +771,7 @@ const About: React.FC = () => {
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   The final transformation happens in your kitchen. Grinding releases aromatic compounds 
                   that have been locked inside the roasted beans. Whether you prefer espresso, pour-over, 
-                  or French press, the grind size and brewing method will highlight different aspects of 
-                  our carefully crafted coffee.
+                  or French press, the grind size and brewing method will make difference in taste.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   Grinding accelerates flavor degradation, so we recommend grinding just before brewing. 
@@ -725,15 +785,15 @@ const About: React.FC = () => {
                     <div className="grid grid-cols-3 gap-3 text-xs">
                       <div className="text-center">
                         <div className="font-semibold text-purple-700">Espresso</div>
-                        <div className="text-gray-600">Fine grind, 25-30s</div>
+                        <div className="text-gray-600">25–30s</div>
                       </div>
                       <div className="text-center">
                         <div className="font-semibold text-purple-700">Pour Over</div>
-                        <div className="text-gray-600">Medium grind, 3-4min</div>
+                        <div className="text-gray-600">3–4 min</div>
                       </div>
                       <div className="text-center">
                         <div className="font-semibold text-purple-700">French Press</div>
-                        <div className="text-gray-600">Coarse grind, 4min</div>
+                        <div className="text-gray-600">4 min</div>
                       </div>
                     </div>
                     <div className="border-t pt-3">
@@ -744,6 +804,10 @@ const About: React.FC = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+                {/* Moved Pro Tip here below the Brewing Guide */}
+                <div className="bg-purple-100 p-2 rounded text-center mb-4">
+                  <span className="text-xs font-medium text-purple-800">Pro Tip: Grind 30 seconds before brewing</span>
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div className="bg-purple-100 p-3 rounded">
@@ -838,13 +902,33 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-12 max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold mb-4">What Our Customers Say</h3>
-            <div className="bg-blue-800 p-6 rounded-lg">
-              <p className="text-blue-100 italic mb-4 tracking-wide">
-                " alpico's coffee is absolutely incredible! The floral notes and bright acidity make every morning special. Plus, knowing it's sustainably sourced makes it taste even better. "
-              </p>
-              <p className="text-blue-200 font-medium">- Priya S., Mumbai</p>
+          <div className="mt-12 max-w-3xl mx-auto">
+            <h3 className="text-xl font-bold mb-6 text-white text-center">What Our Customers Say</h3>
+            <div className="relative">
+              <div className="bg-blue-800/90 p-6 md:p-8 rounded-xl shadow-lg border border-blue-700/40">
+                <p className="text-blue-100 italic mb-4 md:mb-6 tracking-wide text-center">“{testimonials[currentTestimonial].quote}”</p>
+                <p className="text-blue-200 font-medium text-center">- {testimonials[currentTestimonial].author}, {testimonials[currentTestimonial].location}</p>
+              </div>
+              {/* Arrows */}
+              <button
+                onClick={goPrev}
+                aria-label="Previous testimonial"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-8 w-9 h-9 md:w-10 md:h-10 rounded-full bg-blue-900/70 hover:bg-blue-900 text-blue-100 flex items-center justify-center shadow"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={goNext}
+                aria-label="Next testimonial"
+                className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-mr-8 w-9 h-9 md:w-10 md:h-10 rounded-full bg-blue-900/70 hover:bg-blue-900 text-blue-100 flex items-center justify-center shadow"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+              <div className="flex items-center justify-center mt-6">
+                <div className="text-blue-200 text-sm">
+                  {currentTestimonial + 1} / {totalTestimonials}
+                </div>
+              </div>
             </div>
           </div>
         </div>

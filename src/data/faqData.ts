@@ -9,7 +9,7 @@ export const homeFAQs: FAQItem[] = [
   {
     id: "coffee-freshness",
     question: "How fresh is your coffee?",
-    answer: "We roast all our premium Arabica coffee beans fresh to order and ship within 24-48 hours of roasting. This ensures you receive the freshest Nepal coffee possible, typically within 2-5 days of the roast date for optimal flavor and aroma.",
+    answer: "We roast all our Arabica coffee beans fresh to order and ship within 3-5 days of roasting. After immediate roasting , it takes 2-3 days to get the optimal flavour and get the best experience of coffee. "/*This ensures you receive the freshest Nepal coffee possible with best flavour and aroma that specialty coffee lovers expect."*/,
     iconName: "Coffee"
   },
   {
@@ -27,7 +27,7 @@ export const homeFAQs: FAQItem[] = [
   {
     id: "coffee-storage",
     question: "How should I store my coffee beans properly?",
-    answer: "Store your Arabica coffee beans in an airtight container in a cool, dark place away from direct sunlight, heat, and moisture. Avoid storing coffee in the refrigerator or freezer. Use within 2-4 weeks of the roast date for best coffee flavor.",
+    answer: "Store your coffee beans in an airtight container in a cool, dark place away from direct sunlight, heat, and moisture. Avoid storing coffee in the refrigerator or freezer. Use within 2-4 weeks of the roast date for best coffee flavor.",
     iconName: "Package"
   },
   {
@@ -39,7 +39,7 @@ export const homeFAQs: FAQItem[] = [
   {
     id: "brewing-methods",
     question: "What coffee brewing methods work best with your beans?",
-    answer: "Our Nepal coffee beans are versatile and work well with various brewing methods. Light roast coffee excels in pour-over and drip coffee methods, medium roast coffee is perfect for espresso machines and French press, while dark roast coffee shines in espresso and cold brew preparations.",
+    answer: "Our Nepal coffee beans are versatile and work well with various brewing methods. Medium Light roast coffee excels in pour-over and drip coffee methods, Medium Dark roast coffee is perfect for espresso machines and French press, while  dark roast coffee shines in espresso and cold brew preparations.",
     iconName: "Clock"
   }
 ];
