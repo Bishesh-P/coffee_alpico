@@ -3,7 +3,7 @@ export const seoConfig = {
   // Site-wide defaults
   site: {
     name: "Alpico Coffee",
-    description: "Premium mountain-grown coffee beans, expertly roasted and sustainably sourced. Discover exceptional coffee from alpine regions worldwide.",
+    description: "Looking for Nepali coffee that stands out? Alpico brings best flavors and fresh roasts that make every sip unforgettable. Taste coffee the way it should be.",
     url: "https://alpico.coffee", 
     logo: "https://alpico.coffee/logo.png", 
     image: "https://alpico.coffee/og-image.jpg", 
@@ -32,10 +32,11 @@ export const seoConfig = {
   // Page-specific SEO data
   pages: {
     home: {
-      title: "Best Coffee in Nepal | Premium Arabica Coffee Beans | Alpico Coffee",
-      description: "Discover Nepal's best coffee roaster. Premium Arabica coffee beans, specialty coffee, and brewing equipment. Sustainably sourced from local farmers. Shop online now.",
-      keywords: "best coffee in nepal, nepal coffee, premium arabica coffee, specialty coffee nepal, coffee beans nepal, alpico coffee, coffee roaster nepal, nepal coffee online"
+      title: "Alpico Coffee | Bringing Nepali Coffee to Every Home",
+      description: "Looking for Nepali coffee that stands out? Alpico brings best flavors and fresh roasts that make every sip unforgettable. Shop online now.",
+      keywords: "best coffee in nepal, nepal coffee,nepali coffee, arabica coffee, specialty coffee nepal, coffee beans nepal, alpico coffee, nepal coffee online"
     },
+    // make changes from here
     products: {
       title: "Premium Coffee Beans & Equipment | Best Coffee Shop Nepal | Alpico Coffee",
       description: "Browse Nepal's finest coffee collection - premium Arabica beans, light to dark roasts, and professional brewing equipment. Best coffee shop in Nepal with online delivery.",

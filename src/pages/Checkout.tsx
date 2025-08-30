@@ -131,6 +131,33 @@ const Checkout: React.FC = () => {
     loadSavedCustomerInfo();
   }, []);
 
+  // Ensure page starts at top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
+  // Scroll to top only for specific steps that need it (shipping/details form)
+  useEffect(() => {
+    // Only scroll to top for steps where users need to see form from beginning
+    if (currentStep === 'shipping' || currentStep === 'variants') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    } else if (currentStep === 'platform') {
+      // For platform selection, scroll to show the "Select Payment Platform" title
+      const platformSection = document.getElementById('payment-platform-section');
+      if (platformSection) {
+        const rect = platformSection.getBoundingClientRect();
+        const offsetTop = window.pageYOffset + rect.top - 100; // 100px above for better visibility
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
+    } else if (currentStep === 'confirmation' || currentStep === 'payment' || currentStep === 'receipt') {
+      // For other payment-related steps, scroll to main content area
+      const mainContent = document.getElementById('checkout-main-content');
+      if (mainContent) {
+        mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [currentStep]);
+
   // Auto-select variants when only one available option exists
   useEffect(() => {
     if (currentStep === 'variants') {
@@ -640,7 +667,7 @@ const Checkout: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
+      <div id="checkout-main-content" className="container mx-auto px-4 py-12">
 
         {/* Step 1: Shipping Information */}
         {currentStep === 'shipping' && (
@@ -1107,7 +1134,7 @@ const Checkout: React.FC = () => {
 
         {/* Step 3: Payment Platform Selection */}
         {currentStep === 'platform' && (
-          <div className="max-w-2xl mx-auto">
+          <div id="payment-platform-section" className="max-w-2xl mx-auto">
             {/* Brewing Method Summary in Platform Step */}
             {cart.filter(item => 
               ['light-roast', 'medium-roast', 'dark-roast'].includes(item.product.category) && 

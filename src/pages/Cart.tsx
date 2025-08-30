@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -8,6 +8,11 @@ import Button from '../components/common/Button';
 
 const Cart: React.FC = () => {
   const { cart } = useCart();
+
+  // Ensure page starts at top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
 
   return (
     <div className="pt-20 md:pt-16">

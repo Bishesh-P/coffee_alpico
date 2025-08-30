@@ -16,6 +16,9 @@ const CheckoutSuccess: React.FC = () => {
     // Set page title
     document.title = 'Order Confirmation - Alpico Coffee';
     
+    // Ensure page starts at top
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    
     // Get order details from URL parameters or localStorage
     const orderId = searchParams.get('orderId') || '';
     const total = parseFloat(searchParams.get('total') || '0');
