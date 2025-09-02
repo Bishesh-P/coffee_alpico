@@ -33,7 +33,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
 
   return (
     <div
-      className="opacity-0 animate-fade-up bg-white rounded-2xl shadow-premium overflow-hidden transform transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.03] group h-full flex flex-col premium-hover"
+      className="opacity-0 animate-fade-up bg-white rounded-2xl shadow-premium overflow-hidden transform transition-all duration-500 hover:shadow-premium-lg hover:scale-[1.02] group h-full flex flex-col premium-hover"
       style={{
         animationDelay: `${delay}ms`,
         animationFillMode: 'forwards',
@@ -67,102 +67,238 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
           <div className="absolute inset-0 bg-black transition-opacity duration-300 opacity-10 group-hover:opacity-0"></div>
         </div>
       </Link>
-      <div className="p-6 flex flex-col flex-grow">
-        <div className="mb-4">
+      <div className="p-6 pb-4 flex flex-col flex-grow">
+        <div className="mb-3 sm:mb-4">
           <Link to={`/products/${product.id}`}>
-            <h3 className="text-xl font-bold text-navy-900 hover:text-blue-700 transition-colors">
+            <h3 className="text-lg sm:text-xl font-bold text-navy-900 hover:text-blue-700 transition-colors leading-tight">
               {product.name}
             </h3>
           </Link>
-          <div className="mt-1">
+          <div className="mt-1 sm:mt-2">
             {/* Show discounted price logic */}
             {selectedVariant ? (
               // Variant pricing
               selectedVariant.originalPrice ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-500 line-through text-sm">NPR {selectedVariant.originalPrice.toFixed(2)}</span>
-                  <span className="text-blue-800 font-bold">NPR {selectedVariant.price.toFixed(2)}</span>
-                  <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
+                  <span className="text-gray-500 line-through text-xs sm:text-sm">NPR {selectedVariant.originalPrice.toFixed(2)}</span>
+                  <span className="text-blue-800 font-bold text-sm sm:text-base">NPR {selectedVariant.price.toFixed(2)}</span>
+                  <span className="bg-red-500 text-white text-xs px-1 sm:px-2 py-1 rounded-full font-medium">
                     {Math.round(((selectedVariant.originalPrice - selectedVariant.price) / selectedVariant.originalPrice) * 100)}% OFF
                   </span>
                 </div>
               ) : (
-                <p className="text-blue-800 font-medium">NPR {selectedVariant.price.toFixed(2)}</p>
+                <p className="text-blue-800 font-medium text-sm sm:text-base">NPR {selectedVariant.price.toFixed(2)}</p>
               )
             ) : (
               // Product base pricing
               product.originalPrice ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-500 line-through text-sm">NPR {product.originalPrice.toFixed(2)}</span>
-                  <span className="text-blue-800 font-bold">NPR {product.price.toFixed(2)}</span>
-                  <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
+                  <span className="text-gray-500 line-through text-xs sm:text-sm">NPR {product.originalPrice.toFixed(2)}</span>
+                  <span className="text-blue-800 font-bold text-sm sm:text-base">NPR {product.price.toFixed(2)}</span>
+                  <span className="bg-red-500 text-white text-xs px-1 sm:px-2 py-1 rounded-full font-medium">
                     {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
                   </span>
                 </div>
               ) : (
-                <p className="text-blue-800 font-medium">NPR {currentPrice.toFixed(2)}</p>
+                <p className="text-blue-800 font-medium text-sm sm:text-base">NPR {currentPrice.toFixed(2)}</p>
               )
             )}
           </div>
         </div>
         
-        {/* Variant Selection - Conditional space allocation */}
+        {/* Variant Selection - Different styling for combo offers */}
         {product.variants && product.variants.length > 0 ? (
           <div className="mb-4" style={{ minHeight: '80px' }}>
-            <p className="text-sm font-medium text-gray-700 mb-2">
+            <p className="text-xs sm:text-sm font-medium text-gray-700 mb-2">
               {product.category === 'merch' ? 'Color:' : 'Size:'}
             </p>
-            <div className="flex flex-wrap gap-2">
-              {product.variants.map((variant) => (
-                <button
-                  key={variant.id}
-                  onClick={() => handleVariantChange(variant)}
-                  className={`px-3 py-1 text-xs rounded-full border transition-all duration-200 ${
-                    selectedVariant?.id === variant.id
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400'
-                  } ${
-                    variant.inStock === false ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                  }`}
-                  disabled={variant.inStock === false}
-                >
-                  {variant.name}
-                </button>
-              ))}
-            </div>
+            {/* Different layout for combo offers vs other products */}
+            {product.category === 'combo-offers' ? (
+              <div className="flex flex-wrap gap-1 sm:gap-2">
+                {product.variants.map((variant) => (
+                  <button
+                    key={variant.id}
+                    onClick={() => handleVariantChange(variant)}
+                    className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-all duration-200 ${
+                      selectedVariant?.id === variant.id
+                        ? 'bg-navy-900 text-white border-navy-900'
+                        : 'bg-white text-gray-700 border-gray-300 hover:border-navy-600'
+                    } ${
+                      variant.inStock === false ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                    }`}
+                    disabled={variant.inStock === false}
+                  >
+                    <span className="block sm:hidden">{variant.name.split(' ')[0]}</span>
+                    <span className="hidden sm:block">{variant.name}</span>
+                  </button>
+                ))}
+              </div>
+            ) : product.category === 'equipment' ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                {product.variants.map((variant) => (
+                  <button
+                    key={variant.id}
+                    onClick={() => handleVariantChange(variant)}
+                    className={`px-2 sm:px-3 py-2 text-xs sm:text-sm rounded-xl border-2 transition-all duration-300 font-medium min-h-[48px] flex flex-col items-center justify-center ${
+                      selectedVariant?.id === variant.id
+                        ? 'bg-navy-900 text-white border-navy-900 shadow-lg transform scale-105'
+                        : 'bg-white text-gray-700 border-gray-300 hover:border-navy-600 hover:bg-blue-50 hover:shadow-md'
+                    } ${
+                      variant.inStock === false 
+                        ? 'opacity-50 cursor-not-allowed line-through' 
+                        : 'cursor-pointer hover:scale-105'
+                    }`}
+                    disabled={variant.inStock === false}
+                  >
+                    <span className="text-center leading-tight">
+                      {/* Split variant name into adjective and size */}
+                      {(() => {
+                        const parts = variant.name.split(' ');
+                        if (parts.length >= 2) {
+                          // For names like "Black 3-Cup" or "350ml Steel"
+                          if (parts[0].includes('ml')) {
+                            // For French Press: "350ml Steel" -> "Steel" on first line, "350ml" on second
+                            return (
+                              <>
+                                <span className="block text-xs">{parts[1]}</span>
+                                <span className="block text-xs font-semibold">{parts[0]}</span>
+                              </>
+                            );
+                          } else {
+                            // For Moka Pot: "Black 3-Cup" -> "Black" on first line, "3-Cup" on second
+                            return (
+                              <>
+                                <span className="block text-xs">{parts[0]}</span>
+                                <span className="block text-xs font-semibold">{parts.slice(1).join(' ')}</span>
+                              </>
+                            );
+                          }
+                        } else {
+                          // Fallback for single word names
+                          return <span className="text-xs">{variant.name}</span>;
+                        }
+                      })()}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                {product.variants.map((variant) => (
+                  <button
+                    key={variant.id}
+                    onClick={() => handleVariantChange(variant)}
+                    className={`px-2 sm:px-3 py-2 text-xs sm:text-sm rounded-xl border-2 transition-all duration-300 font-medium min-h-[36px] flex items-center justify-center ${
+                      selectedVariant?.id === variant.id
+                        ? 'bg-navy-900 text-white border-navy-900 shadow-lg transform scale-105'
+                        : 'bg-white text-gray-700 border-gray-300 hover:border-navy-600 hover:bg-blue-50 hover:shadow-md'
+                    } ${
+                      variant.inStock === false 
+                        ? 'opacity-50 cursor-not-allowed line-through' 
+                        : 'cursor-pointer hover:scale-105'
+                    }`}
+                    disabled={variant.inStock === false}
+                  >
+                    <span className="text-center leading-tight">
+                      {variant.name}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         ) : null}
 
-        <div className={`text-gray-600 mb-4 text-sm flex-grow ${
-          product.variants && product.variants.length > 0 ? 'line-clamp-2' : 'line-clamp-4'
+        <div className={`text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed flex-grow ${
+          product.variants && product.variants.length > 0 ? 'line-clamp-2' : 'line-clamp-3'
         }`}>
           {product.description}
         </div>
         
-        {/* Action buttons - Always at bottom */}
-        <div className="flex justify-between items-center mt-auto">
+        {/* Action buttons - Add to Cart only, View Details moved outside */}
+        <div className="flex flex-col mt-auto">
           <Button
             onClick={handleAddToCart}
-            variant="primary"
-            className={`transform transition-all duration-300 flex items-center gap-2 ${
-              isAdding ? 'animate-wiggle' : ''
-            }`}
+            variant={isOutOfStock ? "outline" : "primary"}
+            size="sm"
+            className={`
+              group/btn relative overflow-hidden
+              transform transition-all duration-300 
+              flex items-center justify-center gap-2 
+              text-xs sm:text-sm w-full
+              ${isOutOfStock 
+                ? 'bg-gray-100 text-gray-500 border-gray-300 cursor-not-allowed' 
+                : 'hover:scale-105 hover:shadow-xl active:scale-95'
+              }
+              ${isAdding ? 'animate-pulse scale-105' : ''}
+              font-semibold rounded-xl px-4 py-3 sm:py-3.5
+              ${!isOutOfStock && 'bg-gradient-to-r from-navy-900 via-navy-800 to-blue-800 hover:from-navy-800 hover:via-blue-800 hover:to-blue-700 text-white shadow-lg'}
+            `}
             disabled={isOutOfStock}
           >
-            <ShoppingBag size={16} className="transition-transform duration-300 group-hover:rotate-12" />
-            {isOutOfStock ? 'Sold Out' : 'Add to Cart'}
+            {/* Background animation effect */}
+            {!isOutOfStock && (
+              <div className="absolute inset-0 bg-gradient-to-r from-navy-800 to-blue-700 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+            )}
+            
+            {/* Button content */}
+            <div className="relative z-10 flex items-center gap-2">
+              <ShoppingBag 
+                size={16} 
+                className={`transition-all duration-300 flex-shrink-0 ${
+                  isOutOfStock 
+                    ? 'text-gray-400' 
+                    : isAdding 
+                      ? 'animate-bounce text-white' 
+                      : 'group-hover/btn:rotate-12 group-hover/btn:scale-110 text-white'
+                }`} 
+              />
+              <span className="font-medium">
+                {isOutOfStock 
+                  ? 'Sold Out'
+                  : isAdding 
+                    ? 'Adding...'
+                    : 'Add to Cart'
+                }
+              </span>
+            </div>
+            
+            {/* Success ripple effect */}
+            {isAdding && !isOutOfStock && (
+              <div className="absolute inset-0 bg-green-400 opacity-20 animate-ping rounded-xl" />
+            )}
           </Button>
-          <Link
-            to={`/products/${product.id}`}
-            className="text-blue-700 hover:text-navy-900 flex items-center transition-all duration-300 hover:gap-3 group/link"
-          >
-            Details
-            <ArrowRight
-              size={16}
-              className="ml-1 transition-transform duration-300 group-hover/link:translate-x-2"
-            />
-          </Link>
         </div>
+      </div>
+      
+      {/* View Details button - Outside the main card content */}
+      <div className="px-6 pb-6 -mt-2">
+        <Link
+          to={`/products/${product.id}`}
+          className="
+            group/link relative w-full
+            text-navy-700 hover:text-white
+            flex items-center justify-center 
+            transition-all duration-300 
+            text-xs sm:text-sm px-3 py-2
+            rounded-lg
+            bg-blue-50 hover:bg-navy-900
+            border border-blue-200 hover:border-navy-900
+            shadow-sm hover:shadow-lg
+            font-medium
+            transform hover:scale-105 active:scale-95
+          "
+        >
+          <span className="relative z-10 mr-1">
+            View Details
+          </span>
+          <ArrowRight
+            size={14}
+            className="transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:scale-110 flex-shrink-0 relative z-10"
+          />
+          {/* Hover background effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-900 to-navy-800 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300 rounded-lg" />
+        </Link>
       </div>
     </div>
   );

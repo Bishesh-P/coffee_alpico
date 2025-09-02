@@ -21,21 +21,21 @@ const Button = memo<ButtonProps>(({
   disabled = false,
   className = '',
 }) => {
-  const baseClasses = 'rounded-xl font-medium transition-all duration-500 ease-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 relative overflow-hidden group';
+  const baseClasses = 'rounded-xl font-medium transition-all duration-300 ease-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 relative overflow-hidden group transform hover:scale-105 active:scale-95';
   
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-navy-900 via-navy-800 to-blue-800 hover:from-navy-800 hover:via-blue-800 hover:to-blue-700 text-white shadow-premium focus:ring-blue-500 hover:shadow-premium-lg',
-    secondary: 'bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-navy-900 shadow-premium focus:ring-blue-500 border border-blue-200 hover:border-blue-300',
-    outline: 'border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white focus:ring-blue-500 shadow-premium hover:shadow-premium-lg backdrop-blur-sm',
-    premium: 'bg-premium-gradient text-white shadow-premium-lg hover:shadow-premium-xl focus:ring-blue-500 relative before:absolute before:inset-0 before:bg-shimmer before:opacity-0 hover:before:opacity-100 before:animate-shimmer',
-    gold: 'bg-gold-gradient text-white shadow-premium-lg hover:shadow-glow-gold focus:ring-yellow-500 relative before:absolute before:inset-0 before:bg-shimmer before:opacity-0 hover:before:opacity-100 before:animate-shimmer',
+    primary: 'bg-gradient-to-r from-navy-900 via-navy-800 to-blue-800 hover:from-navy-800 hover:via-blue-800 hover:to-blue-700 text-white shadow-lg focus:ring-blue-500 hover:shadow-xl border-0',
+    secondary: 'bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-navy-900 shadow-md focus:ring-blue-500 border border-blue-200 hover:border-blue-300',
+    outline: 'border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white focus:ring-blue-500 shadow-md hover:shadow-lg backdrop-blur-sm',
+    premium: 'bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white shadow-xl hover:shadow-2xl focus:ring-purple-500 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity',
+    gold: 'bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white shadow-xl hover:shadow-2xl focus:ring-yellow-500 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity',
   };
   
   const sizeClasses = {
-    sm: 'text-sm px-4 py-2 tracking-wide',
-    md: 'px-6 py-3 tracking-wide',
-    lg: 'text-lg px-8 py-4 tracking-wide font-semibold',
-    xl: 'text-xl px-10 py-5 tracking-wider font-semibold',
+    sm: 'text-xs sm:text-sm px-3 sm:px-4 py-2 tracking-wide',
+    md: 'text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 tracking-wide',
+    lg: 'text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 tracking-wide font-semibold',
+    xl: 'text-lg sm:text-xl px-8 sm:px-10 py-4 sm:py-5 tracking-wider font-semibold',
   };
   
   const widthClass = fullWidth ? 'w-full' : '';

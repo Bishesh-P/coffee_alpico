@@ -27,11 +27,11 @@ const ProductFilter: React.FC<ProductFilterProps> = ({
                 }`}
               >
                 {category.name}
-                {category.id === 'light-roast' && (
+                {category.id === 'medium-light-roast' && (
                   <span className="ml-2">⭐</span>
                 )}
               </button>
-              {category.id === 'light-roast' && (
+              {category.id === 'medium-light-roast' && (
                 <div className="text-emerald-600 text-xs font-medium mt-1 ml-3">
                   Beginner Choice
                 </div>

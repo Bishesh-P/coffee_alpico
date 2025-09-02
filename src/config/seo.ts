@@ -93,7 +93,7 @@ export const seoConfig = {
 export const generateProductSEO = (product: any) => ({
   title: `${product.name} | ${product.category === 'equipment' ? 'Coffee Equipment' : 'Premium Coffee'} | Alpico Coffee`,
   description: `${product.description} ${product.category === 'equipment' ? 'Coffee equipment' : 'Premium coffee beans'} from Alpico Coffee.`,
-  keywords: `${product.name.toLowerCase()}, ${product.details.origin.toLowerCase()}, ${product.details.flavorNotes.join(', ').toLowerCase()}, ${product.category.replace('-', ' ')}`
+  keywords: `${product.name.toLowerCase()}, ${((product.details as any).origin || (product.details as any).material || (product.details as any).fabric || '').toLowerCase()}, ${((product.details as any).flavorNotes || (product.details as any).features || []).join(', ').toLowerCase()}, ${product.category.replace('-', ' ')}`
 });
 
 // Helper function to generate blog post SEO

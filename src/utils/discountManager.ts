@@ -32,7 +32,6 @@ export const PRODUCT_DISCOUNTS: Record<number, number> = {
   101: 15,  // Classic Moka Pot: 15% off
   
   // Merchandise
-  201: 18,  // Alpico Coffee Mug: 18% off
   202: 22,  // Alpico Travel Tumbler: 22% off
   
   // Bundles & Combos
@@ -53,8 +52,8 @@ export const VARIANT_DISCOUNTS: Record<string, number> = {
   "drip-medium-30pcs": 10,   // 30pcs Drip Medium: 10% off
   
   // Mug Color Variants
-  "mug-black": 15,           // Black Mug: 15% off
-  "mug-navy": 20,            // Navy Mug: 20% off (out of stock special)
+  // "mug-black": 15,           // Black Mug: 15% off
+  // "mug-navy": 20,            // Navy Mug: 20% off (out of stock special)
   
   // Equipment Variants
   "moka-350ml": 12,          // 350ml Moka Pot: 12% off
@@ -78,7 +77,7 @@ export const SEASONAL_CAMPAIGNS = {
   
   // New Customer Special - Featured products only
   newCustomerSpecial: {
-    productIds: [1, 103, 201],
+    productIds: [1, 103],
     discount: 25
   }
 };

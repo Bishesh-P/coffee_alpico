@@ -147,79 +147,156 @@ const Products: React.FC = () => {
         </div>
       </div>
 
-      {/* Beginner Coffee Guide - Recommendation Modal */}
+      {/* Beginner Coffee Guide - Interactive Educational Modal */}
       {showBeginnerGuide && (
         <div 
-          className="fixed inset-0 bg-gradient-to-br from-black/60 via-blue-900/30 to-purple-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-gradient-to-br from-black/60 via-blue-900/30 to-purple-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4"
           onClick={handleCloseBeginnerGuide}
         >
           <div 
-            className="bg-gradient-to-br from-white via-blue-50/50 to-amber-50/50 backdrop-blur-md rounded-2xl max-w-lg w-full mx-4 p-4 md:p-6 relative animate-scale-up shadow-2xl border border-white/20"
+            className="bg-gradient-to-br from-white via-blue-50/50 to-amber-50/50 backdrop-blur-md rounded-xl sm:rounded-2xl max-w-2xl w-full mx-2 sm:mx-4 p-3 sm:p-4 md:p-6 relative animate-scale-up shadow-2xl border border-white/20 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button 
               onClick={handleCloseBeginnerGuide}
-              className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition-all duration-300 z-10 bg-white/80 backdrop-blur-sm rounded-full p-1.5 shadow-lg hover:shadow-xl hover:scale-110"
+              className="absolute top-2 right-2 sm:top-3 sm:right-3 text-gray-400 hover:text-red-500 transition-all duration-300 z-10 bg-white/80 backdrop-blur-sm rounded-full p-1 sm:p-1.5 shadow-lg hover:shadow-xl hover:scale-110"
               aria-label="Close"
             >
-              <X size={18} />
+              <X size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
             
-            <div className="text-center mb-4">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-3 shadow-lg">
-                <Lightbulb className="text-white" size={28} />
+            <div className="text-center mb-4 sm:mb-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-2 sm:mb-3 shadow-lg">
+                <Lightbulb className="text-white" size={20} />
               </div>
-              <h2 className="text-xl md:text-2xl font-serif font-bold bg-gradient-to-r from-navy-900 via-blue-800 to-purple-700 bg-clip-text text-transparent mb-2">
-                New to Coffee? ☕
+              <h2 className="text-lg sm:text-xl md:text-2xl font-serif font-bold bg-gradient-to-r from-navy-900 via-blue-800 to-purple-700 bg-clip-text text-transparent mb-1 sm:mb-2">
+                Coffee Learning Center ☕
               </h2>
-              <p className="text-gray-600 text-sm">
-                Let us guide you to the perfect starting point.
+              <p className="text-gray-600 text-xs sm:text-sm">
+                Don't know where to start? Here's a quick guide to help you choose coffee.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 border-l-4 border-amber-400 p-4 rounded-lg mb-4 shadow-inner relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-100/30 to-orange-100/30 rounded-lg"></div>
-              <div className="relative flex items-start">
-                <Coffee className="text-amber-600 mt-1 mr-3 flex-shrink-0" size={20} />
-                <div>
-                  <h3 className="font-bold text-amber-900 mb-2 text-sm flex items-center">
-                    🌟 Perfect for Beginners
-                    <span className="ml-2 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs px-2 py-1 rounded-full shadow-sm">
-                      RECOMMENDED
-                    </span>
-                  </h3>
-                  <p className="text-amber-800 mb-2 text-sm">
-                    We recommend <strong>Medium Light Roast</strong> - the perfect starting point!
-                  </p>
-                  <ul className="text-xs text-amber-700 space-y-1 mb-3">
-                    <li>✓ Balanced - not too mild, not too strong</li>
-                    <li>✓ Smooth with subtle complexity</li>
-                    <li>✓ Great for all brewing methods</li>
-                  </ul>
+            {/* Roast Preference Slider - Mobile Optimized */}
+            <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border border-blue-200 rounded-lg p-3 sm:p-4 mb-3 sm:mb-4">
+              <h3 className="font-bold text-blue-900 mb-2 sm:mb-3 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                <span>🎯 Roast Preference Guide</span>
+                <span className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs px-2 py-1 rounded-full shadow-sm self-start sm:self-auto">
+                  INTERACTIVE
+                </span>
+              </h3>
+              
+              <div className="mb-3 sm:mb-4">
+                <div className="flex justify-between text-xs text-blue-700 mb-2">
+                  <span className="text-xs">Light</span>
+                  <span className="font-bold text-emerald-600 text-xs">⭐ BEGINNER</span>
+                  <span className="text-xs">Dark</span>
                 </div>
+                
+                <div className="relative">
+                  <div className="w-full h-2 bg-gradient-to-r from-yellow-200 via-orange-400 to-gray-800 rounded-full"></div>
+                  <div className="absolute top-0 left-1/3 w-1/3 h-2 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full opacity-80"></div>
+                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-emerald-500 border-2 border-white rounded-full shadow-lg"></div>
+                </div>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 mt-2 sm:mt-3 text-xs">
+                  <div className="text-center">
+                    <div className="font-medium text-yellow-700">Light</div>
+                  </div>
+                  <div className="text-center bg-emerald-100 rounded-lg p-1 sm:p-2 border border-emerald-300">
+                    <div className="font-bold text-emerald-800">Medium Light ⭐</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-medium text-amber-700">Medium Dark</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-medium text-gray-700">Dark</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-2 sm:p-3">
+                <p className="text-emerald-800 text-xs sm:text-sm font-medium">
+                  ✨ <strong>Perfect Starting Point:</strong> Medium Light Roast offers the best balance. It's loved by 80% of new coffee drinkers!
+                </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-2 mb-4">
+            {/* Equipment Education - Mobile Optimized */}
+            <div className="bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 border border-orange-200 rounded-lg p-3 sm:p-4 mb-3 sm:mb-4">
+              <h3 className="font-bold text-orange-900 mb-2 sm:mb-3 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                <span>⚙️ Equipment & Brewing</span>
+                <span className="bg-gradient-to-r from-orange-500 to-amber-600 text-white text-xs px-2 py-1 rounded-full shadow-sm self-start sm:self-auto">
+                  IMPORTANT
+                </span>
+              </h3>
+              
+              <div className="bg-red-50 border border-red-200 rounded-lg p-2 sm:p-3 mb-2 sm:mb-3">
+                <p className="text-red-800 text-xs sm:text-sm font-medium flex items-start">
+                  <span className="text-red-500 mr-1 sm:mr-2 text-sm sm:text-lg">⚠️</span>
+                  <span><strong>Not Instant Coffee:</strong> Our coffee requires brewing equipment. Not instant/soluble coffee.</span>
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-2 sm:mb-3">
+                <div className="text-center bg-white rounded-lg p-2 sm:p-3 border border-orange-100">
+                  <div className="text-lg sm:text-2xl mb-1">☕</div>
+                  <div className="font-bold text-orange-800 text-xs">French Press</div>
+                  <div className="text-orange-600 text-xs hidden sm:block">Easy & Forgiving</div>
+                  <div className="text-green-600 text-xs font-medium">⭐ Best for Beginners</div>
+                </div>
+                <div className="text-center bg-white rounded-lg p-2 sm:p-3 border border-orange-100">
+                  <div className="text-lg sm:text-2xl mb-1">🫖</div>
+                  <div className="font-bold text-orange-800 text-xs">Moka Pot</div>
+                  <div className="text-orange-600 text-xs hidden sm:block">Strong & Rich</div>
+                  <div className="text-blue-600 text-xs font-medium">Intermediate</div>
+                </div>
+                <div className="text-center bg-white rounded-lg p-2 sm:p-3 border border-orange-100">
+                  <div className="text-lg sm:text-2xl mb-1">⏳</div>
+                  <div className="font-bold text-orange-800 text-xs">Pour Over</div>
+                  <div className="text-orange-600 text-xs hidden sm:block">Clean & Bright</div>
+                  <div className="text-purple-600 text-xs font-medium">Advanced</div>
+                </div>
+              </div>
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 sm:p-3">
+                <p className="text-blue-800 text-xs sm:text-sm">
+                  📚 <strong>Want to learn more?</strong> Visit our <a href="/blog" className="text-blue-600 hover:text-blue-800 underline font-medium transition-colors">Blog Section</a> for brewing guides and equipment reviews!
+                </p>
+              </div>
+            </div>
+
+            {/* Recommendation Button - Mobile Optimized */}
+            <div className="mb-3 sm:mb-4">
               <button 
-                onClick={() => handleBeginnerRoastSelect('light-roast')}
-                className="bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 text-white p-3 rounded-lg hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group"
+                onClick={() => handleBeginnerRoastSelect('medium-light-roast')}
+                className="w-full bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-600 text-white p-3 sm:p-4 rounded-lg hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="text-center relative z-10">
-                  <div className="text-2xl mb-1">🌟</div>
-                  <div className="font-bold text-lg">Start with Medium Light Roast!</div>
-                  <div className="text-xs mt-1 bg-white/20 rounded-full px-2 py-1">Most Popular Choice</div>
+                  <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">🌟</div>
+                  <div className="font-bold text-sm sm:text-lg">Start Your Coffee Journey!</div>
+                  <div className="text-xs sm:text-sm opacity-90 mb-1">Browse Medium Light Roast Collection</div>
+                  <div className="text-xs bg-white/20 rounded-full px-2 sm:px-3 py-1 inline-block">Perfect for Beginners</div>
                 </div>
               </button>
             </div>
 
-            <div className="text-center bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg p-3">
+            <div className="text-center">
               <button 
                 onClick={handleCloseBeginnerGuide}
-                className="text-gray-600 hover:text-blue-700 text-sm font-medium transition-all duration-300 px-4 py-2 hover:bg-white/60 rounded-lg border border-gray-200 hover:border-blue-300"
+                className="group relative inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-medium text-gray-700 bg-gradient-to-r from-gray-50 via-white to-gray-50 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:border-indigo-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:via-blue-50 hover:to-indigo-50 hover:text-indigo-700 transform hover:-translate-y-0.5 active:translate-y-0"
               >
-                I'll browse all categories myself
+                <span className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                <span className="relative flex items-center space-x-1 sm:space-x-2">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <span>I'll explore all categories myself</span>
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
               </button>
             </div>
           </div>
@@ -322,7 +399,7 @@ const Products: React.FC = () => {
               </div>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {displayProducts.map((product, index) => (
                 <ProductCard 
                   key={product.id} 

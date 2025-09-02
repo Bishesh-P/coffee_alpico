@@ -24,8 +24,8 @@ export interface ProductVariant {
   originalPrice?: number; // For showing crossed-out original price
   image: string;
   details: {
+    weight: string,
     volume: string;
-    weight: string;
   };
   inStock?: boolean;
 }
@@ -52,6 +52,17 @@ export interface Product {
     origin: string;
     roastLevel: string;
     flavorNotes: string[];
+    weight: string;
+  } | {
+    material: string;
+    capacity: string;
+    features: string[];
+    weight: string;
+    
+  } | {
+    fabric: string;
+    sizes: string;
+    features: string[];
     weight: string;
   };
   variants?: ProductVariant[];

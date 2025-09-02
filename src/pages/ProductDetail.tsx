@@ -196,27 +196,46 @@ const ProductDetail: React.FC = () => {
             
             {/* Product Specs */}
             <div className="bg-blue-50 p-4 rounded-lg mb-6">
-              <h3 className="font-bold text-navy-900 mb-3">
-                {product.category === 'equipment' ? 'Equipment Details:' : 'Coffee Details:'}
+                            <h3 className="text-lg font-semibold text-blue-900 mb-3 border-b border-blue-200 pb-2">
+                {product.category === 'equipment' ? 'Equipment Details:' : 
+                 product.category === 'merch' ? 'Product Details:' : 'Coffee Details:'}
               </h3>
               <ul className="space-y-2">
                 <li className="flex items-start">
                   <span className="font-medium text-blue-800 w-32">
-                    {product.category === 'equipment' ? 'Material:' : 'Origin:'}
+                    {product.category === 'equipment' ? 'Material:' : 
+                     (product.details as any).origin ? 'Origin:' :
+                     (product.details as any).material ? 'Material:' :
+                     (product.details as any).fabric ? 'Fabric:' : 'Material:'}
                   </span> 
-                  <span>{product.details.origin}</span>
+                  <span>
+                    {(product.details as any).origin || 
+                     (product.details as any).material || 
+                     (product.details as any).fabric || 'N/A'}
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-medium text-blue-800 w-32">
-                    {product.category === 'equipment' ? 'Type:' : 'Roast Level:'}
+                    {product.category === 'equipment' ? 'Type:' : 
+                     (product.details as any).roastLevel ? 'Roast Level:' :
+                     (product.details as any).capacity ? 'Capacity:' :
+                     (product.details as any).sizes ? 'Sizes:' : 'Type:'}
                   </span> 
-                  <span>{product.details.roastLevel}</span>
+                  <span>
+                    {(product.details as any).roastLevel || 
+                     (product.details as any).capacity || 
+                     (product.details as any).sizes || 'N/A'}
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-medium text-blue-800 w-32">
-                    {product.category === 'equipment' ? 'Features:' : 'Flavor Notes:'}
+                    {product.category === 'equipment' ? 'Features:' : 
+                     (product.details as any).flavorNotes ? 'Flavor Notes:' :
+                     (product.details as any).features ? 'Features:' : 'Features:'}
                   </span> 
-                  <span>{product.details.flavorNotes.join(', ')}</span>
+                  <span>
+                    {((product.details as any).flavorNotes || (product.details as any).features || []).join(', ') || 'N/A'}
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-medium text-blue-800 w-32">Weight:</span> 
