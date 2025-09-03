@@ -34,6 +34,33 @@ const ProductDetail: React.FC = () => {
   const currentImage = selectedVariant ? selectedVariant.image : product?.image || '';
   const isOutOfStock = product?.inStock === false || (selectedVariant && selectedVariant.inStock === false);
 
+  // Function to get appropriate text based on product category
+  const getProductBenefit = (category: string, type: 'quality' | 'source' | 'shipping') => {
+    const isCoffee = category.includes('roast') || category.includes('coffee');
+    
+    switch (type) {
+      case 'quality':
+        if (category === 'equipment') return 'Quality assured';
+        if (category === 'merch') return 'Premium quality';
+        if (category === 'combo-offers') return 'Bundle savings';
+        if (isCoffee) return 'Roasted to order';
+        return 'Premium quality';
+        
+      case 'source':
+        if (category === 'equipment') return 'Warranty included';
+        if (category === 'merch') return 'Authentic design';
+        if (category === 'combo-offers') return 'Complete package';
+        if (isCoffee) return 'Sustainably sourced';
+        return 'Quality materials';
+        
+      case 'shipping':
+        return 'Fast shipping';
+        
+      default:
+        return '';
+    }
+  };
+
   const handleAddToCart = () => {
     if (product) {
       addToCart(product, quantity, undefined, selectedVariant);
@@ -230,11 +257,15 @@ const ProductDetail: React.FC = () => {
                 <li className="flex items-start">
                   <span className="font-medium text-blue-800 w-32">
                     {product.category === 'equipment' ? 'Features:' : 
-                     (product.details as any).flavorNotes ? 'Flavor Notes:' :
+                     (product.details as any).processing ? 'Processing:' :
                      (product.details as any).features ? 'Features:' : 'Features:'}
                   </span> 
                   <span>
-                    {((product.details as any).flavorNotes || (product.details as any).features || []).join(', ') || 'N/A'}
+                    {((product.details as any).processing 
+                      ? (product.details as any).processing 
+                      : Array.isArray((product.details as any).features) 
+                        ? (product.details as any).features.join(', ') 
+                        : (product.details as any).features || 'N/A')}
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -243,12 +274,16 @@ const ProductDetail: React.FC = () => {
                     {selectedVariant ? selectedVariant.details.weight : product.details.weight}
                   </span>
                 </li>
-                {selectedVariant && (
-                  <li className="flex items-start">
-                    <span className="font-medium text-blue-800 w-32">Volume:</span> 
-                    <span>{selectedVariant.details.volume}</span>
-                  </li>
-                )}
+                <li className="flex items-start">
+                  <span className="font-medium text-blue-800 w-32">
+                    {product.category.includes('roast') || product.category.includes('coffee') ? 'Altitude:' : 'Volume:'}
+                  </span> 
+                  <span>
+                    {product.category.includes('roast') || product.category.includes('coffee')
+                      ? (product.details as any).altitude || 'N/A'
+                      : (selectedVariant ? selectedVariant.details.volume : (product as any).details?.volume) || 'N/A'}
+                  </span>
+                </li>
               </ul>
             </div>
 
@@ -289,18 +324,20 @@ const ProductDetail: React.FC = () => {
                 <div className="flex items-center">
                   <Coffee className="text-navy-700 mr-2" size={20} />
                   <span className="text-sm">
-                    {product.category === 'equipment' ? 'Quality assured' : 'Roasted to order'}
+                    {getProductBenefit(product.category, 'quality')}
                   </span>
                 </div>
                 <div className="flex items-center">
                   <PackageCheck className="text-navy-700 mr-2" size={20} />
                   <span className="text-sm">
-                    {product.category === 'equipment' ? 'Warranty included' : 'Sustainably sourced'}
+                    {getProductBenefit(product.category, 'source')}
                   </span>
                 </div>
                 <div className="flex items-center">
                   <Truck className="text-navy-700 mr-2" size={20} />
-                  <span className="text-sm">Fast shipping</span>
+                  <span className="text-sm">
+                    {getProductBenefit(product.category, 'shipping')}
+                  </span>
                 </div>
               </div>
             </div>

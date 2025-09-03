@@ -7,6 +7,7 @@ import CartSummary from '../components/cart/CartSummary';
 import Button from '../components/common/Button';
 import type { CheckoutStep, PaymentPlatformInfo, MachineType } from '../types';
 import { CustomerInfoManager } from '../utils/customerInfo';
+import { getVariantInfo } from '../utils/variantUtils';
 
 const paymentPlatforms: readonly PaymentPlatformInfo[] = [
   {
@@ -470,7 +471,8 @@ const Checkout: React.FC = () => {
         name: item.product.name,
         price: item.selectedVariant?.price || item.product.price,
         quantity: item.quantity,
-        machine: item.machine || null
+        machine: item.machine || null,
+        variant: item.selectedVariant ? getVariantInfo(item.selectedVariant) : null
       })),
       created_at: new Date().toISOString()
       

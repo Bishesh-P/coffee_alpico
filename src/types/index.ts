@@ -51,7 +51,8 @@ export interface Product {
   details: {
     origin: string;
     roastLevel: string;
-    flavorNotes: string[];
+  processing: string;
+  altitude: string;
     weight: string;
   } | {
     material: string;

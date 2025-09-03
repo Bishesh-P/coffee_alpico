@@ -69,6 +69,13 @@ export const PRODUCT_LABELS = {
     color: 'text-white',
     bgColor: 'bg-gradient-to-r from-indigo-500 to-purple-600',
     borderColor: 'border-indigo-400'
+  } as ProductLabel,
+  
+  BEGINNER_FRIENDLY: {
+    text: 'BEGINNER FRIENDLY',
+    color: 'text-white',
+    bgColor: 'bg-gradient-to-r from-emerald-500 to-green-600',
+    borderColor: 'border-emerald-400'
   } as ProductLabel
 } as const;
 

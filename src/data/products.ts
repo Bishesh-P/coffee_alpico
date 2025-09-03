@@ -53,20 +53,24 @@ const STOCK_CONFIG = {
     102: true, // French Press Coffee Maker ⚙️
     103: true, // Pour Over V60 Dripper ⚙️
     104: true, // Coffee Server Kettle ⚙️
-    105: true, // Burr Coffee Grinder ⚙️
+    105: true, // Hand Coffee Grinder ⚙️
     106: true, // AeroPress Coffee Maker ⚙️
-    107: true, // Chemex Classic Coffee Maker ⚙️
     108: true, // Digital Coffee Scale ⚙️
-    109: true, // Cold Brew Coffee Maker ⚙️
-    110: true, // Espresso Tamper ⚙️
     111: true, // Black Moka Pot ⚙️
     112: true, // Stainless Steel French Press ⚙️
+    113: true, // Milk Frother ⚙️
+    114: true, // Coffee Pitcher ⚙️
+    115: true, // V60 Filter Papers ⚙️
+    116: true, // Drip Coffee Maker Machine ⚙️
+    117: true, // Gooseneck Kettle ⚙️
     
     // 🎽 MERCHANDISE
     201: true, // Alpico Coffee Mug 🎽
     202: false, // Alpico Travel Tumbler ❌ OUT OF STOCK
     209: false, // Alpico Coffee Notebook ❌ OUT OF STOCK
     210: true, // Alpico Coffee Stickers Pack 🎽
+    211: false, // Alpico Coffee T-Shirt ❌ OUT OF STOCK
+    212: true, // Alpico Coffee Keychain 🎽
     
     // 🎁 COMBO OFFERS
     301: true, // French Press + Coffee Combo 🎁
@@ -74,6 +78,7 @@ const STOCK_CONFIG = {
     303: true, // Complete Coffee Starter Kit 🎁
     304: true, // Pour Over + Coffee Bundle 🎁
     305: true, // Coffee Lover's Premium Pack 🎁
+    306: true, // Moka Pot + Coffee Combo 🎁
   } as Record<number, boolean>,
   
   // 🎨 INDIVIDUAL VARIANT STOCK STATUS (Sizes, Colors, etc.)
@@ -88,7 +93,7 @@ const STOCK_CONFIG = {
     "drip-light-10pcs": true,     // 10pc Drip Bags ☕
     "ground-light-250g": true,    // 250g Ground Coffee ☕
     "ground-light-500g": true,    // 500g Ground Coffee ☕
-    "ground-light-1kg": false,    // 1kg Ground Coffee ❌ OUT OF STOCK
+  "ground-light-1kg": true,    // 1kg Ground Coffee ☕
     
     // ☀️ Light Roast Variants (New products)
     "whole-pure-light-250g": true,  // 250g Whole Beans ☕
@@ -123,12 +128,12 @@ const STOCK_CONFIG = {
     // ⚙️ EQUIPMENT VARIANTS - SIZES & MATERIALS
     "moka-aluminum-3cup": true,   // Aluminum 3-Cup Moka ⚙️
     "moka-aluminum-6cup": true,   // Aluminum 6-Cup Moka ⚙️
-    "moka-aluminum-9cup": false,  // Aluminum 9-Cup Moka ❌ OUT OF STOCK
+  "moka-aluminum-9cup": true,  // Aluminum 9-Cup Moka ⚙️
     "moka-steel-2cup": true,      // Steel 2-Cup Moka ⚙️
     "moka-steel-4cup": true,      // Steel 4-Cup Moka ⚙️
-    "moka-steel-6cup": false,     // Steel 6-Cup Moka ❌ OUT OF STOCK
+  "moka-steel-6cup": true,     // Steel 6-Cup Moka ⚙️
     "fp-350ml": true,             // 350ml French Press ⚙️
-    "fp-600ml": false,            // 600ml French Press ❌ OUT OF STOCK
+  "fp-600ml": true,            // 600ml French Press ⚙️
     "fp-800ml": true,             // 800ml French Press ⚙️
     "fp-1000ml": true,            // 1000ml French Press ⚙️
     
@@ -207,11 +212,11 @@ export const products: Product[] = [
     category: "medium-light-roast",
     featured: true,
     inStock: getProductStock(1),
-    label: PRODUCT_LABELS.BESTSELLER,
     details: {
       origin: "Palpa",
       roastLevel: "Light",
-      flavorNotes: ["Jasmine", "Lemon", "Bergamot"],
+      processing: "Washed",
+      altitude: "1200-1500m",
       weight: "Varies by size"
     },
     variants: [
@@ -259,10 +264,12 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-light-roast",
     featured: false,
+    inStock: getProductStock(2),
     details: {
       origin: "Palpa",
       roastLevel: "Light",
-      flavorNotes: ["Citrus", "Honey", "Green Apple"],
+      processing: "Washed",
+      altitude: "1200-1500m",
       weight: "Varies by pack size"
     },
     variants: [
@@ -299,10 +306,12 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-light-roast",
     featured: false,
+    inStock: getProductStock(3),
     details: {
       origin: "Palpa",
       roastLevel: "Medium light",
-      flavorNotes: ["Orange", "Vanilla", "Honey"],
+      processing: "Washed",
+      altitude: "1200-1500m",
       weight: "Varies by size"
     },
     variants: [
@@ -337,7 +346,7 @@ export const products: Product[] = [
           weight: "1kg",
           volume: "50-60 cups"
         },
-        inStock: false
+  inStock: true
       }
     ],
     // promoCodes removed for global promo
@@ -355,7 +364,8 @@ export const products: Product[] = [
     details: {
       origin: "Ethiopia, Colombia",
       roastLevel: "Medium Dark",
-      flavorNotes: ["Chocolate", "Berry", "Caramel"],
+      processing: "Washed & Natural Blend",
+      altitude: "1500-2100m",
       weight: "Varies by size"
     },
     variants: [
@@ -403,11 +413,12 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-roast",
     featured: false,
-    inStock: false,
+  inStock: true,
     details: {
       origin: "Guatemala",
       roastLevel: "Medium Dark",
-      flavorNotes: ["Chocolate", "Spice", "Apple"],
+      processing: "Washed",
+      altitude: "1400-1800m",
       weight: "Varies by size"
     },
     variants: [
@@ -420,7 +431,7 @@ export const products: Product[] = [
           weight: "250g",
           volume: "12-15 cups"
         },
-        inStock: false
+  inStock: true
       },
       {
         id: "ground-medium-500g",
@@ -431,7 +442,7 @@ export const products: Product[] = [
           weight: "500g",
           volume: "25-30 cups"
         },
-        inStock: false
+  inStock: true
       },
       {
         id: "ground-medium-1kg",
@@ -442,7 +453,7 @@ export const products: Product[] = [
           weight: "1kg",
           volume: "50-60 cups"
         },
-        inStock: false
+  inStock: true
       }
     ],
     // promoCodes removed for global promo
@@ -458,7 +469,8 @@ export const products: Product[] = [
     details: {
       origin: "Peru",
       roastLevel: "Medium Dark",
-      flavorNotes: ["Caramel", "Almond", "Citrus"],
+      processing: "Washed",
+      altitude: "1200-1800m",
       weight: "Varies by pack size"
     },
     variants: [
@@ -497,11 +509,12 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "dark-roast",
     featured: true,
-    inStock: false,
+  inStock: true,
     details: {
       origin: "Sumatra",
       roastLevel: "Dark",
-      flavorNotes: ["Cedar", "Dark Chocolate", "Spice"],
+      processing: "Wet Hulled",
+      altitude: "900-1500m",
       weight: "Varies by size"
     },
     variants: [
@@ -514,7 +527,7 @@ export const products: Product[] = [
           weight: "250g",
           volume: "12-15 cups"
         },
-        inStock: false
+  inStock: true
       },
       {
         id: "whole-dark-500g",
@@ -525,7 +538,7 @@ export const products: Product[] = [
           weight: "500g",
           volume: "25-30 cups"
         },
-        inStock: false
+  inStock: true
       },
       {
         id: "whole-dark-1kg",
@@ -552,10 +565,11 @@ export const products: Product[] = [
     details: {
       origin: "French Roast Blend",
       roastLevel: "Dark",
-      flavorNotes: ["Smoky", "Bold", "Rich Body"],
+      processing: "Various",
+      altitude: "1200-2000m",
       weight: "Varies by size"
     },
-    variants: [
+  variants: [
       {
         id: "ground-dark-250g",
         name: "250g",
@@ -565,7 +579,7 @@ export const products: Product[] = [
           weight: "250g",
           volume: "12-15 cups"
         },
-        inStock: true
+    inStock: true
       },
       {
         id: "ground-dark-500g",
@@ -576,7 +590,7 @@ export const products: Product[] = [
           weight: "500g",
           volume: "25-30 cups"
         },
-        inStock: true
+    inStock: true
       },
       {
         id: "ground-dark-1kg",
@@ -587,7 +601,7 @@ export const products: Product[] = [
           weight: "1kg",
           volume: "50-60 cups"
         },
-        inStock: true
+    inStock: true
       }
     ],
     // promoCodes removed for global promo
@@ -603,7 +617,8 @@ export const products: Product[] = [
     details: {
       origin: "Italian Roast Blend",
       roastLevel: "Dark",
-      flavorNotes: ["Intense", "Oily", "Espresso Perfect"],
+      processing: "Various",
+      altitude: "1200-2000m",
       weight: "Varies by pack size"
     },
     variants: [
@@ -643,11 +658,11 @@ export const products: Product[] = [
     category: "light-roast",
     featured: true,
     inStock: getProductStock(31),
-    label: PRODUCT_LABELS.NEW_ARRIVAL,
     details: {
       origin: "Palpa",
       roastLevel: "Light",
-      flavorNotes: ["Floral", "Bright Acidity", "Citrus Zest"],
+      processing: "Washed",
+      altitude: "1200-1500m",
       weight: "Varies by size"
     },
     variants: [
@@ -699,7 +714,8 @@ export const products: Product[] = [
     details: {
       origin: "Palpa",
       roastLevel: "Light",
-      flavorNotes: ["Floral", "Bright Acidity", "Tea-like"],
+      processing: "Washed",
+      altitude: "1200-1500m",
       weight: "Varies by pack size"
     },
     variants: [
@@ -740,7 +756,8 @@ export const products: Product[] = [
     details: {
       origin: "Palpa",
       roastLevel: "Light",
-      flavorNotes: ["Bright Acidity", "Floral", "Clean Finish"],
+      processing: "Washed",
+      altitude: "1200-1500m",
       weight: "Varies by size"
     },
     variants: [
@@ -1084,17 +1101,17 @@ export const products: Product[] = [
   },
   {
     id: 105,
-    name: "Burr Coffee Grinder",
-    price: 15399,
-    description: "Professional conical burr grinder with 40 precise grind settings for every brewing method. Features large 250g bean hopper with UV-protective lid and built-in timer for consistent grinding.",
+    name: "Hand Coffee Grinder",
+    price: 2499,
+    description: "Manual ceramic burr hand grinder with adjustable grind settings for consistent coffee grounds. Portable design perfect for travel, camping, or home use. Features durable ceramic burrs and ergonomic handle for easy grinding.",
     image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: true,
     details: {
-      material: "Conical Burr Steel",
-      capacity: "250g Bean Hopper",
-      features: ["40 Grind Settings", "UV-Protective Lid", "Timer Function"],
-      weight: "3.85kg"
+      material: "Ceramic Burr",
+      capacity: "30g Bean Capacity",
+      features: ["Adjustable Grind Settings", "Portable Design", "Ceramic Burrs"],
+      weight: "450g"
     },
     variants: [],
     // promoCodes removed for global promo
@@ -1117,23 +1134,6 @@ export const products: Product[] = [
     // promoCodes removed for global promo
   },
   {
-    id: 107,
-    name: "Chemex Classic Coffee Maker",
-    price: 5599,
-    description: "Iconic hourglass-shaped pour-over brewer made from non-porous borosilicate glass. Features wood collar and leather tie for comfortable handling. Thick proprietary filters produce remarkably clean and bright coffee.",
-    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "equipment",
-    featured: false,
-    details: {
-      material: "Borosilicate Glass",
-      capacity: "6-Cup",
-      features: ["Wood Collar", "Leather Tie", "Thick Filters"],
-      weight: "815g"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
     id: 108,
     name: "Digital Coffee Scale",
     price: 3399,
@@ -1151,35 +1151,87 @@ export const products: Product[] = [
     // promoCodes removed for global promo
   },
   {
-    id: 109,
-    name: "Cold Brew Coffee Maker",
-    price: 4699,
-    description: "Large capacity cold brew maker with ultra-fine mesh filter for smooth, low-acid coffee concentrate. The 2-liter borosilicate glass carafe allows for 12-24 hour steeping to reduce acidity by up to 70%.",
-    image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "equipment",
-    featured: false,
-    details: {
-      material: "Borosilicate Glass",
-      capacity: "2L",
-      features: ["Fine Mesh Filter", "Airtight Lid", "12-24 Hour Steeping"],
-      weight: "1.27kg"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
-    id: 110,
-    name: "Espresso Tamper",
-    price: 2599,
-    description: "Professional-grade stainless steel tamper with ergonomic wooden handle for comfortable, consistent tamping. Features precision-machined 58mm base and weighted design for optimal pressure distribution.",
+    id: 113,
+    name: "Milk Frother",
+    price: 1899,
+    description: "Electric milk frother for creating perfect foam for lattes and cappuccinos. Features multiple speed settings and easy-to-clean stainless steel whisk. Perfect for home baristas.",
     image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
     details: {
       material: "Stainless Steel",
-      capacity: "58mm Base",
-      features: ["Ergonomic Handle", "Professional Grade", "Weighted Design"],
-      weight: "450g"
+      capacity: "150ml",
+      features: ["Multiple Speed Settings", "Easy Clean", "Compact Design"],
+      weight: "200g"
+    },
+    variants: [],
+    // promoCodes removed for global promo
+  },
+  {
+    id: 114,
+    name: "Coffee Pitcher",
+    price: 1599,
+    description: "Stainless steel coffee pitcher with precision spout for latte art and serving. Perfect for steamed milk and coffee serving. Professional barista quality.",
+    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "equipment",
+    featured: false,
+    details: {
+      material: "Stainless Steel",
+      capacity: "350ml",
+      features: ["Precision Spout", "Latte Art Design", "Professional Quality"],
+      weight: "300g"
+    },
+    variants: [],
+    // promoCodes removed for global promo
+  },
+  {
+    id: 115,
+    name: "V60 Filter Papers",
+    price: 399,
+    description: "Premium paper filters specifically designed for V60 pour-over brewing. Pack of 100 high-quality filters for consistent extraction and clean cup profiles.",
+    image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "equipment",
+    featured: false,
+    details: {
+      material: "Paper",
+      capacity: "100 Filters",
+      features: ["Pour-Over Optimized", "Clean Extraction", "High Quality"],
+      weight: "50g"
+    },
+    variants: [],
+    // promoCodes removed for global promo
+  },
+  {
+    id: 116,
+    name: "Drip Coffee Maker Machine",
+    price: 8999,
+    description: "Automatic drip coffee maker with programmable timer and thermal carafe. Brews 10-12 cups of coffee with consistent temperature control and even saturation.",
+    image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "equipment",
+    featured: true,
+    details: {
+      material: "Stainless Steel",
+      capacity: "10-12 Cups",
+      features: ["Programmable Timer", "Thermal Carafe", "Temperature Control"],
+      weight: "2.5kg"
+    },
+    variants: [],
+    // promoCodes removed for global promo
+  },
+  {
+    id: 117,
+    name: "Gooseneck Kettle",
+    price: 4999,
+    description: "Precision pour-over kettle with elegant gooseneck spout for controlled water flow. Perfect for pour-over coffee brewing with temperature gauge and comfortable handle. Essential tool for manual brewing methods.",
+    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "equipment",
+    featured: true,
+    inStock: getProductStock(117),
+    details: {
+      material: "Stainless Steel",
+      capacity: "1L",
+      features: ["Gooseneck Spout", "Temperature Gauge", "Ergonomic Handle"],
+      weight: "800g"
     },
     variants: [],
     // promoCodes removed for global promo
@@ -1188,7 +1240,7 @@ export const products: Product[] = [
   // Merchandise
   {
     id: 201,
-    name: "Alpico Coffee Mug - Classic White",
+    name: "Alpico Coffee Mug ",
     price: 350, // Base price for white
     description: "Premium ceramic coffee mug with the Alpico logo. Perfect for your daily coffee ritual. Dishwasher and microwave safe. Available in multiple colors.",
     image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -1318,6 +1370,75 @@ export const products: Product[] = [
     variants: [],
     // promoCodes removed for global promo
   },
+  {
+    id: 211,
+    name: "Alpico Coffee T-Shirt",
+    price: 1299,
+    description: "Premium quality cotton t-shirt with stylish Alpico Coffee logo in classic black. Comfortable fit and durable print. Available in multiple sizes. Perfect for coffee enthusiasts.",
+    image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "merch",
+    featured: true,
+    inStock: getProductStock(211),
+    details: {
+      material: "100% Cotton",
+      capacity: "Multiple Sizes",
+      features: ["Premium Quality", "Durable Print", "Comfortable Fit"],
+      weight: "200g"
+    },
+    variants: [
+      {
+        id: "tshirt-black-s",
+        name: "Black - Small",
+        price: 1299,
+        image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          weight: "200g",
+          volume: "Small"
+        },
+        inStock: false
+      },
+      {
+        id: "tshirt-black-m",
+        name: "Black - Medium",
+        price: 1299,
+        image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          weight: "200g",
+          volume: "Medium"
+        },
+        inStock: false
+      },
+      {
+        id: "tshirt-black-l",
+        name: "Black - Large",
+        price: 1299,
+        image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          weight: "200g",
+          volume: "Large"
+        },
+        inStock: false
+      }
+    ],
+    // promoCodes removed for global promo
+  },
+  {
+    id: 212,
+    name: "Alpico Coffee Keychain",
+    price: 299,
+    description: "Metal keychain with elegant Alpico Coffee logo design. Durable and stylish accessory for coffee lovers. Perfect gift item or personal accessory.",
+    image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "merch",
+    featured: false,
+    details: {
+      material: "Metal",
+      capacity: "Single Item",
+      features: ["Durable Design", "Logo Design", "Compact Size"],
+      weight: "15g"
+    },
+    variants: [],
+    // promoCodes removed for global promo
+  },
 
   // 🎁 COMBO OFFERS - Special Bundle Deals
   {
@@ -1331,9 +1452,9 @@ export const products: Product[] = [
     inStock: getProductStock(301),
     label: PRODUCT_LABELS.HOT_DEAL,
     details: {
-      origin: "Combo Bundle",
-      roastLevel: "Complete Kit",
-      flavorNotes: ["French Press Included", "500g Ground Coffee", "Perfect for Beginners"],
+      material: "Bundle",
+      capacity: "Complete Kit",
+      features: ["French Press Included", "500g Ground Coffee", "Perfect for Beginners"],
       weight: "French Press + 500g Coffee"
     },
     variants: []
@@ -1349,9 +1470,9 @@ export const products: Product[] = [
     inStock: getProductStock(302),
     label: PRODUCT_LABELS.LIMITED_EDITION,
     details: {
-      origin: "Combo Bundle",
-      roastLevel: "Free Mug Included",
-      flavorNotes: ["500g Premium Coffee", "Free Ceramic Mug", "Perfect Gift Set"],
+      material: "Bundle",
+      capacity: "Free Mug Included",
+      features: ["500g Premium Coffee", "Free Ceramic Mug", "Perfect Gift Set"],
       weight: "500g Coffee + Mug"
     },
     variants: [
@@ -1391,20 +1512,20 @@ export const products: Product[] = [
     ]
   },
   {
-    id: 303,
-    name: "Complete Coffee Starter Kit",
-    price: 6500, // Great value bundle
-    description: "Everything a coffee enthusiast needs! This comprehensive starter kit includes Pour Over V60 Dripper, 1kg premium coffee beans, Alpico mug, and coffee filters. Perfect for gifting or starting your coffee journey. Save NPR 500!",
-    image: "https://images.pexels.com/photos/4226764/pexels-photo-4226764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    id: 306,
+    name: "Moka Pot + Coffee Combo",
+    price: 3299, // Discounted combo price
+    description: "Authentic Italian coffee experience! Includes our premium Classic Moka Pot with 500g of specially selected medium roast ground coffee perfect for moka brewing. Experience the rich, bold flavor of traditional Italian coffee at home. Save NPR 200!",
+    image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
-    inStock: getProductStock(303),
-    label: PRODUCT_LABELS.MUST_HAVE,
+    inStock: getProductStock(306),
+    label: PRODUCT_LABELS.HOT_DEAL,
     details: {
-      origin: "Complete Bundle",
-      roastLevel: "Everything Included",
-      flavorNotes: ["Pour Over Dripper", "1kg Coffee Beans", "Mug & Filters"],
-      weight: "Complete Kit"
+      material: "Bundle",
+      capacity: "Italian Style",
+      features: ["Moka Pot Included", "500g Ground Coffee", "Authentic Italian Experience"],
+      weight: "Moka Pot + 500g Coffee"
     },
     variants: []
   },
@@ -1418,9 +1539,9 @@ export const products: Product[] = [
     featured: true,
     inStock: getProductStock(304),
     details: {
-      origin: "Specialty Bundle",
-      roastLevel: "Light Roast Optimized",
-      flavorNotes: ["V60 Dripper Included", "Light Roast Coffee", "Perfect for Pour Over"],
+      material: "Bundle",
+      capacity: "Light Roast Optimized",
+      features: ["V60 Dripper Included", "Light Roast Coffee", "Perfect for Pour Over"],
       weight: "Pour Over Kit + 500g"
     },
     variants: []
@@ -1436,10 +1557,28 @@ export const products: Product[] = [
     inStock: getProductStock(305),
     label: PRODUCT_LABELS.PREMIUM,
     details: {
-      origin: "Premium Bundle",
-      roastLevel: "Professional Grade",
-      flavorNotes: ["Burr Grinder", "French Press", "Whole Bean Coffee"],
+      material: "Bundle",
+      capacity: "Professional Grade",
+      features: ["Burr Grinder", "French Press", "Whole Bean Coffee"],
       weight: "Full Kit + 1kg Coffee"
+    },
+    variants: []
+  },
+  {
+    id: 303,
+    name: "Complete Coffee Starter Kit",
+    price: 6500, // Great value bundle
+    description: "Everything a coffee enthusiast needs! This comprehensive starter kit includes Pour Over V60 Dripper, 1kg premium coffee beans, Alpico mug, and coffee filters. Perfect for gifting or starting your coffee journey. Save NPR 500!",
+    image: "https://images.pexels.com/photos/4226764/pexels-photo-4226764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "combo-offers",
+    featured: true,
+    inStock: getProductStock(303),
+    label: PRODUCT_LABELS.MUST_HAVE,
+    details: {
+      material: "Bundle",
+      capacity: "Everything Included",
+      features: ["Pour Over Dripper", "1kg Coffee Beans", "Mug & Filters"],
+      weight: "Complete Kit"
     },
     variants: []
   }
