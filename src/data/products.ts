@@ -51,22 +51,22 @@ const STOCK_CONFIG = {
     // ⚙️ COFFEE EQUIPMENT
     101: true, // Classic Moka Pot ⚙️
     102: true, // French Press Coffee Maker ⚙️
-    103: true, // Pour Over V60 Dripper ⚙️
-    104: true, // Coffee Server Kettle ⚙️
-    105: true, // Hand Coffee Grinder ⚙️
-    106: true, // AeroPress Coffee Maker ⚙️
-    108: true, // Digital Coffee Scale ⚙️
+    103: true, // Professional Filtercone Pour Over Dripper ⚙️
+    104: true, // V60 Coffee Server ⚙️
+    105: true, // Ceramic Burr Hand Coffee Grinder ⚙️
+    106: true, // AeroPress Coffee and Espresso Maker ⚙️
+    108: true, // Digital Coffee Scale with Timer ⚙️
     111: true, // Black Moka Pot ⚙️
     112: true, // Stainless Steel French Press ⚙️
-    113: true, // Milk Frother ⚙️
-    114: true, // Coffee Pitcher ⚙️
-    115: true, // V60 Filter Papers ⚙️
+    113: false, // Electric Handheld Milk Frother ❌ OUT OF STOCK
+    114: true, // Stainless Steel Frothing Pitcher ⚙️
+    115: true, // V60 Coffee Filter (2-4 cups) ⚙️
     116: true, // Drip Coffee Maker Machine ⚙️
-    117: true, // Gooseneck Kettle ⚙️
+    117: true, // Gooseneck Kettle with Thermometer ⚙️
     
     // 🎽 MERCHANDISE
     201: true, // Alpico Coffee Mug 🎽
-    202: false, // Alpico Travel Tumbler ❌ OUT OF STOCK
+    202: false, // Temperature Display Coffee Cup ❌ OUT OF STOCK
     209: false, // Alpico Coffee Notebook ❌ OUT OF STOCK
     210: true, // Alpico Coffee Stickers Pack 🎽
     211: false, // Alpico Coffee T-Shirt ❌ OUT OF STOCK
@@ -88,40 +88,32 @@ const STOCK_CONFIG = {
     // 🌟 Medium Light Roast Variants (Original products)
     "whole-light-250g": true,     // 250g Whole Beans ☕
     "whole-light-500g": true,     // 500g Whole Beans ☕
-    "whole-light-1kg": true,      // 1kg Whole Beans ☕
     "drip-light-5pcs": true,      // 5pc Drip Bags ☕
     "drip-light-10pcs": true,     // 10pc Drip Bags ☕
     "ground-light-250g": true,    // 250g Ground Coffee ☕
     "ground-light-500g": true,    // 500g Ground Coffee ☕
-  "ground-light-1kg": true,    // 1kg Ground Coffee ☕
     
     // ☀️ Light Roast Variants (New products)
     "whole-pure-light-250g": true,  // 250g Whole Beans ☕
     "whole-pure-light-500g": true,  // 500g Whole Beans ☕
-    "whole-pure-light-1kg": true,   // 1kg Whole Beans ☕
     "drip-pure-light-5pcs": true,   // 5pc Drip Bags ☕
     "drip-pure-light-10pcs": true,  // 10pc Drip Bags ☕
     "ground-pure-light-250g": true, // 250g Ground Coffee ☕
     "ground-pure-light-500g": true, // 500g Ground Coffee ☕
-    "ground-pure-light-1kg": true,  // 1kg Ground Coffee ☕
     
     // 🔥 Medium Roast Variants  
     "whole-medium-250g": true,    // 250g Whole Beans ☕
     "whole-medium-500g": true,    // 500g Whole Beans ☕
-    "whole-medium-1kg": true,     // 1kg Whole Beans ☕
     "ground-medium-250g": true,   // 250g Ground Coffee ☕
     "ground-medium-500g": true,   // 500g Ground Coffee ☕
-    "ground-medium-1kg": true,    // 1kg Ground Coffee ☕
     "drip-medium-5pcs": true,     // 5pc Drip Bags ☕
     "drip-medium-10pcs": true,    // 10pc Drip Bags ☕
     
     // 🌑 Dark Roast Variants
     "whole-dark-250g": true,      // 250g Whole Beans ☕
     "whole-dark-500g": true,      // 500g Whole Beans ☕
-    "whole-dark-1kg": true,       // 1kg Whole Beans ☕
     "ground-dark-250g": true,     // 250g Ground Coffee ☕
     "ground-dark-500g": true,     // 500g Ground Coffee ☕
-    "ground-dark-1kg": true,      // 1kg Ground Coffee ☕
     "drip-dark-5pcs": true,       // 5pc Drip Bags ☕
     "drip-dark-10pcs": true,      // 10pc Drip Bags ☕
     
@@ -134,29 +126,34 @@ const STOCK_CONFIG = {
   "moka-steel-6cup": true,     // Steel 6-Cup Moka ⚙️
     "fp-350ml": true,             // 350ml French Press ⚙️
   "fp-600ml": true,            // 600ml French Press ⚙️
-    "fp-800ml": true,             // 800ml French Press ⚙️
+    "fp-800ml": false,            // 800ml French Press ❌ OUT OF STOCK
     "fp-1000ml": true,            // 1000ml French Press ⚙️
     
     // � MERCHANDISE VARIANTS - COLORS
     "mug-white": true,            // White Mug 🎽
     "mug-black": true,            // Black Mug 🎽
-    "tumbler-steel": true,        // Steel Tumbler 🎽
-    "tumbler-black": true,        // Black Tumbler 🎽
-    "tumbler-blue": true,         // Blue Tumbler 🎽
+    "tumbler-black": true,        // Black Temperature Display Cup 🎽
+    "tumbler-white": true,        // White Temperature Display Cup 🎽
+    "tumbler-pink": true,         // Pink Temperature Display Cup 🎽
     "cap-navy": true,             // Navy Cap 🎽
     "cap-black": true,            // Black Cap 🎽
     "cap-khaki": false,           // Khaki Cap ❌ OUT OF STOCK
     
     // ⚫ Black Moka Pot Variants
-    "moka-black-3cup": true,      // Black 3-Cup Moka ⚙️
-    "moka-black-6cup": true,      // Black 6-Cup Moka ⚙️
-    "moka-black-9cup": true,      // Black 9-Cup Moka ⚙️
+  "moka-black-3cup": false,     // Black 3-Cup Moka ❌ OUT OF STOCK
+  "moka-black-6cup": true,      // Black 6-Cup Moka ⚙️
+  "moka-black-9cup": false,     // Black 9-Cup Moka ❌ OUT OF STOCK
     
     // 🔩 Stainless Steel French Press Variants
-    "fpss-350ml": true,           // 350ml Steel French Press ⚙️
-    "fpss-600ml": true,           // 600ml Steel French Press ⚙️
-    "fpss-800ml": true,           // 800ml Steel French Press ⚙️
-    "fpss-1000ml": true,          // 1000ml Steel French Press ⚙️
+  "fpss-350ml": true,           // 350ml Steel French Press ⚙️
+  "fpss-600ml": true,           // 600ml Steel French Press ⚙️
+  "fpss-800ml": true,           // 800ml Steel French Press ⚙️
+  "fpss-1000ml": true,          // 1000ml Steel French Press ⚙️
+    
+    // 🥛 Stainless Steel Frothing Pitcher Variants
+  "pitcher-350ml": true,        // 350ml Frothing Pitcher ⚙️
+  "pitcher-600ml": true,        // 600ml Frothing Pitcher ⚙️
+  "pitcher-1000ml": true,       // 1000ml Frothing Pitcher ⚙️
     
     // 🎁 COMBO VARIANTS
     "combo-light-mug": true,      // Light Roast + Free Mug 🎁
@@ -200,13 +197,14 @@ const getVariantStock = (variantId: string): boolean => {
 // };
 
 // ===== END STOCK MANAGEMENT =====
+//different roast coffee details , combo offers, SEO and home page section
 
 export const products: Product[] = [
   // Light Roast Coffee
   {
     id: 1,
     name: "Whole Coffee Beans - Medium Light Roast",
-    price: 1050, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "Premium single-origin Nepal coffee. Our Medium light roast Arabica beans are perfect for pour-over brewing methods. Available in multiple sizes for coffee enthusiasts.",
     image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-light-roast",
@@ -223,7 +221,7 @@ export const products: Product[] = [
       {
         id: "whole-light-250g",
         name: "250g",
-        price: 1050,
+        price: 899,
         image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
@@ -234,24 +232,13 @@ export const products: Product[] = [
       {
         id: "whole-light-500g",
         name: "500g",
-        price: 1999,
+        price: 1560,
         image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
         },
         inStock: getVariantStock("whole-light-500g")
-      },
-      {
-        id: "whole-light-1kg",
-        name: "1kg",
-        price: 3699,
-        image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
-        },
-        inStock: getVariantStock("whole-light-1kg")
       }
     ],
     // promoCodes removed for global promo
@@ -301,7 +288,7 @@ export const products: Product[] = [
   {
     id: 3,
     name: "Ground Coffee - Medium Light Roast",
-    price: 850, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "Pre-ground Nepal coffee beans featuring clean, bright light roast with notes of orange, vanilla, and honey from Nepal's renowned coffee growing regions. Ready-to-brew ground coffee for convenience and exceptional flavor.",
     image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-light-roast",
@@ -318,7 +305,7 @@ export const products: Product[] = [
       {
         id: "ground-light-250g",
         name: "250g",
-        price: 850,
+        price: 899,
         image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
@@ -329,34 +316,21 @@ export const products: Product[] = [
       {
         id: "ground-light-500g",
         name: "500g",
-        price: 1599,
+        price: 1560,
         image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
         },
         inStock: true
-      },
-      {
-        id: "ground-light-1kg",
-        name: "1kg",
-        price: 2999,
-        image: "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
-        },
-  inStock: true
       }
     ],
     // promoCodes removed for global promo
-  },
-
-  // Medium Roast Coffee
+  },  // Medium Roast Coffee
   {
     id: 11,
     name: "Whole Coffee Beans - Espresso Blend",
-    price: 1799, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "Our premium espresso blend coffee beans combine carefully selected Arabica from Ethiopia and Colombia for rich, balanced flavor with notes of chocolate and berry. Perfect for espresso machines and coffee enthusiasts. Available in multiple sizes.",
     image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-roast",
@@ -372,7 +346,7 @@ export const products: Product[] = [
       {
         id: "whole-medium-250g",
         name: "250g",
-        price: 1799,
+        price: 899,
         image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
@@ -383,22 +357,11 @@ export const products: Product[] = [
       {
         id: "whole-medium-500g",
         name: "500g",
-        price: 3399,
+        price: 1560,
         image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
-        },
-        inStock: true
-      },
-      {
-        id: "whole-medium-1kg",
-        name: "1kg",
-        price: 6299,
-        image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
         },
         inStock: true
       }
@@ -408,12 +371,12 @@ export const products: Product[] = [
   {
     id: 12,
     name: "Ground Coffee - Medium Dark Roast",
-    price: 1899, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "A smooth, complex medium roast with notes of chocolate, spice, and subtle fruit from the volcanic soils of Antigua. Pre-ground for convenience.",
     image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-roast",
     featured: false,
-  inStock: true,
+    inStock: true,
     details: {
       origin: "Guatemala",
       roastLevel: "Medium Dark",
@@ -425,35 +388,24 @@ export const products: Product[] = [
       {
         id: "ground-medium-250g",
         name: "250g",
-        price: 1899,
+        price: 899,
         image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
           volume: "12-15 cups"
         },
-  inStock: true
+        inStock: true
       },
       {
         id: "ground-medium-500g",
         name: "500g",
-        price: 3599,
+        price: 1560,
         image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
         },
-  inStock: true
-      },
-      {
-        id: "ground-medium-1kg",
-        name: "1kg",
-        price: 6699,
-        image: "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
-        },
-  inStock: true
+        inStock: true
       }
     ],
     // promoCodes removed for global promo
@@ -504,12 +456,12 @@ export const products: Product[] = [
   {
     id: 21,
     name: "Whole Coffee Beans - Dark Roast",
-    price: 1849, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "A bold, earthy dark roast with low acidity and notes of cedar, spice, and dark chocolate. Available in multiple sizes.",
     image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "dark-roast",
     featured: true,
-  inStock: true,
+    inStock: true,
     details: {
       origin: "Sumatra",
       roastLevel: "Dark",
@@ -521,33 +473,22 @@ export const products: Product[] = [
       {
         id: "whole-dark-250g",
         name: "250g",
-        price: 1849,
+        price: 899,
         image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
           volume: "12-15 cups"
         },
-  inStock: true
+        inStock: true
       },
       {
         id: "whole-dark-500g",
         name: "500g",
-        price: 3499,
+        price: 1560,
         image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
-        },
-  inStock: true
-      },
-      {
-        id: "whole-dark-1kg",
-        name: "1kg",
-        price: 6499,
-        image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
         },
         inStock: true
       }
@@ -557,7 +498,7 @@ export const products: Product[] = [
   {
     id: 22,
     name: "Ground Coffee - French Roast",
-    price: 1649, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "A bold, intense dark roast with smoky notes and rich body. Perfect for those who love strong coffee. Pre-ground for convenience.",
     image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "dark-roast",
@@ -569,39 +510,28 @@ export const products: Product[] = [
       altitude: "1200-2000m",
       weight: "Varies by size"
     },
-  variants: [
+    variants: [
       {
         id: "ground-dark-250g",
         name: "250g",
-        price: 1649,
+        price: 899,
         image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
           volume: "12-15 cups"
         },
-    inStock: true
+        inStock: true
       },
       {
         id: "ground-dark-500g",
         name: "500g",
-        price: 3099,
+        price: 1560,
         image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
         },
-    inStock: true
-      },
-      {
-        id: "ground-dark-1kg",
-        name: "1kg",
-        price: 5799,
-        image: "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
-        },
-    inStock: true
+        inStock: true
       }
     ],
     // promoCodes removed for global promo
@@ -652,7 +582,7 @@ export const products: Product[] = [
   {
     id: 31,
     name: "Whole Coffee Beans - Light Roast",
-    price: 999, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "Premium single-origin Nepal coffee with delicate, bright flavors featuring subtle floral notes and crisp acidity. Our pure light roast preserves the coffee's origin characteristics with minimal roasting for maximum brightness. Perfect for pour-over and filter brewing methods.",
     image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "light-roast",
@@ -669,7 +599,7 @@ export const products: Product[] = [
       {
         id: "whole-pure-light-250g",
         name: "250g",
-        price: 999,
+        price: 899,
         image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
@@ -680,24 +610,13 @@ export const products: Product[] = [
       {
         id: "whole-pure-light-500g",
         name: "500g",
-        price: 1899,
+        price: 1560,
         image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
         },
         inStock: getVariantStock("whole-pure-light-500g")
-      },
-      {
-        id: "whole-pure-light-1kg",
-        name: "1kg",
-        price: 3499,
-        image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
-        },
-        inStock: getVariantStock("whole-pure-light-1kg")
       }
     ],
     // promoCodes removed for global promo
@@ -747,7 +666,7 @@ export const products: Product[] = [
   {
     id: 33,
     name: "Ground Coffee - Light Roast",
-    price: 799, // Base price for 250g
+    price: 899, // Base price for 250g
     description: "Pre-ground Nepal coffee beans featuring delicate light roast with bright acidity and floral characteristics. Our lightest roast level preserves the coffee's natural brightness and origin flavors. Ready-to-brew ground coffee for filter and pour-over methods.",
     image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "light-roast",
@@ -764,7 +683,7 @@ export const products: Product[] = [
       {
         id: "ground-pure-light-250g",
         name: "250g",
-        price: 799,
+        price: 899,
         image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "250g",
@@ -775,24 +694,13 @@ export const products: Product[] = [
       {
         id: "ground-pure-light-500g",
         name: "500g",
-        price: 1499,
+        price: 1560,
         image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g",
           volume: "25-30 cups"
         },
         inStock: getVariantStock("ground-pure-light-500g")
-      },
-      {
-        id: "ground-pure-light-1kg",
-        name: "1kg",
-        price: 2799,
-        image: "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "1kg",
-          volume: "50-60 cups"
-        },
-        inStock: getVariantStock("ground-pure-light-1kg")
       }
     ],
     // promoCodes removed for global promo
@@ -825,7 +733,7 @@ export const products: Product[] = [
           volume: "150ml",
           weight: "400g"
         },
-        inStock: true
+        inStock: getVariantStock("moka-black-3cup")
       },
       {
         id: "moka-black-6cup",
@@ -836,7 +744,7 @@ export const products: Product[] = [
           volume: "300ml",
           weight: "550g"
         },
-        inStock: true
+        inStock: getVariantStock("moka-black-6cup")
       },
       {
         id: "moka-black-9cup",
@@ -847,7 +755,7 @@ export const products: Product[] = [
           volume: "450ml",
           weight: "650g"
         },
-        inStock: true
+        inStock: getVariantStock("moka-black-9cup")
       }
     ],
     // promoCodes removed for global promo
@@ -876,7 +784,7 @@ export const products: Product[] = [
           volume: "-",
           weight: '-'
         },
-        inStock: true
+        inStock: getVariantStock("moka-aluminum-3cup")
       },
       {
         id: "moka-aluminum-6cup",
@@ -887,7 +795,7 @@ export const products: Product[] = [
           volume: "-",
           weight: "-"
         },
-        inStock: true
+        inStock: getVariantStock("moka-aluminum-6cup")
       },
       {
         id: "moka-aluminum-9cup",
@@ -898,7 +806,7 @@ export const products: Product[] = [
           volume: "-",
           weight: "-"
         },
-        inStock: true
+        inStock: getVariantStock("moka-aluminum-9cup")
       },
       {
         id: "moka-steel-2cup",
@@ -909,7 +817,7 @@ export const products: Product[] = [
           volume: "-",
           weight: "-"
         },
-        inStock: true
+        inStock: getVariantStock("moka-steel-2cup")
       },
       {
         id: "moka-steel-4cup",
@@ -920,7 +828,7 @@ export const products: Product[] = [
           volume: "-",
           weight: "-"
         },
-        inStock: true
+        inStock: getVariantStock("moka-steel-4cup")
       },
       {
         id: "moka-steel-6cup",
@@ -931,7 +839,7 @@ export const products: Product[] = [
           volume: "-",
           weight: "-"
         },
-        inStock: true
+        inStock: getVariantStock("moka-steel-6cup")
       }
     ],
     // promoCodes removed for global promo
@@ -961,7 +869,7 @@ export const products: Product[] = [
           volume: "350ml",
           weight: "650g"
         },
-        inStock: true
+        inStock: getVariantStock("fp-350ml")
       },
       {
         id: "fp-600ml",
@@ -972,7 +880,7 @@ export const products: Product[] = [
           volume: "600ml",
           weight: "750g"
         },
-        inStock: false
+        inStock: getVariantStock("fp-600ml")
       },
       {
         id: "fp-800ml",
@@ -983,7 +891,7 @@ export const products: Product[] = [
           volume: "800ml",
           weight: "850g"
         },
-        inStock: true
+        inStock: getVariantStock("fp-800ml")
       },
       {
         id: "fp-1000ml",
@@ -994,7 +902,7 @@ export const products: Product[] = [
           volume: "1000ml",
           weight: "950g"
         },
-        inStock: true
+        inStock: getVariantStock("fp-1000ml")
       }
     ],
     // promoCodes removed for global promo
@@ -1003,16 +911,16 @@ export const products: Product[] = [
     id: 112,
     name: "Stainless Steel French Press",
     price: 3499, // Base price for 350ml steel
-    description: "Premium double-wall stainless steel French press with superior heat retention and durability. Features professional-grade mesh filter and ergonomic handle. Perfect for camping, office, or home use with unbreakable construction.",
+    description: "Premium stainless steel French press with superior heat retention and durability. Features professional-grade mesh filter and quality handle. Perfect for camping, office, or home use with unbreakable construction. The body wall is a borosillicate glass core wrapped in stainless steel for the best of both worlds.",
     image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: true,
     inStock: getProductStock(112),
     label: PRODUCT_LABELS.PREMIUM,
     details: {
-      material: "Stainless Steel",
+      material: "Stainless Steel and Borosillicate Glass",
       capacity: "Multiple sizes",
-      features: ["Double-Wall Insulation", "Unbreakable", "Premium Filter"],
+      features: ["Borosillicate glass body", "Better Look", "Premium Filter"],
       weight: "Varies by size"
     },
     variants: [
@@ -1025,7 +933,7 @@ export const products: Product[] = [
           volume: "350ml",
           weight: "750g"
         },
-        inStock: true
+        inStock: getVariantStock("fpss-350ml")
       },
       {
         id: "fpss-600ml",
@@ -1036,7 +944,7 @@ export const products: Product[] = [
           volume: "600ml",
           weight: "850g"
         },
-        inStock: true
+        inStock: getVariantStock("fpss-600ml")
       },
       {
         id: "fpss-800ml",
@@ -1047,7 +955,7 @@ export const products: Product[] = [
           volume: "800ml",
           weight: "950g"
         },
-        inStock: true
+        inStock: getVariantStock("fpss-800ml")
       },
       {
         id: "fpss-1000ml",
@@ -1058,145 +966,181 @@ export const products: Product[] = [
           volume: "1000ml",
           weight: "1050g"
         },
-        inStock: true
+        inStock: getVariantStock("fpss-1000ml")
       }
     ],
     // promoCodes removed for global promo
   },
   {
     id: 103,
-    name: "Pour Over V60 Dripper",
-    price: 2999,
-    description: "Premium ceramic V60 dripper with signature spiral ridges for optimal water flow and consistent extraction. Made from high-quality ceramic that retains heat during brewing. Includes 40 premium paper filters to get you started.",
+    name: "Professional Filtercone Pour Over Dripper",
+    price: 1300,
+    description: "Professional AS resin filtercone with eco-friendly design for 2-4 servings. Features curved swirl design to improve coffee flow and prevent water stagnation in coffee bed. Large opening in base maintains proper flow rate. Produces clean cupping coffee without over-extraction bitterness. Widely used by coffee professionals and aficionados. Box includes: 1x Filtercone, 1x Scoop Spoon & 1x Reusable Cotton Filter.",
     image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
     inStock: getProductStock(103),
     label: PRODUCT_LABELS.NEW_ARRIVAL,
     details: {
-      material: "Ceramic",
-      capacity: "Size 02",
-      features: ["Spiral Ridges Design", "Includes 40 Filters", "Heat Retention"],
-      weight: "360g"
+      material: "AS Resin",
+      capacity: "2-4 Servings",
+      features: ["Eco-Friendly", "Curved Swirl Design", "Includes Scoop Spoon", "Reusable Cotton Filter"],
+      weight: "320g"
     },
     variants: [],
     // promoCodes removed for global promo
   },
   {
     id: 104,
-    name: "Coffee Server Kettle",
-    price: 9199,
-    description: "Professional precision pour kettle with digital temperature control and elegant gooseneck spout. Features adjustable temperature settings with ±1°C accuracy and built-in timer function.",
+    name: "V60 Coffee Server",
+    price: 1799,
+    description: "500ml heat-proof glass server designed specifically for V60 Coffee Drippers. Features tapered design that keeps coffee warm longer by reducing surface area and makes pouring more spill-proof. Comes with glass lid and silicone seal - the lid doubles as a dripper stand. Made from heat-resistant glass that's microwaveable and easy to clean. Perfect 4-cup size with flexibility to work with other V60 products.",
     image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
+    inStock: getProductStock(104),
     details: {
-      material: "Stainless Steel",
-      capacity: "1L",
-      features: ["Temperature Control", "Digital Display", "Gooseneck Spout"],
-      weight: "1.45kg"
+      material: "Heat-Resistant Glass",
+      capacity: "500ml (4-Cup)",
+      features: ["Glass Lid & Silicone Seal", "Tapered Design", "Spill-Proof"],
+      weight: "350g"
     },
     variants: [],
     // promoCodes removed for global promo
   },
   {
     id: 105,
-    name: "Hand Coffee Grinder",
-    price: 2499,
-    description: "Manual ceramic burr hand grinder with adjustable grind settings for consistent coffee grounds. Portable design perfect for travel, camping, or home use. Features durable ceramic burrs and ergonomic handle for easy grinding.",
+    name: "Ceramic Burr Hand Coffee Grinder",
+    price: 3699,
+    description: "Premium ceramic burr hand grinder that preserves pure coffee flavor without heat or rust. Adjustable settings for all brewing methods - Pour-over, French press, Espresso. Features stainless steel hand crank, detachable glass container, and super quiet operation. Perfect for home and travel with silicone lid and rubber base. Includes exquisite coffee spoon as free gift.",
     image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: true,
     details: {
-      material: "Ceramic Burr",
+      material: "Ceramic Burr + Stainless Steel",
       capacity: "30g Bean Capacity",
-      features: ["Adjustable Grind Settings", "Portable Design", "Ceramic Burrs"],
-      weight: "450g"
+      features: ["Adjustable Grind Settings", "Super Quiet Mode", "Detachable Glass Container", "Includes Coffee Spoon"],
+      weight: "-"
     },
     variants: [],
     // promoCodes removed for global promo
   },
   {
     id: 106,
-    name: "AeroPress Coffee Maker",
-    price: 4099,
-    description: "Revolutionary brewing device that combines immersion and pressure for exceptionally smooth coffee in under a minute. Includes 350 micro-filters, measuring scoop, and stirrer. Perfect for travel, office, or home use.",
+    name: "AeroPress Coffee ",
+    price: 4499,
+    description: "Fast and convenient AeroPress makes one of the best cups of coffee you'll ever taste. Uses ideal water temperature (175°F) and gentle air pressure for rich flavor with lower acidity and no bitterness. Makes 1-4 cups in just 1 minute (20 seconds press time). Features micro-filter for grit-free coffee and total immersion brewing for uniform extraction. Perfect for espresso, Americano, or full cafe brewing.",
     image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
     details: {
       material: "BPA-Free Plastic",
-      capacity: "1-4 Cups",
-      features: ["Includes 350 Filters", "Travel Friendly", "Fast Brewing"],
-      weight: "500g"
+      capacity: "1-4 Cups (1-2 Mugs)",
+      features: ["MicroFilter Technology", "20s Press Time"],
+      weight: "-"
     },
     variants: [],
     // promoCodes removed for global promo
   },
   {
     id: 108,
-    name: "Digital Coffee Scale",
-    price: 3399,
-    description: "High-precision digital scale with built-in timer for perfect coffee-to-water ratios. Features 0.1g accuracy with 2kg capacity and large LCD display. Essential tool for consistent brewing results.",
+    name: "Digital Coffee Scale with Timer",
+    price: 2799,
+    description: "High-precision digital coffee scale with built-in cooking timer and green backlight LCD display. Features 0.1g accuracy with 3000g capacity, multiple units (g/oz/lb/ml), and silicone mat for stability. Includes tare function, auto power-off, and low battery indicator. Essential tool for perfect coffee-to-water ratios and consistent brewing results.",
     image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
     details: {
-      material: "Digital Display",
-      capacity: "2kg",
-      features: ["0.1g Precision", "Built-in Timer", "Auto-off Function"],
-      weight: "1kg"
+      material: "ABS Design with Silicone Mat",
+      capacity: "3000g (107oz)",
+      features: ["Cooking Timer", "Multiple Units", "Tare Function"],
+      weight: "-"
     },
     variants: [],
     // promoCodes removed for global promo
   },
   {
     id: 113,
-    name: "Milk Frother",
-    price: 1899,
-    description: "Electric milk frother for creating perfect foam for lattes and cappuccinos. Features multiple speed settings and easy-to-clean stainless steel whisk. Perfect for home baristas.",
+    name: "Electric Handheld Milk Frother",
+    price: 750,
+    description: "Simple 1-hand operation electric milk frother with results in 20-30 seconds. Creates cafe-quality froth for milk, coffee, and cappuccinos. Features stainless steel stirrer with plastic handle in black matte finish. Electronic mini blender perfect for mixing, egg beating, and frothing. Note: Designed for frothing and mixing only, not for vegetable pulping or chopping.",
     image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
     details: {
-      material: "Stainless Steel",
-      capacity: "150ml",
-      features: ["Multiple Speed Settings", "Easy Clean", "Compact Design"],
-      weight: "200g"
+      material: "Stainless Steel Stirrer + Plastic Handle",
+      capacity: "Handheld Design",
+      features: [ "1-Hand Operation", "Cafe Quality Froth"],
+      weight: "100g"
     },
     variants: [],
     // promoCodes removed for global promo
   },
   {
     id: 114,
-    name: "Coffee Pitcher",
-    price: 1599,
-    description: "Stainless steel coffee pitcher with precision spout for latte art and serving. Perfect for steamed milk and coffee serving. Professional barista quality.",
+    name: "Stainless Steel Frothing Pitcher",
+    price: 2499, // Base price for 350ml
+    description: "Professional stainless steel frothing pitcher designed for creating creamy espresso drinks, lattes, cappuccinos, and mochas. Made of pure stainless steel that resists corrosion with sturdy handle for easy pouring and gripping. Features molded spout for even milk stream pouring. Can be chilled before frothing for optimal results.",
     image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
+    inStock: getProductStock(114),
     details: {
-      material: "Stainless Steel",
-      capacity: "350ml",
-      features: ["Precision Spout", "Latte Art Design", "Professional Quality"],
-      weight: "300g"
+      material: "Pure Stainless Steel",
+      capacity: "Multiple Sizes",
+      features: ["Corrosion Resistant", "Molded Spout", "Chillable Design", "Sturdy Handle"],
+      weight: "Varies by size"
     },
-    variants: [],
+    variants: [
+      {
+        id: "pitcher-350ml",
+        name: "350ml",
+        price: 1699,
+        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          volume: "350ml",
+          weight: "300g"
+        },
+        inStock: getVariantStock("pitcher-350ml")
+      },
+      {
+        id: "pitcher-600ml",
+        name: "600ml",
+        price: 2099,
+        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          volume: "600ml",
+          weight: "450g"
+        },
+        inStock: getVariantStock("pitcher-600ml")
+      },
+      {
+        id: "pitcher-1000ml",
+        name: "1000ml",
+        price: 2499,
+        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          volume: "1000ml",
+          weight: "650g"
+        },
+        inStock: getVariantStock("pitcher-1000ml")
+      }
+    ],
     // promoCodes removed for global promo
   },
   {
     id: 115,
-    name: "V60 Filter Papers",
-    price: 399,
-    description: "Premium paper filters specifically designed for V60 pour-over brewing. Pack of 100 high-quality filters for consistent extraction and clean cup profiles.",
+    name: "V60 Coffee Filter (2-4 cups)",
+    price: 499,
+    description: "Premium cone-shaped paper filters specifically designed for V60 pour-over brewing for 2-4 cups. Pack of 40 high-quality filters in 1 set for consistent extraction and clean cup profiles. Perfect fit for V60 drippers and optimal water flow.",
     image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: false,
     details: {
       material: "Paper",
-      capacity: "100 Filters",
-      features: ["Pour-Over Optimized", "Clean Extraction", "High Quality"],
-      weight: "50g"
+      capacity: "2-4 cups",
+      features: ["Cone Shape", "40 pcs per set", "Clean Extraction"],
+      weight: "-"
     },
     variants: [],
     // promoCodes removed for global promo
@@ -1204,33 +1148,34 @@ export const products: Product[] = [
   {
     id: 116,
     name: "Drip Coffee Maker Machine",
-    price: 8999,
-    description: "Automatic drip coffee maker with programmable timer and thermal carafe. Brews 10-12 cups of coffee with consistent temperature control and even saturation.",
+    price: 7999,
+    description: "Easy-to-use automatic coffee maker that brews perfect coffee at the touch of a button. Simply add water and coffee grounds, press start, and enjoy fresh coffee in minutes. Features anti-drip function to prevent messy spills, programmable timer for wake-up coffee, and durable construction with stainless steel, plastic, and glass components. Perfect for busy mornings and office use.",
     image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: true,
+    inStock: getProductStock(116),
     details: {
-      material: "Stainless Steel",
+      material: "Stainless Steel/Plastic/Glass",
       capacity: "10-12 Cups",
-      features: ["Programmable Timer", "Thermal Carafe", "Temperature Control"],
-      weight: "2.5kg"
+      features: ["Programmable Timer", "800W Power", "Easy Operation"],
+      weight: "-"
     },
     variants: [],
     // promoCodes removed for global promo
   },
   {
     id: 117,
-    name: "Gooseneck Kettle",
+    name: "Gooseneck Kettle with Thermometer",
     price: 4999,
-    description: "Precision pour-over kettle with elegant gooseneck spout for controlled water flow. Perfect for pour-over coffee brewing with temperature gauge and comfortable handle. Essential tool for manual brewing methods.",
+    description: "Premium stainless steel gooseneck kettle with built-in thermometer for precise temperature control. The gooseneck spout provides perfect control for pouring hot water or coffee with slow, precise flow to extract maximum flavor. Features ergonomic handle for comfortable use and high-quality polished finish that's anti-rust and durable. Safe for all stove types including gas, electric, and induction.",
     image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
     featured: true,
     inStock: getProductStock(117),
     details: {
-      material: "Stainless Steel",
-      capacity: "1L",
-      features: ["Gooseneck Spout", "Temperature Gauge", "Ergonomic Handle"],
+      material: "High Quality Stainless Steel",
+      capacity: "Large Capacity",
+      features: ["Built-in Thermometer", "Gooseneck Spout", "All Stove Compatible"],
       weight: "800g"
     },
     variants: [],
@@ -1282,56 +1227,56 @@ export const products: Product[] = [
   },
   {
     id: 202,
-    name: "Alpico Travel Tumbler",
+    name: "Temperature Display Alpico Coffee Cup",
     price: 1299, // Discounted price
     originalPrice: 1599, // Original price to show discount
-    description: "Insulated stainless steel travel tumbler with Alpico branding. Keeps coffee hot for 6 hours and cold for 12 hours. Available in multiple colors.",
+    description: "Smart temperature display coffee cup with 380ml capacity. Made of 304 food grade stainless steel with excellent heat preservation. Features larger caliber for easy cleaning, lightweight portable design, and water-tight sealing technology.",
     image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "merch",
     featured: true,
     label: PRODUCT_LABELS.SALE,
     details: {
-      material: "Stainless Steel",
-      capacity: "500ml",
-      features: ["Double Wall Insulated", "Leak Proof Lid", "6hrs Hot/12hrs Cold"],
-      weight: "450g"
+      material: "304 Food Grade Stainless Steel",
+      capacity: "380ml",
+      features: ["Temperature Display", "Large Cup Mouth", "Lightweight & Portable", "Water Tight Seal"],
+      weight: "350g"
     },
     variants: [
       {
-        id: "tumbler-steel",
-        name: "Stainless Steel",
-        price: 1299,
-        originalPrice: 1599,
-        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "450g",
-          volume: "500ml"
-        },
-        inStock: true
-      },
-      {
         id: "tumbler-black",
-        name: "Matte Black",
+        name: "Black",
         price: 1299,
         originalPrice: 1599,
         image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
-          weight: "450g",
-          volume: "500ml"
+          weight: "350g",
+          volume: "380ml"
         },
-        inStock: true
+        inStock: getVariantStock("tumbler-black")
       },
       {
-        id: "tumbler-blue",
-        name: "Ocean Blue",
+        id: "tumbler-white",
+        name: "White",
+        price: 1299,
+        originalPrice: 1599,
+        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: {
+          weight: "350g",
+          volume: "380ml"
+        },
+        inStock: getVariantStock("tumbler-white")
+      },
+      {
+        id: "tumbler-pink",
+        name: "Pink",
         price: 1299,
         originalPrice: 1599,
         image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
-          weight: "450g",
-          volume: "500ml"
+          weight: "350g",
+          volume: "380ml"
         },
-        inStock: true
+        inStock: getVariantStock("tumbler-pink")
       }
     ],
     // promoCodes removed for global promo

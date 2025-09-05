@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Product, ProductVariant } from '../../types';
 import { ArrowRight, ShoppingBag } from 'lucide-react';
@@ -13,9 +13,21 @@ interface ProductCardProps {
 const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
   const { addToCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(
-    product.variants ? product.variants[0] : undefined
-  );
+  
+  // Find the first available variant, or fallback to first variant if none are available
+  const getDefaultVariant = useCallback(() => {
+    if (!product.variants || product.variants.length === 0) return undefined;
+    const availableVariant = product.variants.find(variant => variant.inStock !== false);
+    return availableVariant || product.variants[0];
+  }, [product.variants]);
+  
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(getDefaultVariant());
+
+  // Update selected variant when product changes to ensure we default to an available variant
+  useEffect(() => {
+    const defaultVariant = getDefaultVariant();
+    setSelectedVariant(defaultVariant);
+  }, [getDefaultVariant]);
 
   const currentPrice = selectedVariant ? selectedVariant.price : product.price;
   const currentImage = selectedVariant ? selectedVariant.image : product.image;
@@ -126,7 +138,6 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
                     } ${
                       variant.inStock === false ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
                     }`}
-                    disabled={variant.inStock === false}
                   >
                     <span className="block sm:hidden">{variant.name.split(' ')[0]}</span>
                     <span className="hidden sm:block">{variant.name}</span>
@@ -148,7 +159,6 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
                         ? 'opacity-50 cursor-not-allowed line-through' 
                         : 'cursor-pointer hover:scale-105'
                     }`}
-                    disabled={variant.inStock === false}
                   >
                     <span className="text-center leading-tight">
                       {/* Split variant name into adjective and size */}
