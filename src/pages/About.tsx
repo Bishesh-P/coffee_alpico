@@ -186,7 +186,7 @@ const About: React.FC = () => {
                   </h3>
                   <p className="text-gray-700 mb-4 leading-relaxed">
                     In the hills of Nepal, where the mountains touch the sky, our story begins. 
-                    While many left to work abroad, our founder Bishesh chose to stay and build something here. 
+                    While many left to work abroad, we chose to stay and build something here. 
                     That’s when he discovered the hidden strength of Nepali coffee. 
                     Our land can grow world-class beans but the journey was not easy.     
                   </p>
@@ -195,7 +195,7 @@ const About: React.FC = () => {
                       Farmers worked hard, yet many coffee companies struggled with quality and production.
                       Nepal still had to import coffee from outside and it wasn’t nearly as good as ours. 
                       To make it worse, the best Nepali beans were exported abroad, while people here were left with lower-quality coffee. 
-                      Bishesh knew this had to change.  
+                      We knew this had to change.  
                       That’s how Alpico Coffee began with a dream to bring the finest Nepali coffee back home. 
                     </p>
                     {/* <p className="text-gray-700 mb-4 leading-relaxed">
@@ -238,7 +238,7 @@ const About: React.FC = () => {
                     A Vision Born from Passion
                   </h3>
                   <p className="text-gray-700 mb-4 leading-relaxed">
-                    In 2024, armed with nothing but determination and a deep respect for coffee craftsmanship, Bishesh founded Alpico Coffee. The name itself reflects our connection to the mountains – "Alp" for the alpine heights where our coffee grows, and "ico" representing the iconic taste we strive to create.
+                    In 2024, armed with nothing but determination and a deep respect for coffee craftsmanship, We founded Alpico Coffee. The name itself reflects our connection to the mountains – "Alp" for the alpine heights where our coffee grows, and "ico" representing the iconic taste we strive to create.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
                     Our vision was simple yet ambitious: to create a bridge between Nepal's incredible coffee farmers and coffee lovers worldwide, ensuring that every cup tells the story of its origin while providing fair compensation to the hands that nurture each bean.
