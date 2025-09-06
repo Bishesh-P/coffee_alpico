@@ -41,7 +41,7 @@ const About: React.FC = () => {
     },
     {
       quote:
-        'Fantastic crema for espresso and a smooth finish. Customer support helped me pick the right grind—perfect experience.',
+        'Fantastic crema for espresso and a smooth finish. Customer support helped me pick the right grind perfect experience.',
       author: 'Sanjay T.',
       location: 'Delhi',
       rating: 5,
@@ -55,7 +55,7 @@ const About: React.FC = () => {
     },
     {
       quote:
-        'Great value for specialty quality. The notes of chocolate and citrus are consistent across bags—very impressed.',
+        'Great value for specialty quality. The notes of chocolate and citrus are consistent across bags very impressed.',
       author: 'Ravi S.',
       location: 'Hyderabad',
       rating: 4,

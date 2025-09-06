@@ -38,19 +38,19 @@ export const seoConfig = {
     },
     // make changes from here
     products: {
-      title: "Premium Coffee Beans & Equipment | Best Coffee Shop Nepal | Alpico Coffee",
-      description: "Browse Nepal's finest coffee collection - premium Arabica beans, light to dark roasts, and professional brewing equipment. Best coffee shop in Nepal with online delivery.",
+      title: "Best Coffee Beans & Equipment | Best Coffee in Nepal | Alpico Coffee",
+      description: "Browse Nepal's finest coffee collection - finest Arabica beans, light to dark roasts, and professional brewing equipment. Best coffee shop in Nepal with online delivery.",
       keywords: "coffee beans nepal, best coffee shop nepal, light roast coffee, medium roast coffee, dark roast coffee, coffee equipment nepal, french press nepal, moka pot nepal, alpico coffee nepal"
     },
     about: {
-      title: "About Us | Nepal's Premier Coffee Roaster | Best Coffee in Nepal | Alpico Coffee",
-      description: "Learn about Alpico Coffee, Nepal's leading specialty coffee roaster. Our journey from small roastery to Nepal's best coffee company sourcing premium beans from local farmers.",
-      keywords: "nepal coffee company, best coffee roaster nepal, specialty coffee nepal, nepal coffee story, sustainable coffee nepal, coffee farmers nepal, premium coffee nepal"
+      title: "About Us | Best Coffee in Nepal | Alpico Coffee",
+      description: "Learn about Alpico Coffee, Nepal's leading specialty coffee company. Our journey from small roastery to Nepal's best coffee company sourcing finest beans from local farmers.",
+      keywords: "nepali coffee, best coffee roaster nepal, specialty coffee nepal, nepal coffee story, sustainable coffee nepal, coffee farmers nepal, best coffee nepal"
     },
     contact: {
       title: "Contact Us | Alpico Coffee - Get in Touch",
       description: "Contact Alpico Coffee for questions, wholesale inquiries, or feedback. We are here to help you with all your coffee needs.",
-      keywords: "coffee roaster in Nepal, wholesale coffee in Nepal, coffee questions, coffee in Nepal"
+      keywords: "coffee roaster in Nepal, wholesale coffee in Nepal, coffee questions, coffee in Nepal, coffee for restaurants nepal,alpico coffee contact"
     },
     blog: {
       title: "Coffee Blog | Brewing Tips & Stories | Alpico Coffee",
@@ -62,14 +62,14 @@ export const seoConfig = {
   // Product categories for dynamic SEO
   productCategories: {
     "light-roast": {
-      title: "Light Roast Coffee Beans Nepal | Bright & Floral Coffee | Alpico Coffee",
+      title: "Light Roast Coffee Beans Nepal | Finest coffee in Nepal | Alpico Coffee",
       description: "Explore Nepal's finest light roast coffee beans with bright, floral notes and vibrant acidity. Perfect for pour-over brewing. Premium Arabica from local farms.",
-      keywords: "light roast coffee nepal, light roast coffee beans, pour over coffee nepal, bright coffee nepal, floral coffee, nepal arabica light roast"
+      keywords: "light roast coffee nepal, light roast coffee beans, pour over coffee nepal, bright coffee nepal, alpico coffee, nepal arabica light roast"
     },
     "medium-roast": {
       title: "Medium Roast Coffee Nepal | Balanced Espresso Beans | Alpico Coffee",
-      description: "Discover our premium medium roast coffee collection featuring balanced flavors with notes of chocolate, caramel, and fruit. Perfect espresso beans from Nepal.",
-      keywords: "medium roast coffee nepal, espresso beans nepal, balanced coffee, chocolate coffee notes, caramel coffee, nepal medium roast"
+      description: "Discover our finest medium roast coffee collection featuring balanced flavors. Perfect espresso beans from Nepal.",
+      keywords: "medium roast coffee nepal, espresso beans nepal, balanced coffee, alpico coffee, caramel coffee, nepal medium roast"
     },
     "dark-roast": {
       title: "Dark Roast Coffee Nepal | Bold & Rich Coffee Beans | Alpico Coffee",
@@ -91,8 +91,8 @@ export const seoConfig = {
 
 // Helper function to generate product-specific SEO
 export const generateProductSEO = (product: any) => ({
-  title: `${product.name} | ${product.category === 'equipment' ? 'Coffee Equipment' : 'Premium Coffee'} | Alpico Coffee`,
-  description: `${product.description} ${product.category === 'equipment' ? 'Coffee equipment' : 'Premium coffee beans'} from Alpico Coffee.`,
+  title: `${product.name} | ${product.category === 'equipment' ? 'Coffee Equipment' : 'Best Coffee in Nepal'} | Alpico Coffee`,
+  description: `${product.description} ${product.category === 'equipment' ? 'Coffee equipment' : 'Best coffee in Nepal'} from Alpico Coffee.`,
   keywords: `${product.name.toLowerCase()}, ${((product.details as any).origin || (product.details as any).material || (product.details as any).fabric || '').toLowerCase()}, ${(((product.details as any).processing ? (product.details as any).processing : (product.details as any).features) || '').toString().toLowerCase()}, ${product.category.replace('-', ' ')}`
 });
 

@@ -205,7 +205,7 @@ export const products: Product[] = [
     id: 1,
     name: "Whole Coffee Beans - Medium Light Roast",
     price: 899, // Base price for 250g
-    description: "Premium single-origin Nepal coffee. Our Medium light roast Arabica beans are perfect for pour-over brewing methods. Available in multiple sizes for coffee enthusiasts.",
+    description: "High quality single-origin Nepal coffee from Palpa. Our Medium light roast Arabica beans are perfect for pour-over brewing methods. Available in multiple sizes for coffee enthusiasts.",
     image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-light-roast",
     featured: true,
@@ -247,7 +247,7 @@ export const products: Product[] = [
     id: 2,
     name: "Drip Coffee Bags",
     price: 1500, // Base price for 10pcs
-    description: "Convenient single-serve drip coffee bags featuring Nepal's finest light roast with notes of citrus and honey. Perfect for morning brewing anywhere - ideal for office, travel, or home use. Premium quality instant drip coffee experience.",
+    description: "Convenient single-serve drip coffee bags featuring Nepal's finest light roast. Perfect for morning brewing anywhere - ideal for office, travel, or home use. High quality instant drip coffee experience.",
     image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-light-roast",
     featured: false,
@@ -289,7 +289,7 @@ export const products: Product[] = [
     id: 3,
     name: "Ground Coffee - Medium Light Roast",
     price: 899, // Base price for 250g
-    description: "Pre-ground Nepal coffee beans featuring clean, bright light roast with notes of orange, vanilla, and honey from Nepal's renowned coffee growing regions. Ready-to-brew ground coffee for convenience and exceptional flavor.",
+    description: "Pre-ground Nepal coffee beans featuring clean, bright light roast from Nepal's renowned coffee growing regions. Ready-to-brew ground coffee for convenience and exceptional flavor.",
     image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-light-roast",
     featured: false,
@@ -331,15 +331,15 @@ export const products: Product[] = [
     id: 11,
     name: "Whole Coffee Beans - Espresso Blend",
     price: 899, // Base price for 250g
-    description: "Our premium espresso blend coffee beans combine carefully selected Arabica from Ethiopia and Colombia for rich, balanced flavor with notes of chocolate and berry. Perfect for espresso machines and coffee enthusiasts. Available in multiple sizes.",
+    description: "Our best espresso blend coffee beans combine carefully selected Arabica from Kaski. Perfect for espresso machines and coffee enthusiasts. Available in multiple sizes.",
     image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-roast",
     featured: true,
     details: {
-      origin: "Ethiopia, Colombia",
+      origin: "Kaski",
       roastLevel: "Medium Dark",
-      processing: "Washed & Natural Blend",
-      altitude: "1500-2100m",
+      processing: "Natural",
+      altitude: "1250m",
       weight: "Varies by size"
     },
     variants: [
@@ -372,16 +372,16 @@ export const products: Product[] = [
     id: 12,
     name: "Ground Coffee - Medium Dark Roast",
     price: 899, // Base price for 250g
-    description: "A smooth, complex medium roast with notes of chocolate, spice, and subtle fruit from the volcanic soils of Antigua. Pre-ground for convenience.",
+    description: "A smooth, complex medium dark roast from the farm of Kaski at an altitude of 1250m. Pre-ground for convenience.",
     image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-roast",
     featured: false,
     inStock: true,
     details: {
-      origin: "Guatemala",
+      origin: "Kaski",
       roastLevel: "Medium Dark",
       processing: "Washed",
-      altitude: "1400-1800m",
+      altitude: "1250m",
       weight: "Varies by size"
     },
     variants: [
@@ -414,12 +414,12 @@ export const products: Product[] = [
     id: 13,
     name: "Drip Coffee Bags",
     price: 1849, // Base price for 10pcs
-    description: "Certified organic coffee with a balanced profile featuring notes of caramel, almond, and citrus. Convenient single-serve drip bags.",
+    description: "Certified organic coffee with a balanced profile featuring notes. Convenient single-serve drip bags. Perfect for home, office, or travel.",
     image: "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "medium-roast",
     featured: false,
     details: {
-      origin: "Peru",
+      origin: "Kaski",
       roastLevel: "Medium Dark",
       processing: "Washed",
       altitude: "1200-1800m",
@@ -504,9 +504,9 @@ export const products: Product[] = [
     category: "dark-roast",
     featured: false,
     details: {
-      origin: "French Roast Blend",
+      origin: "Sindhupalchok",
       roastLevel: "Dark",
-      processing: "Various",
+      processing: "Washed",
       altitude: "1200-2000m",
       weight: "Varies by size"
     },
@@ -545,9 +545,9 @@ export const products: Product[] = [
     category: "dark-roast",
     featured: false,
     details: {
-      origin: "Italian Roast Blend",
+      origin: "Sindhupalchok",
       roastLevel: "Dark",
-      processing: "Various",
+      processing: "Washed",
       altitude: "1200-2000m",
       weight: "Varies by pack size"
     },
@@ -583,7 +583,7 @@ export const products: Product[] = [
     id: 31,
     name: "Whole Coffee Beans - Light Roast",
     price: 899, // Base price for 250g
-    description: "Premium single-origin Nepal coffee with delicate, bright flavors featuring subtle floral notes and crisp acidity. Our pure light roast preserves the coffee's origin characteristics with minimal roasting for maximum brightness. Perfect for pour-over and filter brewing methods.",
+    description: "High quality single-origin Nepal coffee with delicate, bright flavors. Our pure light roast preserves the coffee's origin characteristics with minimal roasting for maximum brightness. Good for pour-over and filter brewing methods.",
     image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "light-roast",
     featured: true,
@@ -625,7 +625,7 @@ export const products: Product[] = [
     id: 32,
     name: "Drip Coffee Bags - Light Roast",
     price: 1399, // Base price for 10pcs
-    description: "Convenient single-serve drip coffee bags featuring Nepal's purest light roast with delicate floral notes and bright acidity. Perfect for those who appreciate subtle, nuanced coffee flavors. Ideal for office, travel, or home brewing.",
+    description: "Convenient single-serve drip coffee bags featuring Nepal's purest light roast. Perfect for those who appreciate subtle, nuanced coffee flavors. Ideal for office, travel, or home brewing.",
     image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "light-roast",
     featured: false,
@@ -710,7 +710,7 @@ export const products: Product[] = [
   {
     id: 111,
     name: "Black Moka Pot",
-    price: 3299, // Base price for black 3-cup
+    price: 1199, // Base price for black 3-cup
     description: "Sleek black aluminum moka pot with premium matte finish for authentic Italian espresso at home. This sophisticated stovetop coffee maker combines traditional brewing with modern aesthetics. Available in multiple sizes for different household needs.",
     image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
@@ -727,33 +727,33 @@ export const products: Product[] = [
       {
         id: "moka-black-3cup",
         name: "Black 3-Cup",
-        price: 3299,
+        price: 1199,
         image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
-          volume: "150ml",
-          weight: "400g"
+          volume: "-",
+          weight: "-"
         },
         inStock: getVariantStock("moka-black-3cup")
       },
       {
         id: "moka-black-6cup",
         name: "Black 6-Cup",
-        price: 3899,
+        price: 1799,
         image: "https://images.pexels.com/photos/4226798/pexels-photo-4226798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
-          volume: "300ml",
-          weight: "550g"
+          volume: "-",
+          weight: "-"
         },
         inStock: getVariantStock("moka-black-6cup")
       },
       {
         id: "moka-black-9cup",
         name: "Black 9-Cup",
-        price: 4499,
+        price: 1999,
         image: "https://images.pexels.com/photos/4226799/pexels-photo-4226799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
-          volume: "450ml",
-          weight: "650g"
+          volume: "-",
+          weight: "-"
         },
         inStock: getVariantStock("moka-black-9cup")
       }
@@ -763,7 +763,7 @@ export const products: Product[] = [
   {
     id: 101,
     name: "Classic Moka Pot",
-    price: 2999, // Base price for aluminum 3-cup
+    price: 1299, // Base price for aluminum 3-cup 1199
     description: "Traditional Italian moka pot for authentic espresso-style coffee at home. This stovetop coffee maker brews rich, concentrated coffee with distinctive flavor. Premium coffee brewing equipment available in aluminum and steel with various cup sizes for perfect home espresso.",
     image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
@@ -778,7 +778,7 @@ export const products: Product[] = [
       {
         id: "moka-aluminum-3cup",
         name: "Aluminum 3-Cup",
-        price: 2999,
+        price: 1299,
         image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "-",
@@ -789,7 +789,7 @@ export const products: Product[] = [
       {
         id: "moka-aluminum-6cup",
         name: "Aluminum 6-Cup",
-        price: 3599,
+        price: 1499,
         image: "https://images.pexels.com/photos/4226798/pexels-photo-4226798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "-",
@@ -800,7 +800,7 @@ export const products: Product[] = [
       {
         id: "moka-aluminum-9cup",
         name: "Aluminum 9-Cup",
-        price: 4199,
+        price: 1799,
         image: "https://images.pexels.com/photos/4226799/pexels-photo-4226799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "-",
@@ -811,7 +811,7 @@ export const products: Product[] = [
       {
         id: "moka-steel-2cup",
         name: "Steel 2-Cup",
-        price: 4599,
+        price: 1099,
         image: "https://images.pexels.com/photos/4226801/pexels-photo-4226801.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "-",
@@ -822,7 +822,7 @@ export const products: Product[] = [
       {
         id: "moka-steel-4cup",
         name: "Steel 4-Cup",
-        price: 5299,
+        price: 1399,
         image: "https://images.pexels.com/photos/4226802/pexels-photo-4226802.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "-",
@@ -833,7 +833,7 @@ export const products: Product[] = [
       {
         id: "moka-steel-6cup",
         name: "Steel 6-Cup",
-        price: 5999,
+        price: 1499,
         image: "https://images.pexels.com/photos/4226803/pexels-photo-4226803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "-",
@@ -847,7 +847,7 @@ export const products: Product[] = [
   {
     id: 102,
     name: "French Press Coffee Maker",
-    price: 2899, // Base price for 350ml
+    price: 999, // Base price for 350ml
     description: "Premium borosilicate glass French press coffee maker with stainless steel filter system. Perfect for brewing full-bodied, rich coffee extraction at home. Professional coffee brewing equipment available in multiple sizes for coffee enthusiasts.",
     image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
@@ -863,7 +863,7 @@ export const products: Product[] = [
       {
         id: "fp-350ml",
         name: "350ml",
-        price: 2899,
+        price: 999,
         image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "350ml",
@@ -874,7 +874,7 @@ export const products: Product[] = [
       {
         id: "fp-600ml",
         name: "600ml",
-        price: 3599,
+        price: 1199,
         image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "600ml",
@@ -885,7 +885,7 @@ export const products: Product[] = [
       {
         id: "fp-800ml",
         name: "800ml",
-        price: 4199,
+        price: 1399,
         image: "https://images.pexels.com/photos/4226838/pexels-photo-4226838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "800ml",
@@ -896,7 +896,7 @@ export const products: Product[] = [
       {
         id: "fp-1000ml",
         name: "1000ml",
-        price: 4899,
+        price: 1499,
         image: "https://images.pexels.com/photos/4226812/pexels-photo-4226812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "1000ml",
@@ -910,7 +910,7 @@ export const products: Product[] = [
   {
     id: 112,
     name: "Stainless Steel French Press",
-    price: 3499, // Base price for 350ml steel
+    price: 1299, // Base price for 350ml steel 
     description: "Premium stainless steel French press with superior heat retention and durability. Features professional-grade mesh filter and quality handle. Perfect for camping, office, or home use with unbreakable construction. The body wall is a borosillicate glass core wrapped in stainless steel for the best of both worlds.",
     image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "equipment",
@@ -927,7 +927,7 @@ export const products: Product[] = [
       {
         id: "fpss-350ml",
         name: "350ml Steel",
-        price: 3499,
+        price: 1299,
         image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "350ml",
@@ -938,7 +938,7 @@ export const products: Product[] = [
       {
         id: "fpss-600ml",
         name: "600ml Steel",
-        price: 4199,
+        price: 1499,
         image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "600ml",
@@ -949,7 +949,7 @@ export const products: Product[] = [
       {
         id: "fpss-800ml",
         name: "800ml Steel",
-        price: 4799,
+        price: 1599,
         image: "https://images.pexels.com/photos/4226838/pexels-photo-4226838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "800ml",
@@ -960,7 +960,7 @@ export const products: Product[] = [
       {
         id: "fpss-1000ml",
         name: "1000ml Steel",
-        price: 5499,
+        price: 1699,
         image: "https://images.pexels.com/photos/4226812/pexels-photo-4226812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           volume: "1000ml",
@@ -1390,7 +1390,7 @@ export const products: Product[] = [
     id: 301,
     name: "French Press + Coffee Combo",
     price: 4200, // Discounted combo price
-    description: "Perfect coffee brewing starter kit! Includes our premium French Press Coffee Maker paired with 500g of your choice medium roast ground coffee. Everything you need for the perfect coffee experience at home. Save NPR 350 compared to buying separately!",
+    description: "Perfect coffee brewing starter kit! Includes our premium French Press Coffee Maker paired with 250g of your choice coffee. Everything you need for the perfect coffee experience at home. Save NPR 350 compared to buying separately!",
     image: "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
@@ -1399,16 +1399,16 @@ export const products: Product[] = [
     details: {
       material: "Bundle",
       capacity: "Complete Kit",
-      features: ["French Press Included", "500g Ground Coffee", "Perfect for Beginners"],
-      weight: "French Press + 500g Coffee"
+      features: ["French Press Included", "250g Ground Coffee", "Perfect for Beginners"],
+      weight: "French Press + 250g Coffee"
     },
     variants: []
   },
   {
     id: 302,
     name: "Coffee + Free Alpico Mug",
-    price: 1050, // Same as coffee price, mug is free
-    description: "Get our signature Alpico Coffee Mug absolutely FREE with any 500g coffee purchase! Choose from our premium light, medium, or dark roast coffee and receive our beautiful ceramic mug as a complimentary gift. Limited time offer!",
+    price: 1899, // Same as coffee price, mug is free
+    description: "Get our signature Alpico Coffee Mug absolutely FREE with 500g coffee purchase! Choose from our premium light, medium, or dark roast coffee and receive our beautiful ceramic mug as a complimentary gift. Limited time offer!",
     image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
@@ -1424,7 +1424,7 @@ export const products: Product[] = [
       {
         id: "combo-light-mug",
         name: "Light Roast + Free Mug",
-        price: 1050,
+        price: 1899,
         image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g + Mug",
@@ -1435,7 +1435,7 @@ export const products: Product[] = [
       {
         id: "combo-medium-mug",
         name: "Medium Roast + Free Mug",
-        price: 1050,
+        price: 1899,
         image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g + Mug",
@@ -1446,7 +1446,7 @@ export const products: Product[] = [
       {
         id: "combo-dark-mug",
         name: "Dark Roast + Free Mug",
-        price: 1050,
+        price: 1899,
         image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         details: {
           weight: "500g + Mug",
@@ -1459,8 +1459,8 @@ export const products: Product[] = [
   {
     id: 306,
     name: "Moka Pot + Coffee Combo",
-    price: 3299, // Discounted combo price
-    description: "Authentic Italian coffee experience! Includes our premium Classic Moka Pot with 500g of specially selected medium roast ground coffee perfect for moka brewing. Experience the rich, bold flavor of traditional Italian coffee at home. Save NPR 200!",
+    price: 1900, // Discounted combo price
+    description: "Authentic Italian coffee experience! Includes our premium Classic Moka Pot with 250g of specially selected medium roast ground coffee perfect for moka brewing. Experience the rich, bold flavor of traditional Italian coffee at home. Save NPR 200!",
     image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
@@ -1469,25 +1469,25 @@ export const products: Product[] = [
     details: {
       material: "Bundle",
       capacity: "Italian Style",
-      features: ["Moka Pot Included", "500g Ground Coffee", "Authentic Italian Experience"],
-      weight: "Moka Pot + 500g Coffee"
+      features: ["Moka Pot Included", "250g Ground Coffee", "Authentic Italian Experience"],
+      weight: "Moka Pot + 250g Coffee"
     },
     variants: []
   },
   {
     id: 304,
     name: "Pour Over Coffee Bundle",
-    price: 3800, // Discounted bundle price
-    description: "Master the art of pour over coffee! Includes our precision Pour Over V60 Dripper with 500g of specially selected light roast coffee, perfect for pour over brewing. Ideal for coffee purists who appreciate nuanced flavors.",
+    price: 12500, // Comprehensive bundle price
+    description: "Complete pour over coffee mastery kit! Includes precision V60 Dripper, burr hand grinder, digital scale with timer, glass server, coffee filters, and Alpico mug. Everything you need for perfect pour over brewing with 250g specially selected light roast coffee.",
     image: "https://images.pexels.com/photos/4226903/pexels-photo-4226903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
     inStock: getProductStock(304),
     details: {
-      material: "Bundle",
-      capacity: "Light Roast Optimized",
-      features: ["V60 Dripper Included", "Light Roast Coffee", "Perfect for Pour Over"],
-      weight: "Pour Over Kit + 500g"
+      material: "Complete Bundle",
+      capacity: "Professional Pour Over Setup",
+      features: ["V60 Dripper", "Burr Grinder", "Digital Scale", "Glass Server", "Filters", "Alpico Mug", "250g Coffee"],
+      weight: "Complete Pour Over Kit + 250g Coffee"
     },
     variants: []
   },
@@ -1495,7 +1495,7 @@ export const products: Product[] = [
     id: 305,
     name: "Coffee Lover's Premium Pack",
     price: 8900, // Premium bundle with significant savings
-    description: "The ultimate coffee experience! Includes Burr Coffee Grinder, French Press, 1kg whole beans, Alpico mug, travel tumbler, and coffee scale. Everything you need for cafe-quality coffee at home. Save NPR 800!",
+    description: "The ultimate coffee experience! Includes Burr Coffee Grinder, Aeropress, 1kg whole beans, Alpico mug, travel tumbler, and coffee scale. Everything you need for cafe-quality coffee at home. Save NPR 800!",
     image: "https://images.pexels.com/photos/4226856/pexels-photo-4226856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,

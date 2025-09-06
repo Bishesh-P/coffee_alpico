@@ -133,7 +133,7 @@ const Products: React.FC = () => {
             Our Coffee & Equipment Collection
           </h1>
           <p className="max-w-2xl mx-auto text-blue-100 animate-fade-up mb-6">
-            Browse our carefully curated collection of premium coffees and professional brewing equipment. From light to dark roasts and essential coffee gear.
+            These are the products we personally use and recommend. Each item ensures top quality and great taste.
           </p>
           
           {/* Search Bar */}
