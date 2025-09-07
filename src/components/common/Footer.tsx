@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../../supabase-client';
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Mail, Linkedin } from 'lucide-react';
+import { Instagram, Facebook, Mail, Linkedin, Youtube } from 'lucide-react';
 
 // TikTok icon component since it's not available in lucide-react
 const TikTokIcon = ({ size = 24 }: { size?: number }) => (
@@ -59,6 +59,9 @@ const Footer: React.FC = () => {
               </a>
               <a href="https://www.tiktok.com/@alpicocoffee_nepal" target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
                 <TikTokIcon size={24} />
+              </a>
+              <a href="https://www.youtube.com/@alpicocoffee" target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:text-white transition-colors transform hover:scale-110">
+                <Youtube size={24} />
               </a>
             </div>
           </div>
