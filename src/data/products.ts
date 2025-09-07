@@ -1402,7 +1402,33 @@ export const products: Product[] = [
       features: ["French Press Included", "250g Ground Coffee", "Perfect for Beginners"],
       weight: "French Press + 250g Coffee"
     },
-    variants: []
+    // Add placeholder variants so the customer chooses French Press size at checkout
+    variants: [
+      {
+        id: "combo301-fp-350ml",
+        name: "French Press 350ml",
+        price: 4200,
+        image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "350ml" },
+        inStock: getVariantStock("fp-350ml")
+      },
+      {
+        id: "combo301-fp-600ml",
+        name: "French Press 600ml",
+        price: 4399,
+        image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "600ml" },
+        inStock: getVariantStock("fp-600ml")
+      },
+      {
+        id: "combo301-fp-1000ml",
+        name: "French Press 1000ml",
+        price: 4599,
+        image: "https://images.pexels.com/photos/4226812/pexels-photo-4226812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "1000ml" },
+        inStock: getVariantStock("fp-1000ml")
+      }
+    ]
   },
   {
     id: 302,
@@ -1494,8 +1520,8 @@ export const products: Product[] = [
   {
     id: 305,
     name: "Coffee Lover's Premium Pack",
-    price: 8900, // Premium bundle with significant savings
-    description: "The ultimate coffee experience! Includes Burr Coffee Grinder, Aeropress, 1kg whole beans, Alpico mug, travel tumbler, and coffee scale. Everything you need for cafe-quality coffee at home. Save NPR 800!",
+    price: 4599, // Premium bundle with significant savings
+    description: "The ultimate coffee experience! Includes Burr Coffee Grinder,French Press + Mocha pot , 1kg whole beans, Alpico mug, travel tumbler. Everything you need for cafe-quality coffee at home. Save NPR 800!",
     image: "https://images.pexels.com/photos/4226856/pexels-photo-4226856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
@@ -1504,10 +1530,60 @@ export const products: Product[] = [
     details: {
       material: "Bundle",
       capacity: "Professional Grade",
-      features: ["Burr Grinder", "French Press", "Whole Bean Coffee"],
+      features: ["Burr Grinder", "French Press + Mocha Pot", "Whole Bean Coffee, Mug & Tumbler"],
       weight: "Full Kit + 1kg Coffee"
     },
-    variants: []
+    // Add variant selections so user can choose sizes for included French Press & Moka Pot
+    variants: [
+      {
+        id: "bundle-fp-350ml",
+        name: "French Press 350ml",
+        price: 4599,
+        image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "350ml" },
+        inStock: getVariantStock("fp-350ml")
+      },
+      {
+        id: "bundle-fp-600ml",
+        name: "French Press 600ml",
+        price: 4799, // small incremental adjustment for larger size
+        image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "600ml" },
+        inStock: getVariantStock("fp-600ml")
+      },
+      {
+        id: "bundle-fp-1000ml",
+        name: "French Press 1000ml",
+        price: 4999,
+        image: "https://images.pexels.com/photos/4226812/pexels-photo-4226812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "1000ml" },
+        inStock: getVariantStock("fp-1000ml")
+      },
+      {
+        id: "bundle-moka-3cup",
+        name: "Moka Pot 3-Cup",
+        price: 4599,
+        image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "3-Cup" },
+        inStock: getVariantStock("moka-aluminum-3cup")
+      },
+      {
+        id: "bundle-moka-6cup",
+        name: "Moka Pot 6-Cup",
+        price: 4799,
+        image: "https://images.pexels.com/photos/4226798/pexels-photo-4226798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "6-Cup" },
+        inStock: getVariantStock("moka-aluminum-6cup")
+      },
+      {
+        id: "bundle-moka-9cup",
+        name: "Moka Pot 9-Cup",
+        price: 4999,
+        image: "https://images.pexels.com/photos/4226799/pexels-photo-4226799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "9-Cup" },
+        inStock: getVariantStock("moka-aluminum-9cup")
+      }
+    ]
   },
   {
     id: 303,

@@ -112,6 +112,9 @@ const Checkout: React.FC = () => {
 
   // Load saved customer information on component mount
   useEffect(() => {
+    // Clear any stale order details from previous sessions
+    localStorage.removeItem('orderDetails');
+    
     const loadSavedCustomerInfo = () => {
       if (CustomerInfoManager.exists()) {
         setIsLoadingCustomerInfo(true);
@@ -251,20 +254,29 @@ const Checkout: React.FC = () => {
       // Dynamic import of jsPDF to avoid build issues
       const { default: jsPDF } = await import('jspdf');
       
-      // Get saved order details if available (for cash on delivery)
-      const savedOrderDetails = localStorage.getItem('orderDetails');
-      const orderDetails = savedOrderDetails ? JSON.parse(savedOrderDetails) : null;
+      // For success page, use current state unless cart is empty (COD case)
+      let displayCart = cart;
+      let displaySubtotal = subtotal;
+      let displayShipping = shipping;
+      let displayTotal = total;
+      let displayFormData = formData;
       
-      // Use saved details if available, otherwise use current state
-      const displayCart = orderDetails?.cart || cart;
-      const displaySubtotal = orderDetails?.subtotal || subtotal;
-      const displayShipping = orderDetails?.shipping || shipping;
-      const displayTotal = orderDetails?.total || total;
-      const displayFormData = orderDetails?.formData || formData;
+      // Only use localStorage as fallback if cart is empty (cash on delivery case)
+      if (cart.length === 0) {
+        const savedOrderDetails = localStorage.getItem('orderDetails');
+        if (savedOrderDetails) {
+          const orderDetails = JSON.parse(savedOrderDetails);
+          displayCart = orderDetails?.cart || [];
+          displaySubtotal = orderDetails?.subtotal || 0;
+          displayShipping = orderDetails?.shipping || 0;
+          displayTotal = orderDetails?.total || 0;
+          displayFormData = orderDetails?.formData || formData;
+        }
+      }
       
       // Debug logging for total calculation
       console.log('PDF Generation Debug:', {
-        savedOrderDetails: !!savedOrderDetails,
+        usingLocalStorage: cart.length === 0,
         displaySubtotal,
         displayShipping,
         displayTotal,
@@ -342,18 +354,27 @@ const Checkout: React.FC = () => {
       
       if (displayCart && displayCart.length > 0) {
         displayCart.forEach((item: any) => {
-          // Calculate correct price for each item
           const itemPrice = item.selectedVariant?.price || item.product.price;
           const lineTotal = itemPrice * item.quantity;
-          
-          // Item name with variant
+
+            // Compose name line
           const variant = item.selectedVariant ? ` (${item.selectedVariant.name})` : '';
           const machine = item.machine ? ` - Brewing: ${item.machine}` : '';
           const itemName = `${item.product.name}${variant}${machine}`;
-          
-          yPosition = addWrappedText(itemName, margin, yPosition, pageWidth - 100);
-          pdf.text(`Qty: ${item.quantity} x NPR ${itemPrice.toFixed(2)} = NPR ${lineTotal.toFixed(2)}`, pageWidth - 80, yPosition - 6, { align: 'right' });
-          yPosition += 8;
+
+          // Split name to know height
+          const nameLines = pdf.splitTextToSize(itemName, pageWidth - margin * 2 - 60); // leave space for price block
+          const blockHeight = nameLines.length * 5 + 2;
+
+          // Draw name lines
+          pdf.text(nameLines, margin, yPosition);
+
+          // Right aligned qty/price summary vertically centered relative to block
+          const priceText = `Qty: ${item.quantity} x NPR ${itemPrice.toFixed(2)} = NPR ${lineTotal.toFixed(2)}`;
+          const priceY = yPosition + Math.max(5, (blockHeight / 2) - 1);
+          pdf.text(priceText, pageWidth - margin, priceY, { align: 'right' });
+
+          yPosition += blockHeight + 4; // spacing after each item
         });
       } else {
         pdf.text('No items in order.', margin, yPosition);
@@ -525,6 +546,27 @@ const Checkout: React.FC = () => {
 
       // Save receipt URL to database
       await saveReceiptToDatabase(orderId, urlData.publicUrl);
+
+      // Persist order details BEFORE clearing cart (fix: total showing 0 on success for online payments)
+      try {
+        const orderDetails = {
+          orderId,
+          total,
+          subtotal,
+          shipping,
+          paymentMethod: selectedPlatform,
+          formData,
+          cart: cart.map(item => ({
+            ...item,
+            finalPrice: (item.selectedVariant?.price || item.product.price) * item.quantity
+          }))
+        };
+        localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+        console.log('Saved order details (online payment):', orderDetails);
+      } catch (e) {
+        console.warn('Failed to save order details to localStorage:', e);
+        // Non-blocking; continue
+      }
 
       // Move to next step (success) without showing alert
       clearCart();
@@ -1274,16 +1316,22 @@ const Checkout: React.FC = () => {
                   Please upload a screenshot or photo of your payment confirmation to complete your order.
                 </p>
                 
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                  <Upload size={48} className="mx-auto text-gray-400 mb-4" />
-                  <label htmlFor="receipt-upload" className="cursor-pointer">
-                    <span className="text-blue-700 hover:text-navy-900 font-medium">
-                      Click to upload receipt
+                <div
+                  className="group border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors"
+                  onClick={() => document.getElementById('receipt-upload')?.click()}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('receipt-upload')?.click(); } }}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <Upload size={48} className="mx-auto text-gray-400 mb-4 group-hover:text-blue-600 transition-colors" />
+                  <div>
+                    <span className="text-blue-700 group-hover:text-navy-900 font-medium">
+                      Click or tap to upload receipt
                     </span>
                     <p className="text-sm text-gray-500 mt-2">
                       Supports: JPG, PNG, PDF (Max 5MB)
                     </p>
-                  </label>
+                  </div>
                   <input
                     id="receipt-upload"
                     type="file"
@@ -1328,8 +1376,13 @@ const Checkout: React.FC = () => {
         {currentStep === 'success' && (() => {
           // Get saved order details for display (in case cart was cleared)
           const savedOrderDetails = localStorage.getItem('orderDetails');
-          const orderDetails = savedOrderDetails ? JSON.parse(savedOrderDetails) : null;
-          const displayTotal = orderDetails?.total || total;
+          let orderDetails: any = null;
+          try {
+            orderDetails = savedOrderDetails ? JSON.parse(savedOrderDetails) : null;
+          } catch (e) {
+            console.warn('Failed to parse saved order details:', e);
+          }
+          const displayTotal = typeof orderDetails?.total === 'number' ? orderDetails.total : total;
           
           // Debug logging
           console.log('Success Page Debug:', {
@@ -1363,6 +1416,7 @@ const Checkout: React.FC = () => {
                     </div>
                   )}
               </div>
+              {/* Ordered items section intentionally removed per request */}
               <div className="bg-blue-50 p-4 rounded-lg mb-6">
                 <p className="text-blue-800 mb-2">
                   <strong>For any queries, contact us on Instagram:</strong>

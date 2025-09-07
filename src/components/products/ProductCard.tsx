@@ -23,6 +23,13 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
   
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(getDefaultVariant());
 
+  // For combo offers we want selection deferred to checkout, so clear any preselected variant
+  useEffect(() => {
+    if (product.category === 'combo-offers') {
+      setSelectedVariant(undefined);
+    }
+  }, [product]);
+
   // Update selected variant when product changes to ensure we default to an available variant
   useEffect(() => {
     const defaultVariant = getDefaultVariant();
@@ -35,7 +42,8 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
 
   const handleAddToCart = useCallback(() => {
     setIsAdding(true);
-    addToCart(product, 1, undefined, selectedVariant);
+    const variantToAdd = product.category === 'combo-offers' ? undefined : selectedVariant;
+    addToCart(product, 1, undefined, variantToAdd);
     setTimeout(() => setIsAdding(false), 300);
   }, [addToCart, product, selectedVariant]);
 
@@ -76,6 +84,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
               Premium Quality
             </div>
           )}
+          {/* Removed combo-offers size selection badge per request */}
           <div className="absolute inset-0 bg-black transition-opacity duration-300 opacity-10 group-hover:opacity-0"></div>
         </div>
       </Link>
@@ -118,33 +127,14 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
           </div>
         </div>
         
-        {/* Variant Selection - Different styling for combo offers */}
-        {product.variants && product.variants.length > 0 ? (
+  {/* Variant Selection - Hidden for combo offers; selection moved to checkout */}
+  {product.variants && product.variants.length > 0 && product.category !== 'combo-offers' ? (
           <div className="mb-4" style={{ minHeight: '80px' }}>
             <p className="text-xs sm:text-sm font-medium text-gray-700 mb-2">
               {product.category === 'merch' ? 'Color:' : 'Size:'}
             </p>
             {/* Different layout for combo offers vs other products */}
-            {product.category === 'combo-offers' ? (
-              <div className="flex flex-wrap gap-1 sm:gap-2">
-                {product.variants.map((variant) => (
-                  <button
-                    key={variant.id}
-                    onClick={() => handleVariantChange(variant)}
-                    className={`px-2 sm:px-3 py-1 text-xs rounded-full border transition-all duration-200 ${
-                      selectedVariant?.id === variant.id
-                        ? 'bg-navy-900 text-white border-navy-900'
-                        : 'bg-white text-gray-700 border-gray-300 hover:border-navy-600'
-                    } ${
-                      variant.inStock === false ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                    }`}
-                  >
-                    <span className="block sm:hidden">{variant.name.split(' ')[0]}</span>
-                    <span className="hidden sm:block">{variant.name}</span>
-                  </button>
-                ))}
-              </div>
-            ) : product.category === 'equipment' ? (
+            {product.category === 'equipment' ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                 {product.variants.map((variant) => (
                   <button
