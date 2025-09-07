@@ -143,8 +143,19 @@ const Checkout: React.FC = () => {
   // Scroll to top only for specific steps that need it (shipping/details form)
   useEffect(() => {
     // Only scroll to top for steps where users need to see form from beginning
-    if (currentStep === 'shipping' || currentStep === 'variants') {
+    if (currentStep === 'shipping') {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    } else if (currentStep === 'variants') {
+      // For variants selection, scroll to the variants section (middle of page)
+      const variantsSection = document.getElementById('variants-section');
+      if (variantsSection) {
+        variantsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Fallback: scroll to middle of viewport
+        const viewportHeight = window.innerHeight;
+        const middlePosition = viewportHeight * 0.3; // Scroll to 30% from top
+        window.scrollTo({ top: middlePosition, behavior: 'smooth' });
+      }
     } else if (currentStep === 'platform') {
       // For platform selection, scroll to show the "Select Payment Platform" title
       const platformSection = document.getElementById('payment-platform-section');
@@ -1009,7 +1020,7 @@ const Checkout: React.FC = () => {
 
         {/* Step 2: Variant Selection */}
         {currentStep === 'variants' && (
-          <div className="max-w-4xl mx-auto">
+          <div id="variants-section" className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-md p-8">
               <h2 className="text-2xl font-bold text-navy-900 mb-6">Select Product Options</h2>
               <p className="text-gray-600 mb-8">
