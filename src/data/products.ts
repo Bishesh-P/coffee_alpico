@@ -1498,7 +1498,33 @@ export const products: Product[] = [
       features: ["Moka Pot Included", "250g Ground Coffee", "Authentic Italian Experience"],
       weight: "Moka Pot + 250g Coffee"
     },
-    variants: []
+    // Add placeholder variants so the customer chooses Moka Pot size at checkout
+    variants: [
+      {
+        id: "combo306-moka-3cup",
+        name: "Moka Pot 3-Cup",
+        price: 1900,
+        image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "3-Cup" },
+        inStock: getVariantStock("moka-aluminum-3cup")
+      },
+      {
+        id: "combo306-moka-6cup",
+        name: "Moka Pot 6-Cup",
+        price: 2100,
+        image: "https://images.pexels.com/photos/4226798/pexels-photo-4226798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "6-Cup" },
+        inStock: getVariantStock("moka-aluminum-6cup")
+      },
+      {
+        id: "combo306-moka-9cup",
+        name: "Moka Pot 9-Cup",
+        price: 2300,
+        image: "https://images.pexels.com/photos/4226799/pexels-photo-4226799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        details: { weight: "Bundle", volume: "9-Cup" },
+        inStock: getVariantStock("moka-aluminum-9cup")
+      }
+    ]
   },
   {
     id: 304,

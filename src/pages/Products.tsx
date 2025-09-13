@@ -352,21 +352,21 @@ const Products: React.FC = () => {
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
-                      {category.id === 'light-roast' ? ' ⭐ Beginner Friendly' : ''}
+                      {category.id === 'medium-light-roast' ? ' ⭐ Beginner Friendly' : ''}
                     </option>
                   ))}
                 </select>
               </div>
               
               {/* Mobile Coffee Guide Tip */}
-              <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-3">
+              <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
                 <div className="flex items-start space-x-2">
-                  <Lightbulb className="text-amber-600 mt-0.5 flex-shrink-0" size={16} />
+                  <Lightbulb className="text-emerald-600 mt-0.5 flex-shrink-0" size={16} />
                   <div>
-                    <p className="text-amber-800 text-xs leading-relaxed mb-1">
+                    <p className="text-emerald-800 text-xs leading-relaxed mb-1">
                       <strong>New to coffee?</strong> Try Medium Light Roast - it's perfectly balanced and beginner-friendly!
                     </p>
-                    <p className="text-amber-700 text-xs">
+                    <p className="text-emerald-700 text-xs">
                       Perfect with: French Press, Moka Pot, or V60
                     </p>
                   </div>

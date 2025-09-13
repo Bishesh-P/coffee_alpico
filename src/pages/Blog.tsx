@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, User, Tag, Search } from 'lucide-react';
 import SEOHead from '../components/common/SEOHead';
@@ -10,9 +11,92 @@ const Blog: React.FC = () => {
   const { posts, getFeaturedPosts } = useBlog();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
+  const [imageLoadStates, setImageLoadStates] = useState<Record<string, boolean>>({});
 
   const featuredPosts = getFeaturedPosts();
+  const lcpPost = featuredPosts[0];
+  const SUPABASE_TRANSFORMS = (import.meta as any).env?.VITE_SUPABASE_IMAGE_TRANSFORM_ENABLED === 'true';
+
+  // Helper: build responsive srcSet for Supabase images (render endpoint)
+  const buildSupabaseSrcSet = (
+    url: string,
+    widths: number[] = [600, 900, 1200],
+    opts?: { aspect?: { w: number; h: number }; quality?: number; format?: 'webp' | 'jpeg' }
+  ) => {
+    try {
+      const u = new URL(url);
+      const isSupabase = u.hostname.endsWith('.supabase.co') && u.pathname.includes('/storage/v1/object/');
+      if (!isSupabase) return undefined;
+      const renderPath = u.pathname.replace('/storage/v1/object/', '/storage/v1/render/image/');
+      const base = `${u.protocol}//${u.host}${renderPath}`;
+      const quality = String(opts?.quality ?? 75);
+      const format = String(opts?.format ?? 'webp');
+      return widths.map((w) => {
+        const qs = new URLSearchParams({ width: String(w), quality, format });
+        if (opts?.aspect) {
+          const h = Math.round((w * opts.aspect.h) / opts.aspect.w);
+          qs.set('height', String(h));
+        }
+        return `${base}?${qs.toString()} ${w}w`;
+      }).join(', ');
+    } catch {
+      return undefined;
+    }
+  };
+
+  // Single transformed URL for preloading
+  const supabaseTransformed = (
+    url?: string,
+    width = 1200,
+    aspect?: { w: number; h: number },
+    quality = 75,
+    format: 'webp' | 'jpeg' = 'webp'
+  ) => {
+    if (!url) return undefined;
+    try {
+      // If transforms are disabled, just return the original URL
+      if (!(import.meta as any).env?.VITE_SUPABASE_IMAGE_TRANSFORM_ENABLED || (import.meta as any).env?.VITE_SUPABASE_IMAGE_TRANSFORM_ENABLED !== 'true') {
+        return url;
+      }
+      const u = new URL(url);
+      const isSupabase = u.hostname.endsWith('.supabase.co') && u.pathname.includes('/storage/v1/object/');
+      if (!isSupabase) return url;
+      const renderPath = u.pathname.replace('/storage/v1/object/', '/storage/v1/render/image/');
+      const base = `${u.protocol}//${u.host}${renderPath}`;
+      const qs = new URLSearchParams({ width: String(width), quality: String(quality), format });
+      if (aspect) {
+        const h = Math.round((width * aspect.h) / aspect.w);
+        qs.set('height', String(h));
+      }
+      return `${base}?${qs.toString()}`;
+    } catch {
+      return url;
+    }
+  };
   
+  // Preload critical images for faster loading
+  useEffect(() => {
+    const preloadImages = () => {
+      // Preload featured post images and fallback image
+      const imagesToPreload = [
+        ...featuredPosts.slice(0, 2).map(post => post.image),
+        'https://images.pexels.com/photos/5328288/pexels-photo-5328288.jpeg?auto=compress&cs=tinysrgb&format=webp&w=800&h=600'
+      ];
+
+      imagesToPreload.forEach(src => {
+        if (src) {
+          const img = new Image();
+          img.onload = () => {
+            setImageLoadStates(prev => ({ ...prev, [src]: true }));
+          };
+          img.src = src;
+        }
+      });
+    };
+
+    preloadImages();
+  }, [featuredPosts]);
+
   // Get all unique tags
   const allTags = Array.from(new Set(posts.flatMap(post => post.tags)));
 
@@ -48,11 +132,24 @@ const Blog: React.FC = () => {
         structuredData={breadcrumbSchema}
       />
       
+      {/* Properly inject preload for the LCP image using Helmet */}
+  {lcpPost && (
+        <Helmet>
+          <link
+            rel="preload"
+            as="image"
+    href={SUPABASE_TRANSFORMS ? (supabaseTransformed(lcpPost.image, 1200, { w: 4, h: 3 }) || lcpPost.image) : lcpPost.image}
+            // @ts-expect-error fetchpriority attribute
+            fetchpriority="high"
+          />
+        </Helmet>
+      )}
+      
       {/* Hero Section */}
-      <div 
+    <div 
         className="relative py-24 md:py-32 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: 'url(https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
+      backgroundImage: 'url(https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&format=webp&w=1600&h=900&dpr=1)',
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
@@ -72,17 +169,36 @@ const Blog: React.FC = () => {
           <section className="mb-16">
             <h2 className="text-3xl font-serif font-bold text-navy-900 mb-8">Featured Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredPosts.slice(0, 2).map((post) => (
+              {featuredPosts.slice(0, 2).map((post, idx) => (
                 <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                   <Link to={`/blog/${post.id}`}>
-                    <div className="h-64 overflow-hidden bg-gray-200">
+                    <div className="h-64 overflow-hidden bg-gray-200 relative">
+                      {!imageLoadStates[post.image] && (
+                        <div className="absolute inset-0 bg-gray-300 animate-pulse flex items-center justify-center">
+                          <div className="w-12 h-12 bg-gray-400 rounded-full animate-pulse"></div>
+                        </div>
+                      )}
                       <img 
                         src={post.image} 
                         alt={post.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300 ${
+                          imageLoadStates[post.image] ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        width={1200}
+                        height={800}
+                        // Prioritize only the first featured image (likely LCP)
+                        loading={idx === 0 ? 'eager' : 'lazy'}
+                        decoding="async"
+                        // @ts-expect-error fetchpriority attribute
+                        fetchpriority={idx === 0 ? 'high' : 'auto'}
+                        // Supabase responsive sources (only if transforms are enabled)
+                        srcSet={SUPABASE_TRANSFORMS ? buildSupabaseSrcSet(post.image, [600, 900, 1200], { aspect: { w: 4, h: 3 } }) : undefined}
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        onLoad={() => setImageLoadStates(prev => ({ ...prev, [post.image]: true }))}
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = 'https://images.pexels.com/photos/13836025/pexels-photo-13836025.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+                          target.src = 'https://images.pexels.com/photos/5328288/pexels-photo-5328288.jpeg?auto=compress&cs=tinysrgb&format=webp&w=800&h=600';
+                          setImageLoadStates(prev => ({ ...prev, [post.image]: true }));
                         }}
                       />
                     </div>
@@ -174,9 +290,18 @@ const Blog: React.FC = () => {
                         src={post.image} 
                         alt={post.title}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        width={800}
+                        height={600}
+                        loading="lazy"
+                        decoding="async"
+                        // Non-critical grid images: give browser a hint to de-prioritize
+                        // @ts-expect-error fetchpriority attribute
+                        fetchpriority="low"
+                        srcSet={SUPABASE_TRANSFORMS ? buildSupabaseSrcSet(post.image, [400, 800, 1200], { aspect: { w: 4, h: 3 } }) : undefined}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = 'https://images.pexels.com/photos/13836025/pexels-photo-13836025.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+                          target.src = 'https://images.pexels.com/photos/5328288/pexels-photo-5328288.jpeg?auto=compress&cs=tinysrgb&format=webp&w=800&h=600';
                         }}
                       />
                     </div>

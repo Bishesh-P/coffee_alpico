@@ -791,7 +791,7 @@ const Checkout: React.FC = () => {
                             <>
                               <span className="text-gray-600">🔧</span>
                               <span className="text-gray-800">
-                                Choose Brewing Method for <span className="text-gray-900 font-bold">{item.product.name}</span>
+                                Which equipment do you have? (to know the grind size)<span className="text-gray-900 font-bold">{item.product.name}</span>
                               </span>
                             </>
                           )}
@@ -1024,7 +1024,7 @@ const Checkout: React.FC = () => {
             <div className="bg-white rounded-lg shadow-md p-8">
               <h2 className="text-2xl font-bold text-navy-900 mb-6">Select Product Options</h2>
               <p className="text-gray-600 mb-8">
-                Please select the size/variant for products that have multiple options.
+                Please select the size/variant for products.
               </p>
               
               <div className="space-y-8">

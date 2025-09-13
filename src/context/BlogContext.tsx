@@ -4,6 +4,8 @@ import { BlogContextType, BlogPost } from '../types';
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
 
 // Sample blog posts
+const POUR_OVER_IMAGE_URL = 'https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pour%20over.jpg';
+
 const samplePosts: BlogPost[] = [
   {
     id: '1',
@@ -68,7 +70,7 @@ Pour-over coffee is as much about the journey as the destination. With practice 
     publishedAt: '2024-01-15',
     tags: ['brewing', 'pour-over', 'guide', 'technique'],
     featured: true,
-    image: 'https://www.pexels.com/photo/a-glass-and-a-coffee-dripper-27915657/',
+  image: POUR_OVER_IMAGE_URL,
     readTime: 8
   },
   {
@@ -380,7 +382,7 @@ Every cup of Alpico coffee you enjoy supports our sustainability mission. Togeth
     publishedAt: '2024-01-05',
     tags: ['sustainability', 'ethics', 'direct-trade', 'environment'],
     featured: false,
-    image: 'https://images.pexels.com/photos/1093312/pexels-photo-1093312.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  image: 'https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Sustainable%20Coffee_RD8m5d7PhC.jpg',
     readTime: 15
   }
 ];
@@ -394,6 +396,40 @@ export const BlogProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     localStorage.setItem('blog-posts', JSON.stringify(posts));
   }, [posts]);
+
+  // One-time migration: ensure pour-over image uses Supabase URL even if posts are cached in localStorage
+  useEffect(() => {
+    try {
+      const MIGRATION_KEY = 'blog-migration-pour-over-image-v1';
+      const done = localStorage.getItem(MIGRATION_KEY);
+      if (!done) {
+        setPosts(prev => {
+          const updated = prev.map(p =>
+            p.id === '1' ? { ...p, image: POUR_OVER_IMAGE_URL } : p
+          );
+          return updated;
+        });
+        localStorage.setItem(MIGRATION_KEY, 'done');
+      }
+    } catch (e) {
+      // no-op
+    }
+  }, []);
+
+  // One-time migration: update sustainable coffee image to Supabase URL
+  useEffect(() => {
+    try {
+      const MIGRATION_KEY = 'blog-migration-sustainable-image-v1';
+      const done = localStorage.getItem(MIGRATION_KEY);
+      const SUSTAINABLE_URL = 'https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Sustainable%20Coffee_RD8m5d7PhC.jpg';
+      if (!done) {
+        setPosts(prev => prev.map(p => p.id === '3' ? { ...p, image: SUSTAINABLE_URL } : p));
+        localStorage.setItem(MIGRATION_KEY, 'done');
+      }
+    } catch (e) {
+      // no-op
+    }
+  }, []);
 
   const addPost = (postData: Omit<BlogPost, 'id' | 'publishedAt'>) => {
     const newPost: BlogPost = {

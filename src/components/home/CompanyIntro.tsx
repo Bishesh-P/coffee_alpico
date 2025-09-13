@@ -79,6 +79,21 @@ const CompanyIntro: React.FC = () => {
                 Alpico stands for giving people the best coffee experience possible. We want every cup to make you feel proud of Nepali coffee and excited about your day. More than just coffee, we aim to make everyday moments special, connect people, and celebrate the unique flavors and story of Nepal's coffee.
               </p>
               
+              {/* Mobile image - positioned between paragraph and value highlights */}
+              <div className="lg:hidden w-full mb-8">
+                <div className="relative">
+                  <img
+                    src="https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt="Coffee shop atmosphere with people enjoying quality coffee moments"
+                    className="rounded-xl w-full h-auto max-h-[65vh] object-contain shadow-xl border-4 border-white"
+                    loading="lazy"
+                  />
+                  {/* Decorative overlay */}
+                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full opacity-20 blur-xl"></div>
+                  <div className="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full opacity-20 blur-lg"></div>
+                </div>
+              </div>
+              
               {/* Value highlights */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 <div className="flex items-center space-x-3">
@@ -108,8 +123,8 @@ const CompanyIntro: React.FC = () => {
               </Link>
             </div>
 
-            {/* Image for What We Stand For section with enhanced styling */}
-            <div className="w-full lg:order-1">
+            {/* Desktop/tablet image - hidden on mobile to avoid duplicate display */}
+            <div className="w-full lg:order-1 hidden lg:block">
               <div className="relative">
                 <img
                   src="https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
