@@ -146,11 +146,8 @@ const Blog: React.FC = () => {
       )}
       
       {/* Hero Section */}
-    <div 
-        className="relative py-24 md:py-32 bg-cover bg-center bg-no-repeat"
-        style={{ 
-      backgroundImage: 'url(https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&format=webp&w=1600&h=900&dpr=1)',
-        }}
+      <div 
+        className="relative py-10 md:py-14 bg-navy-900 text-white px-4"
       >
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="relative container mx-auto px-4 text-center">
