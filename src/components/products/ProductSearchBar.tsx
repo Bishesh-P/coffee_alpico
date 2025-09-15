@@ -451,10 +451,6 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({ products, onSearchResults,
               </div>
               <div className="space-y-1 text-sm text-gray-600">
                 <div>🔍 Try: "coffee", "equipment", "gift set"</div>
-                <div>🫐 Search by flavor: "fruity", "nutty", "bold"</div>
-                <div>🌍 Search by origin: "Nepal", "mountain", "region"</div>
-                <div>⚖️ Search by specs: "250g", "ceramic", "premium"</div>
-                <div>🎁 Search by type: "bundle", "starter kit", "accessories"</div>
               </div>
             </div>
           </div>

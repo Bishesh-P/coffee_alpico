@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, ShoppingBag, Coffee, PackageCheck, Truck } from 'lucide-react';
 import SEOHead from '../components/common/SEOHead';
 import { generateProductSEO } from '../config/seo';
@@ -11,6 +11,7 @@ import { Product, ProductVariant } from '../types';
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>();
   const [quantity, setQuantity] = useState(1);
@@ -33,6 +34,13 @@ const ProductDetail: React.FC = () => {
   const currentPrice = selectedVariant ? selectedVariant.price : product?.price || 0;
   const currentImage = selectedVariant ? selectedVariant.image : product?.image || '';
   const isOutOfStock = product?.inStock === false || (selectedVariant && selectedVariant.inStock === false);
+
+  // Get back URL with category parameter if it exists
+  const getBackUrl = () => {
+    const urlParams = new URLSearchParams(location.search);
+    const categoryParam = urlParams.get('category');
+    return categoryParam ? `/products?category=${categoryParam}` : '/products';
+  };
 
   // Function to get appropriate text based on product category
   const getProductBenefit = (category: string, type: 'quality' | 'source' | 'shipping') => {
@@ -122,7 +130,7 @@ const ProductDetail: React.FC = () => {
       
       <div className="container mx-auto px-4 py-12">
         <Link 
-          to="/products" 
+          to={getBackUrl()} 
           className="inline-flex items-center text-blue-700 hover:text-navy-900 mb-8"
         >
           <ArrowLeft size={16} className="mr-2" /> Back to Products

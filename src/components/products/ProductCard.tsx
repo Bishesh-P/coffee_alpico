@@ -8,9 +8,10 @@ import Button from '../common/Button';
 interface ProductCardProps {
   product: Product;
   delay?: number;
+  currentCategory?: string;
 }
 
-const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
+const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategory }) => {
   const { addToCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
   
@@ -60,7 +61,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
         willChange: 'transform, opacity',
       }}
     >
-      <Link to={`/products/${product.id}`}>
+      <Link to={`/products/${product.id}${currentCategory ? `?category=${currentCategory}` : ''}`}>
         <div className="h-64 overflow-hidden relative">
           <img
             src={currentImage}
@@ -90,7 +91,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
       </Link>
       <div className="p-6 pb-4 flex flex-col flex-grow">
         <div className="mb-3 sm:mb-4">
-          <Link to={`/products/${product.id}`}>
+          <Link to={`/products/${product.id}${currentCategory ? `?category=${currentCategory}` : ''}`}>
             <h3 className="text-lg sm:text-xl font-bold text-navy-900 hover:text-blue-700 transition-colors leading-tight">
               {product.name}
             </h3>
@@ -274,7 +275,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0 }) => {
       {/* View Details button - Outside the main card content */}
       <div className="px-6 pb-6 -mt-2">
         <Link
-          to={`/products/${product.id}`}
+          to={`/products/${product.id}${currentCategory ? `?category=${currentCategory}` : ''}`}
           className="
             group/link relative w-full
             text-navy-700 hover:text-white

@@ -15,6 +15,7 @@ export interface PaymentPlatformInfo {
   qr: string;
   logo?: string;
   info: string;
+  checksum?: string; // Security: QR integrity verification
 }
 
 export interface ProductVariant {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import SEOHead from '../components/common/SEOHead';
 import { seoConfig } from '../config/seo';
 import { generateBreadcrumbSchema } from '../utils/structuredData';
@@ -10,12 +11,22 @@ import { Product } from '../types';
 import { Coffee, Lightbulb, X } from 'lucide-react';
 
 const Products: React.FC = () => {
+  const location = useLocation();
   const [activeCategory, setActiveCategory] = useState('combo-offers');
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [showBeginnerGuide, setShowBeginnerGuide] = useState(false);
   const [showRoastConfirmation, setShowRoastConfirmation] = useState(false);
   const [selectedRoastName, setSelectedRoastName] = useState('');
+
+  // Read category from URL parameters and set active category
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam && categories.some(cat => cat.id === categoryParam)) {
+      setActiveCategory(categoryParam);
+    }
+  }, [location.search]);
 
   // Handle closing beginner guide
   const handleCloseBeginnerGuide = () => {
@@ -405,6 +416,7 @@ const Products: React.FC = () => {
                   key={product.id} 
                   product={product} 
                   delay={index * 100} 
+                  currentCategory={activeCategory}
                 />
               ))}
             </div>

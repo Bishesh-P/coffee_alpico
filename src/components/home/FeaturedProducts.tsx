@@ -6,6 +6,7 @@ import { discountedProducts as products } from '../../data/products';
 import { ArrowRight } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import Button from '../common/Button';
+import type { Product } from '../../types';
 
 // Shuffle function
 function shuffleArray<T>(array: T[]): T[] {
@@ -23,6 +24,18 @@ const FeaturedProducts: React.FC = () => {
     shuffleArray(products.filter(product => product.featured)).slice(0, 3)
   );
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+
+  // Removed confirmation modal; sizes will be confirmed during checkout
+
+  const startAddToCartFlow = (product: Product) => {
+    if (product.variants && product.variants.length > 0) {
+      // Product has sizes — add without variant; customer will confirm size in checkout
+      addToCart(product);
+    } else {
+      // No variants — add directly
+      addToCart(product);
+    }
+  };
 
   // Timer to reshuffle every 10-20 sec
   useEffect(() => {
@@ -46,6 +59,7 @@ const FeaturedProducts: React.FC = () => {
   }, [hoveredProductId]);
 
   return (
+    <>
     <section className="bg-blue-50 py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
@@ -112,7 +126,7 @@ const FeaturedProducts: React.FC = () => {
                   {product.description}
                 </p>
                 <div className="flex justify-between items-center">
-                  <Button onClick={() => addToCart(product)} variant="primary">
+                  <Button onClick={() => startAddToCartFlow(product)} variant="primary">
                     Add to Cart
                   </Button>
                   <Link
@@ -136,6 +150,8 @@ const FeaturedProducts: React.FC = () => {
         </div>
       </div>
     </section>
+    {/* Confirmation modal removed; checkout will handle size confirmation */}
+    </>
   );
 };
 
