@@ -25,7 +25,7 @@ const CompanyIntro: React.FC = () => {
               <div className="lg:hidden w-full mb-8">
                 <img
                   src="https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="Warm, small-batch roasted Nepali coffee beans representing quality and care"
+                  alt="Premium coffee beans showcasing our commitment to quality and excellence"
                   className="rounded-lg w-full h-auto max-h-[65vh] object-contain shadow-md"
                   loading="lazy"
                 />
@@ -57,7 +57,7 @@ const CompanyIntro: React.FC = () => {
             <div className="w-full hidden lg:block">
               <img
                 src="https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                alt="Warm, small-batch roasted Nepali coffee beans representing quality and care"
+                alt="Premium coffee beans showcasing our commitment to quality and excellence"
                 className="rounded-lg w-full h-auto max-h-[75vh] object-contain shadow-md"
                 loading="lazy"
               />
@@ -83,8 +83,8 @@ const CompanyIntro: React.FC = () => {
               <div className="lg:hidden w-full mb-8">
                 <div className="relative">
                   <img
-                    src="https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    alt="Coffee shop atmosphere with people enjoying quality coffee moments"
+                    src="https://images.pexels.com/photos/29745520/pexels-photo-29745520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt="Coffee harvest in traditional farming practices showcasing our commitment to quality sourcing"
                     className="rounded-xl w-full h-auto max-h-[65vh] object-contain shadow-xl border-4 border-white"
                     loading="lazy"
                   />
@@ -127,8 +127,8 @@ const CompanyIntro: React.FC = () => {
             <div className="w-full lg:order-1 hidden lg:block">
               <div className="relative">
                 <img
-                  src="https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="Coffee shop atmosphere with people enjoying quality coffee moments"
+                  src="https://images.pexels.com/photos/29745520/pexels-photo-29745520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  alt="Coffee harvest in traditional farming practices showcasing our commitment to quality sourcing"
                   className="rounded-xl w-full h-auto max-h-[75vh] object-contain shadow-xl border-4 border-white"
                   loading="lazy"
                 />

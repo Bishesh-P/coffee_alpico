@@ -19,6 +19,20 @@ function shuffleArray<T>(array: T[]): T[] {
 const FeaturedProducts: React.FC = () => {
   const { addToCart } = useCart();
 
+  // Helper function to check if product is completely out of stock
+  const isProductCompletelyOutOfStock = (product: Product): boolean => {
+    // If product itself is marked as out of stock
+    if (product.inStock === false) return true;
+    
+    // If product has variants, check if ALL variants are out of stock
+    if (product.variants && product.variants.length > 0) {
+      return product.variants.every(variant => variant.inStock === false);
+    }
+    
+    // Product has no variants and is not marked as out of stock
+    return false;
+  };
+
   // State for shuffled products and hovered product
   const [featuredProducts, setFeaturedProducts] = useState(
     shuffleArray(products.filter(product => product.featured)).slice(0, 3)
@@ -72,7 +86,10 @@ const FeaturedProducts: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {featuredProducts.map((product) => (
+          {featuredProducts.map((product) => {
+            const isCompletelyOutOfStock = isProductCompletelyOutOfStock(product);
+            
+            return (
             <div
               key={product.id}
               className="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform hover:scale-[1.02]"
@@ -126,9 +143,15 @@ const FeaturedProducts: React.FC = () => {
                   {product.description}
                 </p>
                 <div className="flex justify-between items-center">
-                  <Button onClick={() => startAddToCartFlow(product)} variant="primary">
-                    Add to Cart
-                  </Button>
+                  {isCompletelyOutOfStock ? (
+                    <Button variant="outline" disabled className="text-gray-500 border-gray-300 cursor-not-allowed">
+                      Sold Out
+                    </Button>
+                  ) : (
+                    <Button onClick={() => startAddToCartFlow(product)} variant="primary">
+                      Add to Cart
+                    </Button>
+                  )}
                   <Link
                     to={`/products/${product.id}`}
                     className="text-blue-700 hover:text-navy-900 flex items-center transition-colors"
@@ -138,7 +161,8 @@ const FeaturedProducts: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="text-center mt-12">
