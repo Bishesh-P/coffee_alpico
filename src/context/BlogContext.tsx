@@ -227,7 +227,7 @@ Sustainable coffee encompasses three key pillars:
 ### Economic Sustainability
 - **Long-term partnerships**: Building lasting relationships with farmers
 - **Price stability**: Providing predictable income for farmers
-- **Quality premiums**: Rewarding excellence in coffee production
+- **Quality bonuses**: Rewarding excellence in coffee production
 - **Market access**: Helping farmers reach specialty coffee markets
 
 ## Our Direct Trade Program
@@ -268,7 +268,7 @@ Our partner farms use:
 We support farmers transitioning to organic methods:
 - Provide organic certification assistance
 - Share composting and natural pest control techniques
-- Pay premiums for organic coffee
+- Pay bonuses for organic coffee
 
 ## Community Impact
 
@@ -291,7 +291,7 @@ We support farmers transitioning to organic methods:
 
 ### Fair Trade
 - Ensures minimum prices for farmers
-- Provides community development premiums
+- Provides community development funds
 - Promotes democratic organization
 
 ### Rainforest Alliance
