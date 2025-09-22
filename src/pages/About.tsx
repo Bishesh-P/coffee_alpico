@@ -191,9 +191,9 @@ const About: React.FC = () => {
                 </div>
                 <div>
                   <img 
-                    src="https://images.pexels.com/photos/4629633/pexels-photo-4629633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                    alt="Coffee farmer in Nepal mountains" 
-                    className="rounded-lg shadow-md w-11/12 md:w-10/12 mx-auto max-h-72 sm:max-h-80 lg:max-h-96"
+                    src="https://images.pexels.com/photos/6439132/pexels-photo-6439132.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                    alt="Person holding coffea arabica beans" 
+                    className="rounded-lg shadow-md w-11/12 md:w-10/12 mx-auto max-h-64 sm:max-h-72 lg:max-h-80 object-cover"
                   />
                 </div>
               </div>
@@ -216,9 +216,9 @@ const About: React.FC = () => {
                 </div>
                 <div className="lg:order-1">
                   <img 
-                    src="https://images.pexels.com/photos/4886268/pexels-photo-4886268.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                    alt="Coffee roasting process" 
-                    className="rounded-lg shadow-md w-full"
+                    src="https://images.pexels.com/photos/12525465/pexels-photo-12525465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                    alt="Person pouring sugar in coffee" 
+                    className="rounded-lg shadow-md w-full max-h-80 object-cover"
                   />
                 </div>
               </div>

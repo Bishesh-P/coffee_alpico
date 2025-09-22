@@ -1486,7 +1486,7 @@ export const products: Product[] = [
     id: 306,
     name: "Moka Pot + Coffee Combo",
     price: 1900, // Discounted combo price
-    description: "Authentic Italian coffee experience! Includes our premium Classic Moka Pot with 250g of specially selected medium roast ground coffee perfect for moka brewing. Experience the rich, bold flavor of traditional Italian coffee at home. Save NPR 200!",
+    description: "Authentic Italian coffee experience! Includes our premium stainless steel Moka Pot (compatible with induction cooktops) with 250g of specially selected medium roast ground coffee perfect for moka brewing. The durable stainless steel construction ensures even heat distribution and works on all stovetops including gas, electric, and induction. Experience the rich, bold flavor of traditional Italian coffee at home. Save NPR 200!",
     image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
@@ -1495,7 +1495,7 @@ export const products: Product[] = [
     details: {
       material: "Bundle",
       capacity: "Italian Style",
-      features: ["Moka Pot Included", "250g Ground Coffee", "Authentic Italian Experience"],
+      features: ["Stainless Steel Moka Pot", "Induction Compatible", "250g Ground Coffee", "Authentic Italian Experience"],
       weight: "Moka Pot + 250g Coffee"
     },
     // Add placeholder variants so the customer chooses Moka Pot size at checkout
