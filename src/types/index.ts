@@ -45,6 +45,7 @@ export interface Product {
   originalPrice?: number; // For showing crossed-out original price
   description: string;
   image: string;
+  images?: string[]; // Multiple images for image slider
   category: string;
   featured: boolean;
   inStock?: boolean;

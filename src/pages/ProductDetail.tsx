@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { ArrowLeft, ShoppingBag, Coffee, PackageCheck, Truck } from 'lucide-react';
+import { ArrowLeft, ShoppingBag, Coffee, PackageCheck, Truck, ChevronLeft, ChevronRight } from 'lucide-react';
 import SEOHead from '../components/common/SEOHead';
 import { generateProductSEO } from '../config/seo';
 import { generateProductSchema, generateBreadcrumbSchema } from '../utils/structuredData';
@@ -17,6 +17,7 @@ const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const productId = parseInt(id || '0');
@@ -30,10 +31,6 @@ const ProductDetail: React.FC = () => {
       setSelectedVariant(undefined);
     }
   }, [id]);
-
-  const currentPrice = selectedVariant ? selectedVariant.price : product?.price || 0;
-  const currentImage = selectedVariant ? selectedVariant.image : product?.image || '';
-  const isOutOfStock = product?.inStock === false || (selectedVariant && selectedVariant.inStock === false);
 
   // Get back URL with category parameter if it exists
   const getBackUrl = () => {
@@ -81,6 +78,25 @@ const ProductDetail: React.FC = () => {
     setSelectedVariant(variant);
     setQuantity(1); // Reset quantity when variant changes
   };
+
+  const isCoffeeCategory = product ? product.category.includes('roast') || product.category.includes('coffee') : false;
+  const baseImages = product
+    ? (product.images && product.images.length > 0 ? product.images : [product.image])
+    : [];
+  const displayImages = baseImages.slice(0, 3);
+  const sliderImages = product
+    ? (isCoffeeCategory ? displayImages : selectedVariant ? [selectedVariant.image] : displayImages)
+    : [];
+  const sliderImagesLength = sliderImages.length;
+  const hasMultipleImages = sliderImagesLength > 1;
+
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [product?.id, selectedVariant?.id, sliderImagesLength]);
+
+  const currentImage = sliderImages[currentImageIndex] ?? sliderImages[0] ?? product?.image ?? '';
+  const currentPrice = selectedVariant ? selectedVariant.price : product?.price ?? 0;
+  const isOutOfStock = (product?.inStock === false) || (selectedVariant && selectedVariant.inStock === false);
 
   if (!product) {
     return (
@@ -139,11 +155,43 @@ const ProductDetail: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Product Image */}
           <div className="bg-white p-4 rounded-lg shadow-md">
-            <img 
-              src={currentImage} 
-              alt={product.name} 
-              className="w-full h-auto rounded"
-            />
+            <div className="relative rounded-lg overflow-hidden">
+              <img 
+                src={currentImage} 
+                alt={product.name} 
+                className="w-full h-auto rounded-lg transition-all duration-500 object-cover"
+              />
+              {hasMultipleImages && (
+                <>
+                  <button
+                    onClick={() => setCurrentImageIndex((prev) => (prev - 1 + sliderImages.length) % sliderImages.length)}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    onClick={() => setCurrentImageIndex((prev) => (prev + 1) % sliderImages.length)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    {sliderImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          index === currentImageIndex ? 'bg-white scale-110' : 'bg-white/50 hover:bg-white/75'
+                        }`}
+                        aria-label={`Show image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
 
           {/* Product Details */}

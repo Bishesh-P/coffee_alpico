@@ -14,12 +14,14 @@ const CompanyIntro: React.FC = () => {
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy-900 mb-6">
                 What We Believe In
               </h2>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                At Alpico, coffee is more than just a drink, it's a special part of your day that gives energy, focus, and a little happiness. We think Nepali coffee is amazing, and it should be enjoyed and loved not just in Nepal, but all over the world. Every cup is made with care, showing the hard work of farmers and the skill of roasters.
-                <blockquote className="border-l-4 border-gray-300 pl-4 italic text-gray-600 font-medium mt-4">
+              <div className="text-gray-700 mb-6 leading-relaxed">
+                <p className="mb-4">
+                  At Alpico, coffee is more than just a drink, it's a special part of your day that gives energy, focus, and a little happiness. We think Nepali coffee is amazing, and it should be enjoyed and loved not just in Nepal, but all over the world. Every cup is made with care, showing the hard work of farmers and the skill of roasters.
+                </p>
+                <blockquote className="border-l-4 border-gray-300 pl-4 italic text-gray-600 font-medium">
                     For us, it's not just about selling coffee, it's about making every cup special.
                 </blockquote>
-              </p>
+              </div>
 
               {/* Mobile-first image placed between text and feature icons */}
               <div className="lg:hidden w-full mb-8">

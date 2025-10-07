@@ -1,7 +1,7 @@
 import { memo, useCallback, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Product, ProductVariant } from '../../types';
-import { ArrowRight, ShoppingBag } from 'lucide-react';
+import { ArrowRight, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import Button from '../common/Button';
 
@@ -14,6 +14,25 @@ interface ProductCardProps {
 const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategory }) => {
   const { addToCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Image slider functionality
+  const images = product.images || [product.image];
+  const displayImages = images.slice(0, 3);
+  const hasMultipleImages = displayImages.length > 1;
+  const isCoffeeCategory = product.category.includes('roast');
+  
+  const nextImage = useCallback(() => {
+    setCurrentImageIndex((prev) => (prev + 1) % displayImages.length);
+  }, [displayImages.length]);
+
+  const prevImage = useCallback(() => {
+    setCurrentImageIndex((prev) => (prev - 1 + displayImages.length) % displayImages.length);
+  }, [displayImages.length]);
+  
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [displayImages.length, product.id]);
   
   // Find the first available variant, or fallback to first variant if none are available
   const getDefaultVariant = useCallback(() => {
@@ -38,7 +57,9 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
   }, [getDefaultVariant]);
 
   const currentPrice = selectedVariant ? selectedVariant.price : product.price;
-  const currentImage = selectedVariant ? selectedVariant.image : product.image;
+  const currentImage = selectedVariant && !isCoffeeCategory
+    ? selectedVariant.image
+    : displayImages[currentImageIndex] ?? images[0];
   const isOutOfStock = product.inStock === false || (selectedVariant && selectedVariant.inStock === false);
 
   const handleAddToCart = useCallback(() => {
@@ -62,13 +83,59 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
       }}
     >
       <Link to={`/products/${product.id}${currentCategory ? `?category=${currentCategory}` : ''}`}>
-        <div className="h-64 overflow-hidden relative">
+        <div className="h-64 overflow-hidden relative group/img">
           <img
             src={currentImage}
             alt={product.name}
             loading="lazy"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 filter grayscale-[30%] group-hover:filter-none"
           />
+          
+          {/* Image slider controls - only show for coffee products with multiple images */}
+          {hasMultipleImages && isCoffeeCategory && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  prevImage();
+                }}
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover/img:opacity-100 transition-all duration-300 z-10"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  nextImage();
+                }}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover/img:opacity-100 transition-all duration-300 z-10"
+              >
+                <ChevronRight size={16} />
+              </button>
+              
+              {/* Image indicators */}
+              <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-1 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300">
+                {displayImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setCurrentImageIndex(index);
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentImageIndex 
+                        ? 'bg-white scale-125' 
+                        : 'bg-white/50 hover:bg-white/75'
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+          
           {/* Premium overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           

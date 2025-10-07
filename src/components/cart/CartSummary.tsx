@@ -7,12 +7,16 @@ interface CartSummaryProps {
   showCheckoutButton?: boolean;
   overrideShipping?: number;
   overrideTotal?: number;
+  discount?: number;
+  discountCode?: string;
 }
 
 const CartSummary: React.FC<CartSummaryProps> = ({ 
-  showCheckoutButton = true,
+  showCheckoutButton = false, 
   overrideShipping,
-  overrideTotal
+  overrideTotal,
+  discount = 0,
+  discountCode
 }) => {
   const { getCartTotal, getCartCount } = useCart();
 
@@ -28,27 +32,31 @@ const CartSummary: React.FC<CartSummaryProps> = ({
     ? overrideTotal 
     : (subtotal + shipping);
 
-  // Promo code logic removed
-
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-xl font-bold text-navy-900 mb-4">Order Summary</h2>
-
-      {/* Promo code input removed */}
 
       <div className="space-y-3 mb-6">
         <div className="flex justify-between">
           <span className="text-gray-600">Subtotal ({getCartCount()} items)</span>
           <span className="font-medium">NPR {subtotal.toFixed(2)}</span>
         </div>
-        {/* Discount row removed */}
+        
+        {/* Show discount if applied */}
+        {discount > 0 && discountCode && (
+          <div className="flex justify-between text-green-600">
+            <span>Discount ({discountCode})</span>
+            <span>-NPR {discount.toFixed(2)}</span>
+          </div>
+        )}
+        
         <div className="flex justify-between">
           <span className="text-gray-600">Shipping</span>
           <span className="font-medium">
             {shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}
           </span>
         </div>
-        {/* Free shipping message should be handled in Checkout for city logic. */}
+        
         <div className="border-t border-gray-200 pt-3 mt-3">
           <div className="flex justify-between font-bold">
             <span className="text-gray-800">Total</span>

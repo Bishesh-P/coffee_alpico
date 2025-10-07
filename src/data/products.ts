@@ -207,6 +207,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "High quality single-origin Nepal coffee from Palpa. Our Medium light roast Arabica beans are perfect for pour-over brewing methods. Available in multiple sizes for coffee enthusiasts.",
     image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "medium-light-roast",
     featured: true,
     inStock: getProductStock(1),
@@ -248,7 +252,13 @@ export const products: Product[] = [
     name: "Drip Coffee Bags",
     price: 1500, // Base price for 10pcs
     description: "Convenient single-serve drip coffee bags featuring Nepal's finest light roast. Perfect for morning brewing anywhere - ideal for office, travel, or home use. High quality instant drip coffee experience.",
-    image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    images: [
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/4224099/pexels-photo-4224099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "medium-light-roast",
     featured: false,
     inStock: getProductStock(2),
@@ -275,7 +285,7 @@ export const products: Product[] = [
         id: "drip-light-10pcs",
         name: "10 pieces",
         price: 1500,
-        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
         details: {
           weight: "100g",
           volume: "10 servings"
@@ -291,6 +301,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "Pre-ground Nepal coffee beans featuring clean, bright light roast from Nepal's renowned coffee growing regions. Ready-to-brew ground coffee for convenience and exceptional flavor.",
     image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "medium-light-roast",
     featured: false,
     inStock: getProductStock(3),
@@ -333,6 +347,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "Our best espresso blend coffee beans combine carefully selected Arabica from Kaski. Perfect for espresso machines and coffee enthusiasts. Available in multiple sizes.",
     image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "medium-roast",
     featured: true,
     details: {
@@ -374,6 +392,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "A smooth, complex medium dark roast from the farm of Kaski at an altitude of 1250m. Pre-ground for convenience.",
     image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "medium-roast",
     featured: false,
     inStock: true,
@@ -415,7 +437,13 @@ export const products: Product[] = [
     name: "Drip Coffee Bags",
     price: 1849, // Base price for 10pcs
     description: "Certified organic coffee with a balanced profile featuring notes. Convenient single-serve drip bags. Perfect for home, office, or travel.",
-    image: "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    images: [
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+      "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/2602537/pexels-photo-2602537.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "medium-roast",
     featured: false,
     details: {
@@ -441,7 +469,7 @@ export const products: Product[] = [
         id: "drip-medium-10pcs",
         name: "10 pieces",
         price: 1849,
-        image: "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
         details: {
           weight: "100g",
           volume: "10 servings"
@@ -459,6 +487,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "A bold, earthy dark roast with low acidity and notes of cedar, spice, and dark chocolate. Available in multiple sizes.",
     image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "dark-roast",
     featured: true,
     inStock: true,
@@ -501,6 +533,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "A bold, intense dark roast with smoky notes and rich body. Perfect for those who love strong coffee. Pre-ground for convenience.",
     image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "dark-roast",
     featured: false,
     details: {
@@ -541,7 +577,13 @@ export const products: Product[] = [
     name: "Drip Coffee Bags",
     price: 1699, // Base price for 10pcs
     description: "Traditional Italian-style dark roast with intense flavor and oily surface. Perfect for espresso-style brewing. Convenient single-serve drip bags.",
-    image: "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    images: [
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "dark-roast",
     featured: false,
     details: {
@@ -585,6 +627,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "High quality single-origin Nepal coffee with delicate, bright flavors. Our pure light roast preserves the coffee's origin characteristics with minimal roasting for maximum brightness. Good for pour-over and filter brewing methods.",
     image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/4021808/pexels-photo-4021808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "light-roast",
     featured: true,
     inStock: getProductStock(31),
@@ -626,7 +672,13 @@ export const products: Product[] = [
     name: "Drip Coffee Bags - Light Roast",
     price: 1399, // Base price for 10pcs
     description: "Convenient single-serve drip coffee bags featuring Nepal's purest light roast. Perfect for those who appreciate subtle, nuanced coffee flavors. Ideal for office, travel, or home brewing.",
-    image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    images: [
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/4021808/pexels-photo-4021808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "light-roast",
     featured: false,
     inStock: getProductStock(32),
@@ -653,7 +705,7 @@ export const products: Product[] = [
         id: "drip-pure-light-10pcs",
         name: "10 pieces",
         price: 1399,
-        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
         details: {
           weight: "100g",
           volume: "10 servings"
@@ -669,6 +721,10 @@ export const products: Product[] = [
     price: 899, // Base price for 250g
     description: "Pre-ground Nepal coffee beans featuring delicate light roast with bright acidity and floral characteristics. Our lightest roast level preserves the coffee's natural brightness and origin flavors. Ready-to-brew ground coffee for filter and pour-over methods.",
     image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    images: [
+      "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    ],
     category: "light-roast",
     featured: false,
     inStock: getProductStock(33),

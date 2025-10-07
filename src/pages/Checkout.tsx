@@ -91,28 +91,57 @@ const Checkout: React.FC = () => {
     occupation: ''
   });
 
+  // Promo code state
+  const [promoCode, setPromoCode] = useState<string>('');
+  const [promoError, setPromoError] = useState<string>('');
+  const [promoApplied, setPromoApplied] = useState<boolean>(false);
+
+  // Hardcoded valid promo codes with discount percentages
+  const validPromoCodes: Record<string, { type: 'percentage' | 'fixed', value: number }> = useMemo(() => ({
+    'SAVE10': { type: 'percentage', value: 10 },
+    'SAVE5': { type: 'percentage', value: 5 },
+    'FLAT75': { type: 'fixed', value: 75 }
+  }), []);
+
   // Memoized calculations
   const subtotal = useMemo(() => getCartTotal(), [getCartTotal]);
   
-  const { shipping, total, isValley } = useMemo(() => {
+  const { shipping, total, isValley, discountAmount, finalTotal } = useMemo(() => {
     const cityLower = formData.city.trim().toLowerCase();
     const valleyCheck = ["kathmandu", "bhaktapur", "lalitpur"].includes(cityLower);
     let shippingCost = 0;
     
     if (subtotal === 0) {
       shippingCost = 0;
+    } else if (promoApplied && promoCode && validPromoCodes[promoCode.toUpperCase()]) {
+      // When promo code is applied, use fixed delivery charges
+      shippingCost = valleyCheck ? 100 : 150; // NPR 100 for valley, NPR 150 for outside valley
     } else if (valleyCheck && subtotal >= 2000) {
-      shippingCost = 0; // Free shipping for valley cities with orders >= NPR 2000
+      shippingCost = 0; // Free shipping for valley cities with orders >= NPR 2000 (no promo)
     } else {
-      shippingCost = 150; // NPR 150 for all other cases (valley < 2000 or outside valley)
+      shippingCost = 150; // NPR 150 for all other cases (valley < 2000 or outside valley, no promo)
+    }
+    
+    const beforeDiscount = subtotal + shippingCost;
+    let discount = 0;
+    
+    if (promoApplied && promoCode && validPromoCodes[promoCode.toUpperCase()]) {
+      const promoData = validPromoCodes[promoCode.toUpperCase()];
+      if (promoData.type === 'percentage') {
+        discount = (subtotal * promoData.value) / 100;
+      } else if (promoData.type === 'fixed') {
+        discount = Math.min(promoData.value, subtotal); // Don't discount more than subtotal
+      }
     }
     
     return {
       shipping: shippingCost,
-      total: subtotal + shippingCost,
-      isValley: valleyCheck
+      total: beforeDiscount,
+      isValley: valleyCheck,
+      discountAmount: discount,
+      finalTotal: beforeDiscount - discount
     };
-  }, [subtotal, formData.city]);
+  }, [subtotal, formData.city, promoApplied, promoCode, validPromoCodes]);
 
   // Removed auto-proceed: user must explicitly continue after selecting variants
 
@@ -230,6 +259,44 @@ const Checkout: React.FC = () => {
 
   const handleVariantSelectionComplete = useCallback(() => {
     setCurrentStep('shipping');
+  }, []);
+
+  // Promo code handlers
+  const handlePromoCodeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPromoCode(value);
+    // Clear error when user starts typing
+    if (promoError) {
+      setPromoError('');
+    }
+    // Remove applied status when user changes code
+    if (promoApplied) {
+      setPromoApplied(false);
+    }
+  }, [promoError, promoApplied]);
+
+  const handleApplyPromoCode = useCallback(() => {
+    const code = promoCode.trim().toUpperCase();
+    
+    // Handle empty promo code
+    if (!code) {
+      return; // Do nothing if empty
+    }
+    
+    // Check if promo code is valid
+    if (validPromoCodes[code]) {
+      setPromoApplied(true);
+      setPromoError('');
+    } else {
+      setPromoApplied(false);
+      setPromoError('Invalid promo code. Please try again.');
+    }
+  }, [promoCode, validPromoCodes]);
+
+  const handleRemovePromoCode = useCallback(() => {
+    setPromoCode('');
+    setPromoApplied(false);
+    setPromoError('');
   }, []);
 
   const handleConfirmOrder = useCallback(() => {
@@ -483,7 +550,7 @@ const Checkout: React.FC = () => {
       alert('Error generating PDF. Please try again.');
       return false;
     }
-  }, [cart, subtotal, shipping, total, formData, orderId, selectedPlatform, paymentPlatforms]);
+  }, [cart, subtotal, shipping, total, formData, orderId, selectedPlatform]);
 
   // Save receipt URL to database
   const saveReceiptToDatabase = useCallback(async (orderId: string, receiptUrl: string) => {
@@ -1036,10 +1103,68 @@ const Checkout: React.FC = () => {
             </div>
             
             <div>
+              {/* Promo Code Section */}
+              <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 className="text-lg font-semibold text-navy-900 mb-4">Promo Code</h3>
+                
+                {!promoApplied ? (
+                  <div className="space-y-3">
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={promoCode}
+                        onChange={handlePromoCodeChange}
+                        placeholder="Enter promo code"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <Button
+                        onClick={handleApplyPromoCode}
+                        variant="primary"
+                        disabled={!promoCode.trim()}
+                        className="px-4 py-2"
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                    {promoError && (
+                      <p className="text-red-600 text-sm">{promoError}</p>
+                    )}
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-md">
+                      <div className="flex items-center gap-2">
+                        <span className="text-green-600 font-medium">
+                          ✓ Promo code "{promoCode}" applied
+                          {(() => {
+                            const promoData = validPromoCodes[promoCode.toUpperCase()];
+                            if (promoData?.type === 'percentage') {
+                              return ` (${promoData.value}% off)`;
+                            } else if (promoData?.type === 'fixed') {
+                              return ` (NPR ${promoData.value} off)`;
+                            }
+                            return '';
+                          })()}
+                        </span>
+                      </div>
+                      <Button
+                        onClick={handleRemovePromoCode}
+                        variant="secondary"
+                        className="px-3 py-1 text-sm"
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <CartSummary 
                 showCheckoutButton={false} 
                 overrideShipping={shipping}
-                overrideTotal={total}
+                overrideTotal={finalTotal}
+                discount={discountAmount}
+                discountCode={promoApplied ? promoCode : undefined}
               />
             </div>
           </div>
