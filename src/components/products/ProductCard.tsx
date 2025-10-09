@@ -86,8 +86,15 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
         <div className="h-64 overflow-hidden relative group/img">
           <img
             src={currentImage}
+            srcSet={
+              currentImage.includes('images.pexels.com')
+                ? `${currentImage.replace(/w=\d+/,'w=400')} 400w, ${currentImage.replace(/w=\d+/,'w=800')} 800w, ${currentImage.replace(/w=\d+/,'w=1200')} 1200w`
+                : undefined
+            }
+            sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
             alt={product.name}
             loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 filter grayscale-[30%] group-hover:filter-none"
           />
           

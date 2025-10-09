@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -35,5 +37,14 @@ export default defineConfig({
   },
   define: {
     'process.env': {}
-  }
+  },
+  resolve: isProd ? {
+    alias: [
+      { find: 'react/jsx-dev-runtime', replacement: 'preact/jsx-runtime' },
+      { find: 'react/jsx-runtime', replacement: 'preact/jsx-runtime' },
+      { find: 'react-dom/test-utils', replacement: 'preact/test-utils' },
+      { find: 'react-dom', replacement: 'preact/compat' },
+      { find: 'react', replacement: 'preact/compat' }
+    ]
+  } : undefined
 });

@@ -206,10 +206,10 @@ export const products: Product[] = [
     name: "Whole Coffee Beans - Medium Light Roast",
     price: 899, // Base price for 250g
     description: "High quality single-origin Nepal coffee from Palpa. Our Medium light roast Arabica beans are perfect for pour-over brewing methods. Available in multiple sizes for coffee enthusiasts.",
-    image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/beans%20compresssed.webp"
     ],
     category: "medium-light-roast",
     featured: true,
@@ -226,7 +226,7 @@ export const products: Product[] = [
         id: "whole-light-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -237,7 +237,7 @@ export const products: Product[] = [
         id: "whole-light-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"
@@ -300,9 +300,9 @@ export const products: Product[] = [
     name: "Ground Coffee - Medium Light Roast",
     price: 899, // Base price for 250g
     description: "Pre-ground Nepal coffee beans featuring clean, bright light roast from Nepal's renowned coffee growing regions. Ready-to-brew ground coffee for convenience and exceptional flavor.",
-    image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
       "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "medium-light-roast",
@@ -320,7 +320,7 @@ export const products: Product[] = [
         id: "ground-light-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -331,7 +331,7 @@ export const products: Product[] = [
         id: "ground-light-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"
@@ -346,10 +346,10 @@ export const products: Product[] = [
     name: "Whole Coffee Beans - Espresso Blend",
     price: 899, // Base price for 250g
     description: "Our best espresso blend coffee beans combine carefully selected Arabica from Kaski. Perfect for espresso machines and coffee enthusiasts. Available in multiple sizes.",
-    image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/beans%20compresssed.webp"
     ],
     category: "medium-roast",
     featured: true,
@@ -365,7 +365,7 @@ export const products: Product[] = [
         id: "whole-medium-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -376,7 +376,7 @@ export const products: Product[] = [
         id: "whole-medium-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"
@@ -391,9 +391,9 @@ export const products: Product[] = [
     name: "Ground Coffee - Medium Dark Roast",
     price: 899, // Base price for 250g
     description: "A smooth, complex medium dark roast from the farm of Kaski at an altitude of 1250m. Pre-ground for convenience.",
-    image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
       "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "medium-roast",
@@ -411,7 +411,7 @@ export const products: Product[] = [
         id: "ground-medium-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -422,7 +422,7 @@ export const products: Product[] = [
         id: "ground-medium-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"
@@ -486,10 +486,10 @@ export const products: Product[] = [
     name: "Whole Coffee Beans - Dark Roast",
     price: 899, // Base price for 250g
     description: "A bold, earthy dark roast with low acidity and notes of cedar, spice, and dark chocolate. Available in multiple sizes.",
-    image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/beans%20compresssed.webp"
     ],
     category: "dark-roast",
     featured: true,
@@ -506,7 +506,7 @@ export const products: Product[] = [
         id: "whole-dark-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/2074122/pexels-photo-2074122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -517,7 +517,7 @@ export const products: Product[] = [
         id: "whole-dark-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"
@@ -532,9 +532,9 @@ export const products: Product[] = [
     name: "Ground Coffee - French Roast",
     price: 899, // Base price for 250g
     description: "A bold, intense dark roast with smoky notes and rich body. Perfect for those who love strong coffee. Pre-ground for convenience.",
-    image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
       "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "dark-roast",
@@ -551,7 +551,7 @@ export const products: Product[] = [
         id: "ground-dark-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -562,7 +562,7 @@ export const products: Product[] = [
         id: "ground-dark-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"
@@ -626,10 +626,10 @@ export const products: Product[] = [
     name: "Whole Coffee Beans - Light Roast",
     price: 899, // Base price for 250g
     description: "High quality single-origin Nepal coffee with delicate, bright flavors. Our pure light roast preserves the coffee's origin characteristics with minimal roasting for maximum brightness. Good for pour-over and filter brewing methods.",
-    image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/4021808/pexels-photo-4021808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/beans%20compresssed.webp"
     ],
     category: "light-roast",
     featured: true,
@@ -646,7 +646,7 @@ export const products: Product[] = [
         id: "whole-pure-light-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -657,7 +657,7 @@ export const products: Product[] = [
         id: "whole-pure-light-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"
@@ -720,9 +720,9 @@ export const products: Product[] = [
     name: "Ground Coffee - Light Roast",
     price: 899, // Base price for 250g
     description: "Pre-ground Nepal coffee beans featuring delicate light roast with bright acidity and floral characteristics. Our lightest roast level preserves the coffee's natural brightness and origin flavors. Ready-to-brew ground coffee for filter and pour-over methods.",
-    image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
       "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "light-roast",
@@ -740,7 +740,7 @@ export const products: Product[] = [
         id: "ground-pure-light-250g",
         name: "250g",
         price: 899,
-        image: "https://images.pexels.com/photos/2638019/pexels-photo-2638019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
         details: {
           weight: "250g",
           volume: "12-15 cups"
@@ -751,7 +751,7 @@ export const products: Product[] = [
         id: "ground-pure-light-500g",
         name: "500g",
         price: 1560,
-        image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/500gm.webp",
         details: {
           weight: "500g",
           volume: "25-30 cups"

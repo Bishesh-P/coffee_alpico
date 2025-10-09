@@ -5,12 +5,25 @@ import Button from '../common/Button';
 const Hero = memo(() => {
   return (
     <div className="relative h-screen">
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-zoom-pan"
-        style={{ 
-          backgroundImage: 'url(https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)', 
-        }}
-      >
+      {/* Optimized LCP image with responsive sources; disable heavy animation on mobile */}
+      <div className="absolute inset-0 overflow-hidden md:animate-zoom-pan">
+        <picture>
+          <source
+            media="(max-width: 640px)"
+            srcSet="https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=640&h=400&dpr=1"
+          />
+          <source
+            media="(max-width: 1024px)"
+            srcSet="https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1024&h=640&dpr=1"
+          />
+          <img
+            src="https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&dpr=1"
+            alt="Fresh coffee beans and brewing setup"
+            className="w-full h-full object-cover"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </picture>
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       </div>
 

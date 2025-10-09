@@ -79,14 +79,16 @@ const ProductDetail: React.FC = () => {
     setQuantity(1); // Reset quantity when variant changes
   };
 
-  const isCoffeeCategory = product ? product.category.includes('roast') || product.category.includes('coffee') : false;
   const baseImages = product
     ? (product.images && product.images.length > 0 ? product.images : [product.image])
     : [];
-  const displayImages = baseImages.slice(0, 3);
-  const sliderImages = product
-    ? (isCoffeeCategory ? displayImages : selectedVariant ? [selectedVariant.image] : displayImages)
-    : [];
+  const displayImages = baseImages.slice(0, 5);
+  const variantImage = selectedVariant?.image;
+  const sliderImages = product ? (
+    variantImage
+      ? [variantImage, ...displayImages].filter((img, idx, arr) => img && arr.indexOf(img) === idx)
+      : displayImages
+  ) : [];
   const sliderImagesLength = sliderImages.length;
   const hasMultipleImages = sliderImagesLength > 1;
 
@@ -158,8 +160,16 @@ const ProductDetail: React.FC = () => {
             <div className="relative rounded-lg overflow-hidden">
               <img 
                 src={currentImage} 
+                srcSet={
+                  currentImage.includes('images.pexels.com')
+                    ? `${currentImage.replace(/w=\d+/,'w=600')} 600w, ${currentImage.replace(/w=\d+/,'w=1000')} 1000w, ${currentImage.replace(/w=\d+/,'w=1400')} 1400w`
+                    : undefined
+                }
+                sizes="(max-width: 640px) 600px, (max-width: 1024px) 1000px, 1400px"
                 alt={product.name} 
                 className="w-full h-auto rounded-lg transition-all duration-500 object-cover"
+                loading="lazy"
+                decoding="async"
               />
               {hasMultipleImages && (
                 <>
