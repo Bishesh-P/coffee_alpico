@@ -318,8 +318,10 @@ const Checkout: React.FC = () => {
         // Debug logging
         console.log('Cash on Delivery Debug:', {
           total,
+          finalTotal,
           subtotal,
           shipping,
+          discountAmount,
           currentOrderId
         });
         
@@ -327,8 +329,11 @@ const Checkout: React.FC = () => {
         const orderDetails = {
           orderId: currentOrderId,
           total: total,
+          finalTotal: finalTotal, // Add finalTotal to saved details
           subtotal: subtotal,
           shipping: shipping,
+          discountAmount: discountAmount,
+          promoCode: promoApplied ? promoCode : '',
           paymentMethod: selectedPlatform,
           formData: formData,
           cart: cart.map(item => ({
@@ -347,7 +352,7 @@ const Checkout: React.FC = () => {
         setCurrentStep('payment');
       }
     }
-  }, [selectedPlatform, clearCart, orderId, setOrderId, total, subtotal, shipping, formData, cart]);
+  }, [selectedPlatform, clearCart, orderId, setOrderId, total, finalTotal, subtotal, shipping, discountAmount, promoCode, promoApplied, formData, cart]);
 
   const handlePaymentConfirm = useCallback(() => {
     setCurrentStep('receipt');
@@ -363,7 +368,9 @@ const Checkout: React.FC = () => {
       let displayCart = cart;
       let displaySubtotal = subtotal;
       let displayShipping = shipping;
-      let displayTotal = total;
+      let displayTotal = finalTotal; // Use finalTotal instead of total
+      let displayDiscountAmount = discountAmount;
+      let displayPromoCode = promoApplied ? promoCode : '';
       let displayFormData = formData;
       
       // Only use localStorage as fallback if cart is empty (cash on delivery case)
@@ -374,7 +381,9 @@ const Checkout: React.FC = () => {
           displayCart = orderDetails?.cart || [];
           displaySubtotal = orderDetails?.subtotal || 0;
           displayShipping = orderDetails?.shipping || 0;
-          displayTotal = orderDetails?.total || 0;
+          displayTotal = orderDetails?.finalTotal || orderDetails?.total || 0; // Prefer finalTotal
+          displayDiscountAmount = orderDetails?.discountAmount || 0;
+          displayPromoCode = orderDetails?.promoCode || '';
           displayFormData = orderDetails?.formData || formData;
         }
       }
@@ -515,13 +524,22 @@ const Checkout: React.FC = () => {
       
       // Create a box for the summary
       const summaryStartY = yPosition;
-      const summaryHeight = 25;
+      const summaryHeight = displayDiscountAmount > 0 ? 31 : 25; // Increase height if discount is shown
       pdf.rect(margin, summaryStartY - 5, pageWidth - 2 * margin, summaryHeight);
       
       yPosition += 2;
       pdf.text(`Subtotal:`, margin + 5, yPosition);
       pdf.text(`NPR ${displaySubtotal.toFixed(2)}`, pageWidth - margin - 5, yPosition, { align: 'right' });
       yPosition += 6;
+      
+      // Show discount if applied
+      if (displayDiscountAmount > 0 && displayPromoCode) {
+        pdf.setTextColor(0, 128, 0); // Green color for discount
+        pdf.text(`Discount (${displayPromoCode}):`, margin + 5, yPosition);
+        pdf.text(`-NPR ${displayDiscountAmount.toFixed(2)}`, pageWidth - margin - 5, yPosition, { align: 'right' });
+        pdf.setTextColor(0, 0, 0); // Reset to black
+        yPosition += 6;
+      }
       
       pdf.text(`Shipping:`, margin + 5, yPosition);
       pdf.text(`${displayShipping === 0 ? 'Free' : `NPR ${displayShipping.toFixed(2)}`}`, pageWidth - margin - 5, yPosition, { align: 'right' });
@@ -550,7 +568,7 @@ const Checkout: React.FC = () => {
       alert('Error generating PDF. Please try again.');
       return false;
     }
-  }, [cart, subtotal, shipping, total, formData, orderId, selectedPlatform]);
+  }, [cart, subtotal, shipping, finalTotal, discountAmount, promoCode, promoApplied, formData, orderId, selectedPlatform]);
 
   // Save receipt URL to database
   const saveReceiptToDatabase = useCallback(async (orderId: string, receiptUrl: string) => {
@@ -1322,20 +1340,26 @@ const Checkout: React.FC = () => {
                   <span>Subtotal:</span>
                   <span>NPR {subtotal.toFixed(2)}</span>
                 </div>
-                {/* Discount row removed, handled in CartSummary */}
+                {/* Show discount if applied */}
+                {discountAmount > 0 && promoApplied && promoCode && (
+                  <div className="flex justify-between mb-2 text-green-600">
+                    <span>Discount ({promoCode}):</span>
+                    <span>-NPR {discountAmount.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between mb-2">
                   <span>Shipping:</span>
                   <span>{shipping === 0 ? 'Free' : `NPR ${shipping.toFixed(2)}`}</span>
                 </div>
                 {/* Only show free shipping message for valley cities and subtotal below 2000 */}
-                {isValley && shipping > 0 && subtotal > 0 && subtotal < 2000 && (
+                {isValley && shipping > 0 && subtotal > 0 && subtotal < 2000 && !promoApplied && (
                   <div className="text-sm text-blue-700 italic mb-2">
                     Add NPR {(2000 - subtotal).toFixed(2)} more for free shipping(inside valley)
                   </div>
                 )}
                 <div className="flex justify-between font-bold text-lg border-t pt-2">
                   <span>Total:</span>
-                  <span>NPR {total > 0 ? total.toFixed(2) : '0.00'}</span>
+                  <span>NPR {finalTotal > 0 ? finalTotal.toFixed(2) : '0.00'}</span>
                 </div>
               </div>
 
@@ -1575,7 +1599,8 @@ const Checkout: React.FC = () => {
           } catch (e) {
             console.warn('Failed to parse saved order details:', e);
           }
-          const displayTotal = typeof orderDetails?.total === 'number' ? orderDetails.total : total;
+          const displayTotal = typeof orderDetails?.finalTotal === 'number' ? orderDetails.finalTotal : 
+                          (typeof orderDetails?.total === 'number' ? orderDetails.total : finalTotal);
           
           // Debug logging
           console.log('Success Page Debug:', {

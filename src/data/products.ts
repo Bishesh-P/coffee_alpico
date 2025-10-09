@@ -252,11 +252,11 @@ export const products: Product[] = [
     name: "Drip Coffee Bags",
     price: 1500, // Base price for 10pcs
     description: "Convenient single-serve drip coffee bags featuring Nepal's finest light roast. Perfect for morning brewing anywhere - ideal for office, travel, or home use. High quality instant drip coffee experience.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
     images: [
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
-      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
       "https://images.pexels.com/photos/4224099/pexels-photo-4224099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "medium-light-roast",
@@ -285,7 +285,7 @@ export const products: Product[] = [
         id: "drip-light-10pcs",
         name: "10 pieces",
         price: 1500,
-        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "100g",
           volume: "10 servings"
@@ -437,11 +437,11 @@ export const products: Product[] = [
     name: "Drip Coffee Bags",
     price: 1849, // Base price for 10pcs
     description: "Certified organic coffee with a balanced profile featuring notes. Convenient single-serve drip bags. Perfect for home, office, or travel.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
     images: [
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
-      "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
       "https://images.pexels.com/photos/2602537/pexels-photo-2602537.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "medium-roast",
@@ -469,7 +469,7 @@ export const products: Product[] = [
         id: "drip-medium-10pcs",
         name: "10 pieces",
         price: 1849,
-        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "100g",
           volume: "10 servings"
@@ -577,11 +577,11 @@ export const products: Product[] = [
     name: "Drip Coffee Bags",
     price: 1699, // Base price for 10pcs
     description: "Traditional Italian-style dark roast with intense flavor and oily surface. Perfect for espresso-style brewing. Convenient single-serve drip bags.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
     images: [
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
-      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
       "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "dark-roast",
@@ -672,11 +672,11 @@ export const products: Product[] = [
     name: "Drip Coffee Bags - Light Roast",
     price: 1399, // Base price for 10pcs
     description: "Convenient single-serve drip coffee bags featuring Nepal's purest light roast. Perfect for those who appreciate subtle, nuanced coffee flavors. Ideal for office, travel, or home brewing.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
     images: [
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
-      "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
       "https://images.pexels.com/photos/4021808/pexels-photo-4021808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     ],
     category: "light-roast",
@@ -705,7 +705,7 @@ export const products: Product[] = [
         id: "drip-pure-light-10pcs",
         name: "10 pieces",
         price: 1399,
-        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image%20compress.jpg",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "100g",
           volume: "10 servings"

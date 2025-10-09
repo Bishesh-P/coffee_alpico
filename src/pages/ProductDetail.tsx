@@ -196,9 +196,12 @@ const ProductDetail: React.FC = () => {
 
           {/* Product Details */}
           <div>
-            <h1 className="text-2xl md:text-3xl font-serif font-bold text-navy-900 mb-2">
+            {/* Product Name - First */}
+            <h1 className="text-2xl md:text-3xl font-serif font-bold text-navy-900 mb-3">
               {product.name}
             </h1>
+
+            {/* Price Display */}
             <div className="mb-4">
               {/* Show discounted price logic */}
               {selectedVariant ? (
@@ -229,14 +232,11 @@ const ProductDetail: React.FC = () => {
                 )
               )}
             </div>
-            <p className="text-gray-700 mb-6 leading-relaxed">
-              {product.description}
-            </p>
 
-            {/* Variant Selection */}
+            {/* Variant Selection - Second (Size Details) */}
             {product.variants && product.variants.length > 0 && (
-              <div className="mb-6">
-                <h3 className="font-bold text-navy-900 mb-3">
+              <div className="mb-4">
+                <h3 className="font-bold text-navy-900 mb-3 text-base">
                   {product.category === 'merch' ? 'Color Options:' : 'Size Options:'}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
@@ -253,147 +253,170 @@ const ProductDetail: React.FC = () => {
                       }`}
                       disabled={variant.inStock === false}
                     >
-                      <div className="font-medium text-navy-900">{variant.name}</div>
+                      <div className="font-medium text-navy-900 text-base">{variant.name}</div>
                       <div className="text-sm text-gray-600">{variant.details.volume}</div>
-                      <div className="mt-1">
+                      <div className="mt-2">
                         {variant.originalPrice ? (
                           <div className="flex items-center gap-2">
                             <span className="text-gray-500 line-through text-sm">NPR {variant.originalPrice.toFixed(2)}</span>
-                            <span className="text-blue-800 font-bold">NPR {variant.price.toFixed(2)}</span>
-                            <span className="bg-red-500 text-white text-xs px-1 py-0.5 rounded font-medium">
-                              {Math.round(((variant.originalPrice - variant.price) / variant.originalPrice) * 100)}% OFF
-                            </span>
+                            <span className="text-blue-800 font-bold text-base">NPR {variant.price.toFixed(2)}</span>
                           </div>
                         ) : (
-                          <div className="text-blue-800 font-medium">NPR {variant.price.toFixed(2)}</div>
+                          <div className="text-blue-800 font-medium text-base">NPR {variant.price.toFixed(2)}</div>
                         )}
                       </div>
                       {variant.inStock === false && (
-                        <div className="text-red-500 text-xs mt-1">Sold Out</div>
+                        <div className="text-red-500 text-sm mt-1">Sold Out</div>
                       )}
                     </button>
                   ))}
                 </div>
               </div>
             )}
+
+            {/* Add to Cart and Quantity - Third (PROMINENT CTA) */}
+            <div className="mb-4">
+              <div className="flex items-center">
+                <Button 
+                  onClick={handleAddToCart}
+                  variant="primary"
+                  size="md"
+                  className="flex items-center justify-center gap-2 py-2.5 px-6"
+                  disabled={isOutOfStock}
+                >
+                  <ShoppingBag size={18} />
+                  {isOutOfStock ? 'Sold Out' : (added ? 'Added to Cart!' : 'Add to Cart')}
+                </Button>
+                
+                <div className="flex items-center gap-1 ml-2">
+                  <label htmlFor="quantity" className="font-medium text-gray-700 text-sm">
+                    Qty:
+                  </label>
+                  <select
+                    id="quantity"
+                    value={quantity}
+                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    className="py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    disabled={isOutOfStock}
+                  >
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                      <option key={num} value={num}>{num}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Product Description - Fourth */}
+            <div className="mb-3">
+              <h3 className="font-semibold text-navy-900 mb-2">About This Product</h3>
+              <p className="text-gray-700 leading-relaxed">
+                {product.description}
+              </p>
+            </div>
             
-            {/* Product Specs */}
-            <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                            <h3 className="text-lg font-semibold text-blue-900 mb-3 border-b border-blue-200 pb-2">
-                {product.category === 'equipment' ? 'Equipment Details:' : 
-                 product.category === 'merch' ? 'Product Details:' : 'Coffee Details:'}
+            {/* Product Specifications - Fifth (Vertical Layout) */}
+            <div className="bg-blue-50 p-4 rounded-lg mb-3 border border-blue-200">
+              <h3 className="font-semibold text-blue-900 mb-3">
+                {product.category === 'equipment' ? 'Specifications' : 
+                 product.category === 'merch' ? 'Details' : 'Coffee Info'}
               </h3>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <span className="font-medium text-blue-800 w-32">
+              <div className="space-y-3">
+                <div className="flex items-start">
+                  <span className="font-medium text-blue-800 w-28 flex-shrink-0">
                     {product.category === 'equipment' ? 'Material:' : 
                      (product.details as any).origin ? 'Origin:' :
                      (product.details as any).material ? 'Material:' :
                      (product.details as any).fabric ? 'Fabric:' : 'Material:'}
                   </span> 
-                  <span>
+                  <span className="text-gray-700">
                     {(product.details as any).origin || 
                      (product.details as any).material || 
                      (product.details as any).fabric || 'N/A'}
                   </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="font-medium text-blue-800 w-32">
+                </div>
+                <div className="flex items-start">
+                  <span className="font-medium text-blue-800 w-28 flex-shrink-0">
                     {product.category === 'equipment' ? 'Type:' : 
                      (product.details as any).roastLevel ? 'Roast Level:' :
                      (product.details as any).capacity ? 'Capacity:' :
                      (product.details as any).sizes ? 'Sizes:' : 'Type:'}
                   </span> 
-                  <span>
+                  <span className="text-gray-700">
                     {(product.details as any).roastLevel || 
                      (product.details as any).capacity || 
                      (product.details as any).sizes || 'N/A'}
                   </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="font-medium text-blue-800 w-32">
+                </div>
+                <div className="flex items-start">
+                  <span className="font-medium text-blue-800 w-28 flex-shrink-0">Weight:</span> 
+                  <span className="text-gray-700">
+                    {selectedVariant ? selectedVariant.details.weight : product.details.weight}
+                  </span>
+                </div>
+                <div className="flex items-start">
+                  <span className="font-medium text-blue-800 w-28 flex-shrink-0">
                     {product.category === 'equipment' ? 'Features:' : 
                      (product.details as any).processing ? 'Processing:' :
                      (product.details as any).features ? 'Features:' : 'Features:'}
                   </span> 
-                  <span>
+                  <span className="text-gray-700">
                     {((product.details as any).processing 
                       ? (product.details as any).processing 
                       : Array.isArray((product.details as any).features) 
                         ? (product.details as any).features.join(', ') 
                         : (product.details as any).features || 'N/A')}
                   </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="font-medium text-blue-800 w-32">Weight:</span> 
-                  <span>
-                    {selectedVariant ? selectedVariant.details.weight : product.details.weight}
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <span className="font-medium text-blue-800 w-32">
+                </div>
+                <div className="flex items-start">
+                  <span className="font-medium text-blue-800 w-28 flex-shrink-0">
                     {product.category.includes('roast') || product.category.includes('coffee') ? 'Altitude:' : 'Volume:'}
                   </span> 
-                  <span>
+                  <span className="text-gray-700">
                     {product.category.includes('roast') || product.category.includes('coffee')
                       ? (product.details as any).altitude || 'N/A'
                       : (selectedVariant ? selectedVariant.details.volume : (product as any).details?.volume) || 'N/A'}
                   </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Add to Cart */}
-            <div className="mb-8">
-              <div className="flex items-center mb-4">
-                <label htmlFor="quantity" className="mr-4 font-medium text-gray-700">
-                  Quantity:
-                </label>
-                <select
-                  id="quantity"
-                  value={quantity}
-                  onChange={(e) => setQuantity(parseInt(e.target.value))}
-                  className="py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  disabled={isOutOfStock}
-                >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                    <option key={num} value={num}>{num}</option>
-                  ))}
-                </select>
+                </div>
               </div>
-
-              <Button 
-                onClick={handleAddToCart}
-                variant="primary"
-                size="lg"
-                className="w-full md:w-auto flex items-center justify-center gap-2"
-                disabled={isOutOfStock}
-              >
-                <ShoppingBag size={18} />
-                {isOutOfStock ? 'Sold Out' : (added ? 'Added to Cart!' : 'Add to Cart')}
-              </Button>
             </div>
 
-            {/* Shipping Info */}
-            <div className="border-t border-gray-200 pt-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Shipping & Quality Info - Sixth (Compact) */}
+            <div className="border-t border-gray-200 pt-3">
+              <h3 className="font-semibold text-navy-900 mb-3">Why Choose Alpico?</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="flex items-center">
-                  <Coffee className="text-navy-700 mr-2" size={20} />
-                  <span className="text-sm">
-                    {getProductBenefit(product.category, 'quality')}
-                  </span>
+                  <div className="bg-blue-100 p-2 rounded mr-3">
+                    <Coffee className="text-blue-700" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-navy-900">Premium Quality</h4>
+                    <span className="text-sm text-gray-600">
+                      {getProductBenefit(product.category, 'quality')}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex items-center">
-                  <PackageCheck className="text-navy-700 mr-2" size={20} />
-                  <span className="text-sm">
-                    {getProductBenefit(product.category, 'source')}
-                  </span>
+                  <div className="bg-green-100 p-2 rounded mr-3">
+                    <PackageCheck className="text-green-700" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-navy-900">Authentic Source</h4>
+                    <span className="text-sm text-gray-600">
+                      {getProductBenefit(product.category, 'source')}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex items-center">
-                  <Truck className="text-navy-700 mr-2" size={20} />
-                  <span className="text-sm">
-                    {getProductBenefit(product.category, 'shipping')}
-                  </span>
+                  <div className="bg-purple-100 p-2 rounded mr-3">
+                    <Truck className="text-purple-700" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-navy-900">Fast Delivery</h4>
+                    <span className="text-sm text-gray-600">
+                      {getProductBenefit(product.category, 'shipping')}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
