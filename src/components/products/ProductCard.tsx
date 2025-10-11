@@ -18,10 +18,48 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
   
   // Image slider functionality
   const images = product.images || [product.image];
-  const displayImages = images.slice(0, 3);
-  const hasMultipleImages = displayImages.length > 1;
+  const isWholeBeanProduct = product.name?.toLowerCase().includes('whole coffee beans');
   const isCoffeeCategory = product.category.includes('roast');
+  const isEquipmentCategory = product.category === 'equipment';
   
+  // Find the first available variant, or fallback to first variant if none are available
+  const getDefaultVariant = useCallback(() => {
+    if (!product.variants || product.variants.length === 0) return undefined;
+    const availableVariant = product.variants.find(variant => variant.inStock !== false);
+    return availableVariant || product.variants[0];
+  }, [product.variants]);
+  
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(getDefaultVariant());
+
+  // For equipment products, show only the variant image or main product image (no slider)
+  // For coffee products, handle multiple images with slider functionality
+  let displayImages;
+  
+  if (isEquipmentCategory) {
+    // Equipment: Show only single image - variant image if available, otherwise product main image
+    displayImages = selectedVariant?.image ? [selectedVariant.image] : [product.image];
+  } else {
+    // Coffee products: Handle multiple images with existing logic
+    const isGroundCoffeeProduct = product.name?.toLowerCase().includes('ground coffee');
+    const is500gVariant = selectedVariant?.name === '500g';
+    const GROUND_COFFEE_URL = 'https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/ground%20coffee.webp';
+    
+    let processedImages = images;
+    if (isGroundCoffeeProduct && is500gVariant) {
+      // Remove existing ground coffee image if present and add it as second image
+      const filteredImages = images.filter(img => img !== GROUND_COFFEE_URL);
+      processedImages = [filteredImages[0], GROUND_COFFEE_URL, ...filteredImages.slice(1)].filter(Boolean);
+    }
+    
+    displayImages = isWholeBeanProduct && selectedVariant
+      ? (is500gVariant 
+          ? [selectedVariant.image, 'https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/beans%20compresssed.webp'].filter((img, idx, arr) => img && arr.indexOf(img) === idx).slice(0, 2)
+          : [selectedVariant.image, ...processedImages].filter((img, idx, arr) => img && arr.indexOf(img) === idx).slice(0, 3))
+      : processedImages.slice(0, 3);
+  }
+  
+  const hasMultipleImagesComputed = displayImages.length > 1 && !isEquipmentCategory;
+
   const nextImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev + 1) % displayImages.length);
   }, [displayImages.length]);
@@ -32,16 +70,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
   
   useEffect(() => {
     setCurrentImageIndex(0);
-  }, [displayImages.length, product.id]);
-  
-  // Find the first available variant, or fallback to first variant if none are available
-  const getDefaultVariant = useCallback(() => {
-    if (!product.variants || product.variants.length === 0) return undefined;
-    const availableVariant = product.variants.find(variant => variant.inStock !== false);
-    return availableVariant || product.variants[0];
-  }, [product.variants]);
-  
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(getDefaultVariant());
+  }, [product.id]);
 
   // For combo offers we want selection deferred to checkout, so clear any preselected variant
   useEffect(() => {
@@ -56,10 +85,13 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
     setSelectedVariant(defaultVariant);
   }, [getDefaultVariant]);
 
+  // Reset image index when variant changes
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [selectedVariant?.id, displayImages.length]);
+
   const currentPrice = selectedVariant ? selectedVariant.price : product.price;
-  const currentImage = selectedVariant && !isCoffeeCategory
-    ? selectedVariant.image
-    : displayImages[currentImageIndex] ?? images[0];
+  const currentImage = displayImages[currentImageIndex] ?? images[0];
   const isOutOfStock = product.inStock === false || (selectedVariant && selectedVariant.inStock === false);
 
   const handleAddToCart = useCallback(() => {
@@ -99,7 +131,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
           />
           
           {/* Image slider controls - only show for coffee products with multiple images */}
-          {hasMultipleImages && isCoffeeCategory && (
+          {hasMultipleImagesComputed && isCoffeeCategory && (
             <>
               <button
                 onClick={(e) => {

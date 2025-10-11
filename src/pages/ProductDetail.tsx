@@ -17,7 +17,6 @@ const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const productId = parseInt(id || '0');
@@ -79,24 +78,61 @@ const ProductDetail: React.FC = () => {
     setQuantity(1); // Reset quantity when variant changes
   };
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const baseImages = product
     ? (product.images && product.images.length > 0 ? product.images : [product.image])
     : [];
-  const displayImages = baseImages.slice(0, 5);
-  const variantImage = selectedVariant?.image;
-  const sliderImages = product ? (
-    variantImage
-      ? [variantImage, ...displayImages].filter((img, idx, arr) => img && arr.indexOf(img) === idx)
-      : displayImages
-  ) : [];
-  const sliderImagesLength = sliderImages.length;
-  const hasMultipleImages = sliderImagesLength > 1;
+  
+  const isGroundCoffeeProduct = product?.name?.toLowerCase().includes('ground coffee');
+  const isWholeBeanProduct = product?.name?.toLowerCase().includes('whole coffee beans');
+  const isCoffeeProduct = product?.category.includes('roast') || isGroundCoffeeProduct || isWholeBeanProduct;
+  const isEquipmentCategory = product?.category === 'equipment';
+  const is500gVariant = selectedVariant?.name === '500g';
+  const GROUND_COFFEE_URL = 'https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/ground%20coffee.webp';
+  const BEANS_COMPRESSED_URL = 'https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/beans%20compresssed.webp';
+  
+  // For equipment products, show only single image
+  // For coffee products, handle multiple images with slider functionality
+  let currentImage, sliderImages, hasMultipleImages;
+  
+  if (isEquipmentCategory || !isCoffeeProduct) {
+    // Equipment/Non-coffee: Single image only
+    currentImage = selectedVariant?.image || product?.image || '';
+    sliderImages = [currentImage];
+    hasMultipleImages = false;
+  } else {
+    // Coffee products: Handle multiple images with existing logic
+    let processedImages = baseImages;
+    if (isGroundCoffeeProduct && is500gVariant) {
+      // Remove existing ground coffee image if present and add it as second image
+      const filteredImages = baseImages.filter(img => img !== GROUND_COFFEE_URL);
+      processedImages = [filteredImages[0], GROUND_COFFEE_URL, ...filteredImages.slice(1)].filter(Boolean);
+    }
+    
+    const displayImages = processedImages.slice(0, 5);
+    const variantImage = selectedVariant?.image;
+    
+    // For ground coffee 500g variants, limit to exactly 2 slides: variant image + ground coffee image
+    // For whole bean 500g variants, limit to exactly 2 slides: variant image + beans compressed image
+    sliderImages = product ? (
+      variantImage
+        ? (isGroundCoffeeProduct && is500gVariant 
+            ? [variantImage, GROUND_COFFEE_URL].filter((img, idx, arr) => img && arr.indexOf(img) === idx)
+            : isWholeBeanProduct && is500gVariant
+            ? [variantImage, BEANS_COMPRESSED_URL].filter((img, idx, arr) => img && arr.indexOf(img) === idx)
+            : [variantImage, ...displayImages].filter((img, idx, arr) => img && arr.indexOf(img) === idx))
+        : displayImages
+    ) : [];
+    
+    hasMultipleImages = sliderImages.length > 1;
+    currentImage = sliderImages[currentImageIndex] ?? sliderImages[0] ?? product?.image ?? '';
+  }
 
   useEffect(() => {
     setCurrentImageIndex(0);
-  }, [product?.id, selectedVariant?.id, sliderImagesLength]);
+  }, [product?.id, selectedVariant?.id]);
 
-  const currentImage = sliderImages[currentImageIndex] ?? sliderImages[0] ?? product?.image ?? '';
   const currentPrice = selectedVariant ? selectedVariant.price : product?.price ?? 0;
   const isOutOfStock = (product?.inStock === false) || (selectedVariant && selectedVariant.inStock === false);
 
@@ -171,7 +207,7 @@ const ProductDetail: React.FC = () => {
                 loading="lazy"
                 decoding="async"
               />
-              {hasMultipleImages && (
+              {hasMultipleImages && isCoffeeProduct && (
                 <>
                   <button
                     onClick={() => setCurrentImageIndex((prev) => (prev - 1 + sliderImages.length) % sliderImages.length)}

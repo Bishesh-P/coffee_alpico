@@ -54,15 +54,12 @@ const STOCK_CONFIG = {
     103: true, // Professional Filtercone Pour Over Dripper ⚙️
     104: true, // V60 Coffee Server ⚙️
     105: true, // Ceramic Burr Hand Coffee Grinder ⚙️
-    106: true, // AeroPress Coffee and Espresso Maker ⚙️
     108: true, // Digital Coffee Scale with Timer ⚙️
     111: true, // Black Moka Pot ⚙️
     112: true, // Stainless Steel French Press ⚙️
-    113: false, // Electric Handheld Milk Frother ❌ OUT OF STOCK
     114: true, // Stainless Steel Frothing Pitcher ⚙️
     115: true, // V60 Coffee Filter (2-4 cups) ⚙️
-    116: true, // Drip Coffee Maker Machine ⚙️
-    117: true, // Gooseneck Kettle with Thermometer ⚙️
+  116: true, // Drip Coffee Maker Machine ⚙️
     
     // 🎽 MERCHANDISE
     201: true, // Alpico Coffee Mug 🎽
@@ -75,9 +72,7 @@ const STOCK_CONFIG = {
     // 🎁 COMBO OFFERS
     301: true, // French Press + Coffee Combo 🎁
     302: true, // Coffee + Alpico Mug Combo 🎁
-    303: true, // Complete Coffee Starter Kit 🎁
     304: true, // Pour Over + Coffee Bundle 🎁
-    305: true, // Coffee Lover's Premium Pack 🎁
     306: true, // Moka Pot + Coffee Combo 🎁
   } as Record<number, boolean>,
   
@@ -133,7 +128,6 @@ const STOCK_CONFIG = {
     "mug-white": true,            // White Mug 🎽
     "mug-black": true,            // Black Mug 🎽
     "tumbler-black": true,        // Black Temperature Display Cup 🎽
-    "tumbler-white": true,        // White Temperature Display Cup 🎽
     "tumbler-pink": true,         // Pink Temperature Display Cup 🎽
     "cap-navy": true,             // Navy Cap 🎽
     "cap-black": true,            // Black Cap 🎽
@@ -208,7 +202,6 @@ export const products: Product[] = [
     description: "High quality single-origin Nepal coffee from Palpa. Our Medium light roast Arabica beans are perfect for pour-over brewing methods. Available in multiple sizes for coffee enthusiasts.",
     image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/beans%20compresssed.webp"
     ],
     category: "medium-light-roast",
@@ -256,8 +249,7 @@ export const products: Product[] = [
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
-      "https://images.pexels.com/photos/4224099/pexels-photo-4224099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp"
     ],
     category: "medium-light-roast",
     featured: false,
@@ -274,7 +266,7 @@ export const products: Product[] = [
         id: "drip-light-5pcs",
         name: "5 pieces",
         price: 799,
-        image: "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "50g",
           volume: "5 servings"
@@ -303,7 +295,7 @@ export const products: Product[] = [
     image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
-      "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/ground%20coffee.webp"
     ],
     category: "medium-light-roast",
     featured: false,
@@ -394,7 +386,7 @@ export const products: Product[] = [
     image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
-      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/ground%20coffee.webp"
     ],
     category: "medium-roast",
     featured: false,
@@ -441,8 +433,7 @@ export const products: Product[] = [
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
-      "https://images.pexels.com/photos/2602537/pexels-photo-2602537.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp"
     ],
     category: "medium-roast",
     featured: false,
@@ -458,7 +449,7 @@ export const products: Product[] = [
         id: "drip-medium-5pcs",
         name: "5 pieces",
         price: 999,
-        image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "50g",
           volume: "5 servings"
@@ -535,7 +526,7 @@ export const products: Product[] = [
     image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
-      "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/ground%20coffee.webp"
     ],
     category: "dark-roast",
     featured: false,
@@ -581,8 +572,7 @@ export const products: Product[] = [
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
-      "https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp"
     ],
     category: "dark-roast",
     featured: false,
@@ -598,7 +588,7 @@ export const products: Product[] = [
         id: "drip-dark-5pcs",
         name: "5 pieces",
         price: 899,
-        image: "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "50g",
           volume: "5 servings"
@@ -609,7 +599,7 @@ export const products: Product[] = [
         id: "drip-dark-10pcs",
         name: "10 pieces",
         price: 1699,
-        image: "https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "100g",
           volume: "10 servings"
@@ -676,8 +666,7 @@ export const products: Product[] = [
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Drip%20coffee%20image2.webp",
-      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp",
-      "https://images.pexels.com/photos/4021808/pexels-photo-4021808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/drip%20coffee%20image3.webp"
     ],
     category: "light-roast",
     featured: false,
@@ -694,7 +683,7 @@ export const products: Product[] = [
         id: "drip-pure-light-5pcs",
         name: "5 pieces",
         price: 749,
-        image: "https://images.pexels.com/photos/6802983/pexels-photo-6802983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/dripcoffeeimagecompress.jpg",
         details: {
           weight: "50g",
           volume: "5 servings"
@@ -723,7 +712,7 @@ export const products: Product[] = [
     image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
     images: [
       "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/250gm.webp",
-      "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/ground%20coffee.webp"
     ],
     category: "light-roast",
     featured: false,
@@ -784,7 +773,7 @@ export const products: Product[] = [
         id: "moka-black-3cup",
         name: "Black 3-Cup",
         price: 1199,
-        image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/black%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -795,7 +784,7 @@ export const products: Product[] = [
         id: "moka-black-6cup",
         name: "Black 6-Cup",
         price: 1799,
-        image: "https://images.pexels.com/photos/4226798/pexels-photo-4226798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/black%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -806,7 +795,7 @@ export const products: Product[] = [
         id: "moka-black-9cup",
         name: "Black 9-Cup",
         price: 1999,
-        image: "https://images.pexels.com/photos/4226799/pexels-photo-4226799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/black%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -835,7 +824,7 @@ export const products: Product[] = [
         id: "moka-aluminum-3cup",
         name: "Aluminum 3-Cup",
         price: 1299,
-        image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/aluminium%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: '-'
@@ -846,7 +835,7 @@ export const products: Product[] = [
         id: "moka-aluminum-6cup",
         name: "Aluminum 6-Cup",
         price: 1499,
-        image: "https://images.pexels.com/photos/4226798/pexels-photo-4226798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/aluminium%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -857,7 +846,7 @@ export const products: Product[] = [
         id: "moka-aluminum-9cup",
         name: "Aluminum 9-Cup",
         price: 1799,
-        image: "https://images.pexels.com/photos/4226799/pexels-photo-4226799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/aluminium%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -868,7 +857,7 @@ export const products: Product[] = [
         id: "moka-steel-2cup",
         name: "Steel 2-Cup",
         price: 1099,
-        image: "https://images.pexels.com/photos/4226801/pexels-photo-4226801.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/steel%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -879,7 +868,7 @@ export const products: Product[] = [
         id: "moka-steel-4cup",
         name: "Steel 4-Cup",
         price: 1399,
-        image: "https://images.pexels.com/photos/4226802/pexels-photo-4226802.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/steel%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -890,7 +879,7 @@ export const products: Product[] = [
         id: "moka-steel-6cup",
         name: "Steel 6-Cup",
         price: 1499,
-        image: "https://images.pexels.com/photos/4226803/pexels-photo-4226803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/steel%20mocha%20pot.webp",
         details: {
           volume: "-",
           weight: "-"
@@ -1032,7 +1021,7 @@ export const products: Product[] = [
     name: "Professional Filtercone Pour Over Dripper",
     price: 1300,
     description: "Professional AS resin filtercone with eco-friendly design for 2-4 servings. Features curved swirl design to improve coffee flow and prevent water stagnation in coffee bed. Large opening in base maintains proper flow rate. Produces clean cupping coffee without over-extraction bitterness. Widely used by coffee professionals and aficionados. Box includes: 1x Filtercone, 1x Scoop Spoon & 1x Reusable Cotton Filter.",
-    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/V60%20dripper.webp",
     category: "equipment",
     featured: false,
     inStock: getProductStock(103),
@@ -1069,7 +1058,7 @@ export const products: Product[] = [
     name: "Ceramic Burr Hand Coffee Grinder",
     price: 3699,
     description: "Premium ceramic burr hand grinder that preserves pure coffee flavor without heat or rust. Adjustable settings for all brewing methods - Pour-over, French press, Espresso. Features stainless steel hand crank, detachable glass container, and super quiet operation. Perfect for home and travel with silicone lid and rubber base. Includes exquisite coffee spoon as free gift.",
-    image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/burr%20grinder.webp",
     category: "equipment",
     featured: true,
     details: {
@@ -1082,28 +1071,11 @@ export const products: Product[] = [
     // promoCodes removed for global promo
   },
   {
-    id: 106,
-    name: "AeroPress Coffee ",
-    price: 4499,
-    description: "Fast and convenient AeroPress makes one of the best cups of coffee you'll ever taste. Uses ideal water temperature (175°F) and gentle air pressure for rich flavor with lower acidity and no bitterness. Makes 1-4 cups in just 1 minute (20 seconds press time). Features micro-filter for grit-free coffee and total immersion brewing for uniform extraction. Perfect for espresso, Americano, or full cafe brewing.",
-    image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "equipment",
-    featured: false,
-    details: {
-      material: "BPA-Free Plastic",
-      capacity: "1-4 Cups (1-2 Mugs)",
-      features: ["MicroFilter Technology", "20s Press Time"],
-      weight: "-"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
     id: 108,
     name: "Digital Coffee Scale with Timer",
     price: 2799,
     description: "High-precision digital coffee scale with built-in cooking timer and green backlight LCD display. Features 0.1g accuracy with 3000g capacity, multiple units (g/oz/lb/ml), and silicone mat for stability. Includes tare function, auto power-off, and low battery indicator. Essential tool for perfect coffee-to-water ratios and consistent brewing results.",
-    image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Digital%20scale%20with%20timer.webp",
     category: "equipment",
     featured: false,
     details: {
@@ -1116,28 +1088,11 @@ export const products: Product[] = [
     // promoCodes removed for global promo
   },
   {
-    id: 113,
-    name: "Electric Handheld Milk Frother",
-    price: 750,
-    description: "Simple 1-hand operation electric milk frother with results in 20-30 seconds. Creates cafe-quality froth for milk, coffee, and cappuccinos. Features stainless steel stirrer with plastic handle in black matte finish. Electronic mini blender perfect for mixing, egg beating, and frothing. Note: Designed for frothing and mixing only, not for vegetable pulping or chopping.",
-    image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "equipment",
-    featured: false,
-    details: {
-      material: "Stainless Steel Stirrer + Plastic Handle",
-      capacity: "Handheld Design",
-      features: [ "1-Hand Operation", "Cafe Quality Froth"],
-      weight: "100g"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
     id: 114,
     name: "Stainless Steel Frothing Pitcher",
     price: 2499, // Base price for 350ml
     description: "Professional stainless steel frothing pitcher designed for creating creamy espresso drinks, lattes, cappuccinos, and mochas. Made of pure stainless steel that resists corrosion with sturdy handle for easy pouring and gripping. Features molded spout for even milk stream pouring. Can be chilled before frothing for optimal results.",
-    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher.webp",
     category: "equipment",
     featured: false,
     inStock: getProductStock(114),
@@ -1152,7 +1107,7 @@ export const products: Product[] = [
         id: "pitcher-350ml",
         name: "350ml",
         price: 1699,
-        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher.webp",
         details: {
           volume: "350ml",
           weight: "300g"
@@ -1163,7 +1118,7 @@ export const products: Product[] = [
         id: "pitcher-600ml",
         name: "600ml",
         price: 2099,
-        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher%20600ml.webp",
         details: {
           volume: "600ml",
           weight: "450g"
@@ -1174,7 +1129,7 @@ export const products: Product[] = [
         id: "pitcher-1000ml",
         name: "1000ml",
         price: 2499,
-        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher%201000ml.webp",
         details: {
           volume: "1000ml",
           weight: "650g"
@@ -1189,7 +1144,7 @@ export const products: Product[] = [
     name: "V60 Coffee Filter (2-4 cups)",
     price: 499,
     description: "Premium cone-shaped paper filters specifically designed for V60 pour-over brewing for 2-4 cups. Pack of 40 high-quality filters in 1 set for consistent extraction and clean cup profiles. Perfect fit for V60 drippers and optimal water flow.",
-    image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/filter%20paper.webp",
     category: "equipment",
     featured: false,
     details: {
@@ -1206,7 +1161,7 @@ export const products: Product[] = [
     name: "Drip Coffee Maker Machine",
     price: 7999,
     description: "Easy-to-use automatic coffee maker that brews perfect coffee at the touch of a button. Simply add water and coffee grounds, press start, and enjoy fresh coffee in minutes. Features anti-drip function to prevent messy spills, programmable timer for wake-up coffee, and durable construction with stainless steel, plastic, and glass components. Perfect for busy mornings and office use.",
-    image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Filter%20Machine.webp",
     category: "equipment",
     featured: true,
     inStock: getProductStock(116),
@@ -1219,24 +1174,7 @@ export const products: Product[] = [
     variants: [],
     // promoCodes removed for global promo
   },
-  {
-    id: 117,
-    name: "Gooseneck Kettle with Thermometer",
-    price: 4999,
-    description: "Premium stainless steel gooseneck kettle with built-in thermometer for precise temperature control. The gooseneck spout provides perfect control for pouring hot water or coffee with slow, precise flow to extract maximum flavor. Features ergonomic handle for comfortable use and high-quality polished finish that's anti-rust and durable. Safe for all stove types including gas, electric, and induction.",
-    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "equipment",
-    featured: true,
-    inStock: getProductStock(117),
-    details: {
-      material: "High Quality Stainless Steel",
-      capacity: "Large Capacity",
-      features: ["Built-in Thermometer", "Gooseneck Spout", "All Stove Compatible"],
-      weight: "800g"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
+  
 
   // Merchandise
   {
@@ -1244,7 +1182,7 @@ export const products: Product[] = [
     name: "Alpico Coffee Mug ",
     price: 350, // Base price for white
     description: "Premium ceramic coffee mug with the Alpico logo. Perfect for your daily coffee ritual. Dishwasher and microwave safe. Available in multiple colors.",
-    image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/white%20cup%20image.webp",
     category: "merch",
     featured: true,
     inStock: getProductStock(201),
@@ -1260,7 +1198,7 @@ export const products: Product[] = [
         id: "mug-white",
         name: "Classic White",
         price: 350,
-        image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/white%20cup%20image.webp",
         details: {
           weight: "320g",
           volume: "200ml"
@@ -1287,7 +1225,7 @@ export const products: Product[] = [
     price: 1299, // Discounted price
     originalPrice: 1599, // Original price to show discount
     description: "Smart temperature display coffee cup with 380ml capacity. Made of 304 food grade stainless steel with excellent heat preservation. Features larger caliber for easy cleaning, lightweight portable design, and water-tight sealing technology.",
-    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/black%20temp%20cup%20display.webp",
     category: "merch",
     featured: true,
     label: PRODUCT_LABELS.SALE,
@@ -1303,7 +1241,7 @@ export const products: Product[] = [
         name: "Black",
         price: 1299,
         originalPrice: 1599,
-        image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/black%20temp%20cup%20display.webp",
         details: {
           weight: "350g",
           volume: "380ml"
@@ -1311,23 +1249,11 @@ export const products: Product[] = [
         inStock: getVariantStock("tumbler-black")
       },
       {
-        id: "tumbler-white",
-        name: "White",
-        price: 1299,
-        originalPrice: 1599,
-        image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: {
-          weight: "350g",
-          volume: "380ml"
-        },
-        inStock: getVariantStock("tumbler-white")
-      },
-      {
         id: "tumbler-pink",
         name: "Pink",
         price: 1299,
         originalPrice: 1599,
-        image: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pink%20temp%20display%20cup.webp",
         details: {
           weight: "350g",
           volume: "380ml"
@@ -1342,7 +1268,7 @@ export const products: Product[] = [
     name: "Alpico Coffee Notebook",
     price: 500,
     description: "Premium A5-sized lined notebook with elegant Alpico Coffee branding, perfect for notes taking. Features 80 pages of recycled paper and elastic closure.",
-    image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/notebook%20alpico.webp",
     category: "merch",
     featured: false,
     details: {
@@ -1428,7 +1354,7 @@ export const products: Product[] = [
     name: "Alpico Coffee Keychain",
     price: 299,
     description: "Metal keychain with elegant Alpico Coffee logo design. Durable and stylish accessory for coffee lovers. Perfect gift item or personal accessory.",
-    image: "https://images.pexels.com/photos/6347888/pexels-photo-6347888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/keychain.webp",
     category: "merch",
     featured: false,
     details: {
@@ -1596,92 +1522,6 @@ export const products: Product[] = [
       capacity: "Professional Pour Over Setup",
       features: ["V60 Dripper", "Burr Grinder", "Digital Scale", "Glass Server", "Filters", "Alpico Mug", "250g Coffee"],
       weight: "Complete Pour Over Kit + 250g Coffee"
-    },
-    variants: []
-  },
-  {
-    id: 305,
-    name: "Coffee Lover's Premium Pack",
-    price: 4599, // Premium bundle with significant savings
-    description: "The ultimate coffee experience! Includes Burr Coffee Grinder,French Press + Mocha pot , 1kg whole beans, Alpico mug, travel tumbler. Everything you need for cafe-quality coffee at home. Save NPR 800!",
-    image: "https://images.pexels.com/photos/4226856/pexels-photo-4226856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "combo-offers",
-    featured: true,
-    inStock: getProductStock(305),
-    label: PRODUCT_LABELS.PREMIUM,
-    details: {
-      material: "Bundle",
-      capacity: "Professional Grade",
-      features: ["Burr Grinder", "French Press + Mocha Pot", "Whole Bean Coffee, Mug & Tumbler"],
-      weight: "Full Kit + 1kg Coffee"
-    },
-    // Add variant selections so user can choose sizes for included French Press & Moka Pot
-    variants: [
-      {
-        id: "bundle-fp-350ml",
-        name: "French Press 350ml",
-        price: 4599,
-        image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: { weight: "Bundle", volume: "350ml" },
-        inStock: getVariantStock("fp-350ml")
-      },
-      {
-        id: "bundle-fp-600ml",
-        name: "French Press 600ml",
-        price: 4799, // small incremental adjustment for larger size
-        image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: { weight: "Bundle", volume: "600ml" },
-        inStock: getVariantStock("fp-600ml")
-      },
-      {
-        id: "bundle-fp-1000ml",
-        name: "French Press 1000ml",
-        price: 4999,
-        image: "https://images.pexels.com/photos/4226812/pexels-photo-4226812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: { weight: "Bundle", volume: "1000ml" },
-        inStock: getVariantStock("fp-1000ml")
-      },
-      {
-        id: "bundle-moka-3cup",
-        name: "Moka Pot 3-Cup",
-        price: 4599,
-        image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: { weight: "Bundle", volume: "3-Cup" },
-        inStock: getVariantStock("moka-aluminum-3cup")
-      },
-      {
-        id: "bundle-moka-6cup",
-        name: "Moka Pot 6-Cup",
-        price: 4799,
-        image: "https://images.pexels.com/photos/4226798/pexels-photo-4226798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: { weight: "Bundle", volume: "6-Cup" },
-        inStock: getVariantStock("moka-aluminum-6cup")
-      },
-      {
-        id: "bundle-moka-9cup",
-        name: "Moka Pot 9-Cup",
-        price: 4999,
-        image: "https://images.pexels.com/photos/4226799/pexels-photo-4226799.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        details: { weight: "Bundle", volume: "9-Cup" },
-        inStock: getVariantStock("moka-aluminum-9cup")
-      }
-    ]
-  },
-  {
-    id: 303,
-    name: "Complete Coffee Starter Kit",
-    price: 6500, // Great value bundle
-    description: "Everything a coffee enthusiast needs! This comprehensive starter kit includes Pour Over V60 Dripper, 1kg premium coffee beans, Alpico mug, and coffee filters. Perfect for gifting or starting your coffee journey. Save NPR 500!",
-    image: "https://images.pexels.com/photos/4226764/pexels-photo-4226764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "combo-offers",
-    featured: true,
-    inStock: getProductStock(303),
-    label: PRODUCT_LABELS.MUST_HAVE,
-    details: {
-      material: "Bundle",
-      capacity: "Everything Included",
-      features: ["Pour Over Dripper", "1kg Coffee Beans", "Mug & Filters"],
-      weight: "Complete Kit"
     },
     variants: []
   }
