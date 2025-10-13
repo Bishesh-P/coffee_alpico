@@ -21,6 +21,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
   const isWholeBeanProduct = product.name?.toLowerCase().includes('whole coffee beans');
   const isCoffeeCategory = product.category.includes('roast');
   const isEquipmentCategory = product.category === 'equipment';
+  const isMerchandiseCategory = product.category === 'merch';
   
   // Find the first available variant, or fallback to first variant if none are available
   const getDefaultVariant = useCallback(() => {
@@ -31,12 +32,12 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
   
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(getDefaultVariant());
 
-  // For equipment products, show only the variant image or main product image (no slider)
+  // For equipment and merchandise products, show only the variant image or main product image (no slider)
   // For coffee products, handle multiple images with slider functionality
   let displayImages;
   
-  if (isEquipmentCategory) {
-    // Equipment: Show only single image - variant image if available, otherwise product main image
+  if (isEquipmentCategory || isMerchandiseCategory) {
+    // Equipment & Merchandise: Show only single image - variant image if available, otherwise product main image
     displayImages = selectedVariant?.image ? [selectedVariant.image] : [product.image];
   } else {
     // Coffee products: Handle multiple images with existing logic
@@ -58,7 +59,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
       : processedImages.slice(0, 3);
   }
   
-  const hasMultipleImagesComputed = displayImages.length > 1 && !isEquipmentCategory;
+  const hasMultipleImagesComputed = displayImages.length > 1 && !isEquipmentCategory && !isMerchandiseCategory;
 
   const nextImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev + 1) % displayImages.length);

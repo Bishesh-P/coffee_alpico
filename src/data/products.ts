@@ -1017,6 +1017,41 @@ export const products: Product[] = [
     // promoCodes removed for global promo
   },
   {
+    id: 116,
+    name: "Drip Coffee Maker Machine",
+    price: 7999,
+    description: "Easy-to-use automatic coffee maker that brews perfect coffee at the touch of a button. Simply add water and coffee grounds, press start, and enjoy fresh coffee in minutes. Features anti-drip function to prevent messy spills, programmable timer for wake-up coffee, and durable construction with stainless steel, plastic, and glass components. Perfect for busy mornings and office use.",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Filter%20Machine.webp",
+    category: "equipment",
+    featured: true,
+    inStock: getProductStock(116),
+    details: {
+      material: "Stainless Steel/Plastic/Glass",
+      capacity: "10-12 Cups",
+      features: ["Programmable Timer", "800W Power", "Easy Operation"],
+      weight: "-"
+    },
+    variants: [],
+    // promoCodes removed for global promo
+  },
+  {
+    id: 115,
+    name: "V60 Coffee Filter (2-4 cups)",
+    price: 499,
+    description: "Premium cone-shaped paper filters specifically designed for V60 pour-over brewing for 2-4 cups. Pack of 40 high-quality filters in 1 set for consistent extraction and clean cup profiles. Perfect fit for V60 drippers and optimal water flow.",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/filter%20paper.webp",
+    category: "equipment",
+    featured: false,
+    details: {
+      material: "Paper",
+      capacity: "2-4 cups",
+      features: ["Cone Shape", "40 pcs per set", "Clean Extraction"],
+      weight: "-"
+    },
+    variants: [],
+    // promoCodes removed for global promo
+  },
+  {
     id: 103,
     name: "Professional Filtercone Pour Over Dripper",
     price: 1300,
@@ -1137,41 +1172,6 @@ export const products: Product[] = [
         inStock: getVariantStock("pitcher-1000ml")
       }
     ],
-    // promoCodes removed for global promo
-  },
-  {
-    id: 115,
-    name: "V60 Coffee Filter (2-4 cups)",
-    price: 499,
-    description: "Premium cone-shaped paper filters specifically designed for V60 pour-over brewing for 2-4 cups. Pack of 40 high-quality filters in 1 set for consistent extraction and clean cup profiles. Perfect fit for V60 drippers and optimal water flow.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/filter%20paper.webp",
-    category: "equipment",
-    featured: false,
-    details: {
-      material: "Paper",
-      capacity: "2-4 cups",
-      features: ["Cone Shape", "40 pcs per set", "Clean Extraction"],
-      weight: "-"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
-    id: 116,
-    name: "Drip Coffee Maker Machine",
-    price: 7999,
-    description: "Easy-to-use automatic coffee maker that brews perfect coffee at the touch of a button. Simply add water and coffee grounds, press start, and enjoy fresh coffee in minutes. Features anti-drip function to prevent messy spills, programmable timer for wake-up coffee, and durable construction with stainless steel, plastic, and glass components. Perfect for busy mornings and office use.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Filter%20Machine.webp",
-    category: "equipment",
-    featured: true,
-    inStock: getProductStock(116),
-    details: {
-      material: "Stainless Steel/Plastic/Glass",
-      capacity: "10-12 Cups",
-      features: ["Programmable Timer", "800W Power", "Easy Operation"],
-      weight: "-"
-    },
-    variants: [],
     // promoCodes removed for global promo
   },
   
@@ -1512,7 +1512,7 @@ export const products: Product[] = [
     id: 304,
     name: "Pour Over Coffee Bundle",
     price: 12500, // Comprehensive bundle price
-    description: "Complete pour over coffee mastery kit! Includes precision V60 Dripper, burr hand grinder, digital scale with timer, glass server, coffee filters, and Alpico mug. Everything you need for perfect pour over brewing with 250g specially selected light roast coffee.",
+    description: "Complete pour over coffee mastery kit! Includes precision V60 Dripper, burr hand grinder, glass server, coffee filters, and Alpico mug. Everything you need for perfect pour over brewing with 250g specially selected light roast coffee.",
     image: "https://images.pexels.com/photos/4226903/pexels-photo-4226903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "combo-offers",
     featured: true,
@@ -1520,7 +1520,7 @@ export const products: Product[] = [
     details: {
       material: "Complete Bundle",
       capacity: "Professional Pour Over Setup",
-      features: ["V60 Dripper", "Burr Grinder", "Digital Scale", "Glass Server", "Filters", "Alpico Mug", "250g Coffee"],
+      features: ["V60 Dripper", "Burr Grinder", "Glass Server", "Filters", "Alpico Mug", "250g Coffee"],
       weight: "Complete Pour Over Kit + 250g Coffee"
     },
     variants: []
