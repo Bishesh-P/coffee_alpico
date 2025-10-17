@@ -21,14 +21,14 @@ const Button = memo<ButtonProps>(({
   disabled = false,
   className = '',
 }) => {
-  const baseClasses = 'rounded-xl font-medium transition-all duration-300 ease-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 relative overflow-hidden group transform hover:scale-105 active:scale-95';
+  const baseClasses = 'rounded-xl font-medium transition-all duration-300 ease-out flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 relative overflow-hidden group transform active:scale-95 touch-manipulation';
   
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-navy-900 via-navy-800 to-blue-800 hover:from-navy-800 hover:via-blue-800 hover:to-blue-700 text-white shadow-lg focus:ring-blue-500 hover:shadow-xl border-0',
-    secondary: 'bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-navy-900 shadow-md focus:ring-blue-500 border border-blue-200 hover:border-blue-300',
-    outline: 'border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white focus:ring-blue-500 shadow-md hover:shadow-lg backdrop-blur-sm',
-    premium: 'bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white shadow-xl hover:shadow-2xl focus:ring-purple-500 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity',
-    gold: 'bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white shadow-xl hover:shadow-2xl focus:ring-yellow-500 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity',
+    primary: 'bg-gradient-to-r from-navy-900 via-navy-800 to-blue-800 hover:from-navy-800 hover:via-blue-800 hover:to-blue-700 text-white shadow-lg focus:ring-blue-500 hover:shadow-xl border-0 active:shadow-md',
+    secondary: 'bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-navy-900 shadow-md focus:ring-blue-500 border border-blue-200 hover:border-blue-300 active:shadow-sm',
+    outline: 'border-2 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white focus:ring-blue-500 shadow-md hover:shadow-lg backdrop-blur-sm active:shadow-sm',
+    premium: 'bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white shadow-xl hover:shadow-2xl focus:ring-purple-500 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity active:shadow-lg',
+    gold: 'bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white shadow-xl hover:shadow-2xl focus:ring-yellow-500 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity active:shadow-lg',
   };
   
   const sizeClasses = {
@@ -40,8 +40,8 @@ const Button = memo<ButtonProps>(({
   
   const widthClass = fullWidth ? 'w-full' : '';
   const disabledClass = disabled 
-    ? 'opacity-50 cursor-not-allowed' 
-    : 'cursor-pointer hover:transform hover:translate-y-[-3px] active:translate-y-[1px] active:scale-[0.98]';
+    ? 'opacity-50 cursor-not-allowed transform-none' 
+    : 'cursor-pointer hover:transform active:scale-[0.98] hover:shadow-lg active:shadow-sm';
   
   return (
     <button

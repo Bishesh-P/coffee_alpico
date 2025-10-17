@@ -29,17 +29,17 @@ const Hero = memo(() => {
 
       <div className="relative h-full container mx-auto px-4 flex flex-col justify-center items-start pt-20">
         <div className="max-w-2xl mt-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 animate-fade-down leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 leading-tight">
             {/* Discover the Art of <span className="text-blue-300">Alpine</span> Coffee
           </h1> */}
           We Make the <span className="text-blue-300">Best Coffee in Nepal</span> for You
           </h1>
-          <p className="text-lg sm:text-xl text-blue-100 mb-8 animate-fade-up delay-200 leading-relaxed">
-            Our mission is to promote high-quality coffee from Nepal, locally and internationally. We’re dedicated to supporting local farmers and inspiring youth to be part of this growing industry.
+          <p className="text-lg sm:text-xl text-blue-100 mb-8 leading-relaxed">
+            Our mission is to promote high-quality coffee from Nepal, locally and internationally. We're dedicated to supporting local farmers and inspiring youth to be part of this growing industry.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-up delay-300">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/products">
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="lg" className="hover:shadow-lg">
                 Explore Our Coffee
               </Button>
             </Link>

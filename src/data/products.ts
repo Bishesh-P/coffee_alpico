@@ -54,10 +54,8 @@ const STOCK_CONFIG = {
     103: true, // Professional Filtercone Pour Over Dripper ⚙️
     104: true, // V60 Coffee Server ⚙️
     105: true, // Ceramic Burr Hand Coffee Grinder ⚙️
-    108: true, // Digital Coffee Scale with Timer ⚙️
     111: true, // Black Moka Pot ⚙️
     112: true, // Stainless Steel French Press ⚙️
-    114: true, // Stainless Steel Frothing Pitcher ⚙️
     115: true, // V60 Coffee Filter (2-4 cups) ⚙️
   116: true, // Drip Coffee Maker Machine ⚙️
     
@@ -72,7 +70,6 @@ const STOCK_CONFIG = {
     // 🎁 COMBO OFFERS
     301: true, // French Press + Coffee Combo 🎁
     302: true, // Coffee + Alpico Mug Combo 🎁
-    304: true, // Pour Over + Coffee Bundle 🎁
     306: true, // Moka Pot + Coffee Combo 🎁
   } as Record<number, boolean>,
   
@@ -143,11 +140,6 @@ const STOCK_CONFIG = {
   "fpss-600ml": true,           // 600ml Steel French Press ⚙️
   "fpss-800ml": true,           // 800ml Steel French Press ⚙️
   "fpss-1000ml": true,          // 1000ml Steel French Press ⚙️
-    
-    // 🥛 Stainless Steel Frothing Pitcher Variants
-  "pitcher-350ml": true,        // 350ml Frothing Pitcher ⚙️
-  "pitcher-600ml": true,        // 600ml Frothing Pitcher ⚙️
-  "pitcher-1000ml": true,       // 1000ml Frothing Pitcher ⚙️
     
     // 🎁 COMBO VARIANTS
     "combo-light-mug": true,      // Light Roast + Free Mug 🎁
@@ -757,7 +749,7 @@ export const products: Product[] = [
     name: "Black Moka Pot",
     price: 1199, // Base price for black 3-cup
     description: "Sleek black aluminum moka pot with premium matte finish for authentic Italian espresso at home. This sophisticated stovetop coffee maker combines traditional brewing with modern aesthetics. Available in multiple sizes for different household needs.",
-    image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/black%20mocha%20pot.webp",
     category: "equipment",
     featured: true,
     inStock: getProductStock(111),
@@ -810,7 +802,7 @@ export const products: Product[] = [
     name: "Classic Moka Pot",
     price: 1299, // Base price for aluminum 3-cup 1199
     description: "Traditional Italian moka pot for authentic espresso-style coffee at home. This stovetop coffee maker brews rich, concentrated coffee with distinctive flavor. Premium coffee brewing equipment available in aluminum and steel with various cup sizes for perfect home espresso.",
-    image: "https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/aluminium%20mocha%20pot.webp",
     category: "equipment",
     featured: true,
     details: {
@@ -894,7 +886,7 @@ export const products: Product[] = [
     name: "French Press Coffee Maker",
     price: 999, // Base price for 350ml
     description: "Premium borosilicate glass French press coffee maker with stainless steel filter system. Perfect for brewing full-bodied, rich coffee extraction at home. Professional coffee brewing equipment available in multiple sizes for coffee enthusiasts.",
-    image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/french%20press.webp",
     category: "equipment",
     featured: true,
     label: PRODUCT_LABELS.STAFF_PICK,
@@ -909,7 +901,7 @@ export const products: Product[] = [
         id: "fp-350ml",
         name: "350ml",
         price: 999,
-        image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/french%20press.webp",
         details: {
           volume: "350ml",
           weight: "650g"
@@ -920,7 +912,7 @@ export const products: Product[] = [
         id: "fp-600ml",
         name: "600ml",
         price: 1199,
-        image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/french%20press.webp",
         details: {
           volume: "600ml",
           weight: "750g"
@@ -931,7 +923,7 @@ export const products: Product[] = [
         id: "fp-800ml",
         name: "800ml",
         price: 1399,
-        image: "https://images.pexels.com/photos/4226838/pexels-photo-4226838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/french%20press.webp",
         details: {
           volume: "800ml",
           weight: "850g"
@@ -942,7 +934,7 @@ export const products: Product[] = [
         id: "fp-1000ml",
         name: "1000ml",
         price: 1499,
-        image: "https://images.pexels.com/photos/4226812/pexels-photo-4226812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/french%20press.webp",
         details: {
           volume: "1000ml",
           weight: "950g"
@@ -957,7 +949,7 @@ export const products: Product[] = [
     name: "Stainless Steel French Press",
     price: 1299, // Base price for 350ml steel 
     description: "Premium stainless steel French press with superior heat retention and durability. Features professional-grade mesh filter and quality handle. Perfect for camping, office, or home use with unbreakable construction. The body wall is a borosillicate glass core wrapped in stainless steel for the best of both worlds.",
-    image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/stainless%20steel%20french%20press.webp",
     category: "equipment",
     featured: true,
     inStock: getProductStock(112),
@@ -973,7 +965,7 @@ export const products: Product[] = [
         id: "fpss-350ml",
         name: "350ml Steel",
         price: 1299,
-        image: "https://images.pexels.com/photos/4226924/pexels-photo-4226924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/stainless%20steel%20french%20press.webp",
         details: {
           volume: "350ml",
           weight: "750g"
@@ -984,7 +976,7 @@ export const products: Product[] = [
         id: "fpss-600ml",
         name: "600ml Steel",
         price: 1499,
-        image: "https://images.pexels.com/photos/4226855/pexels-photo-4226855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/stainless%20steel%20french%20press.webp",
         details: {
           volume: "600ml",
           weight: "850g"
@@ -995,7 +987,7 @@ export const products: Product[] = [
         id: "fpss-800ml",
         name: "800ml Steel",
         price: 1599,
-        image: "https://images.pexels.com/photos/4226838/pexels-photo-4226838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/stainless%20steel%20french%20press.webp",
         details: {
           volume: "800ml",
           weight: "950g"
@@ -1006,7 +998,7 @@ export const products: Product[] = [
         id: "fpss-1000ml",
         name: "1000ml Steel",
         price: 1699,
-        image: "https://images.pexels.com/photos/4226812/pexels-photo-4226812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/stainless%20steel%20french%20press.webp",
         details: {
           volume: "1000ml",
           weight: "1050g"
@@ -1075,7 +1067,7 @@ export const products: Product[] = [
     name: "V60 Coffee Server",
     price: 1799,
     description: "500ml heat-proof glass server designed specifically for V60 Coffee Drippers. Features tapered design that keeps coffee warm longer by reducing surface area and makes pouring more spill-proof. Comes with glass lid and silicone seal - the lid doubles as a dripper stand. Made from heat-resistant glass that's microwaveable and easy to clean. Perfect 4-cup size with flexibility to work with other V60 products.",
-    image: "https://images.pexels.com/photos/4226796/pexels-photo-4226796.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/glass%20server.webp",
     category: "equipment",
     featured: false,
     inStock: getProductStock(104),
@@ -1103,75 +1095,6 @@ export const products: Product[] = [
       weight: "-"
     },
     variants: [],
-    // promoCodes removed for global promo
-  },
-  {
-    id: 108,
-    name: "Digital Coffee Scale with Timer",
-    price: 2799,
-    description: "High-precision digital coffee scale with built-in cooking timer and green backlight LCD display. Features 0.1g accuracy with 3000g capacity, multiple units (g/oz/lb/ml), and silicone mat for stability. Includes tare function, auto power-off, and low battery indicator. Essential tool for perfect coffee-to-water ratios and consistent brewing results.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/Digital%20scale%20with%20timer.webp",
-    category: "equipment",
-    featured: false,
-    details: {
-      material: "ABS Design with Silicone Mat",
-      capacity: "3000g (107oz)",
-      features: ["Cooking Timer", "Multiple Units", "Tare Function"],
-      weight: "-"
-    },
-    variants: [],
-    // promoCodes removed for global promo
-  },
-  {
-    id: 114,
-    name: "Stainless Steel Frothing Pitcher",
-    price: 2499, // Base price for 350ml
-    description: "Professional stainless steel frothing pitcher designed for creating creamy espresso drinks, lattes, cappuccinos, and mochas. Made of pure stainless steel that resists corrosion with sturdy handle for easy pouring and gripping. Features molded spout for even milk stream pouring. Can be chilled before frothing for optimal results.",
-    image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher.webp",
-    category: "equipment",
-    featured: false,
-    inStock: getProductStock(114),
-    details: {
-      material: "Pure Stainless Steel",
-      capacity: "Multiple Sizes",
-      features: ["Corrosion Resistant", "Molded Spout", "Chillable Design", "Sturdy Handle"],
-      weight: "Varies by size"
-    },
-    variants: [
-      {
-        id: "pitcher-350ml",
-        name: "350ml",
-        price: 1699,
-        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher.webp",
-        details: {
-          volume: "350ml",
-          weight: "300g"
-        },
-        inStock: getVariantStock("pitcher-350ml")
-      },
-      {
-        id: "pitcher-600ml",
-        name: "600ml",
-        price: 2099,
-        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher%20600ml.webp",
-        details: {
-          volume: "600ml",
-          weight: "450g"
-        },
-        inStock: getVariantStock("pitcher-600ml")
-      },
-      {
-        id: "pitcher-1000ml",
-        name: "1000ml",
-        price: 2499,
-        image: "https://gdtlqgnisicagjkadlca.supabase.co/storage/v1/object/public/Products/pitcher%201000ml.webp",
-        details: {
-          volume: "1000ml",
-          weight: "650g"
-        },
-        inStock: getVariantStock("pitcher-1000ml")
-      }
-    ],
     // promoCodes removed for global promo
   },
   
@@ -1507,24 +1430,7 @@ export const products: Product[] = [
         inStock: getVariantStock("moka-aluminum-9cup")
       }
     ]
-  },
-  {
-    id: 304,
-    name: "Pour Over Coffee Bundle",
-    price: 12500, // Comprehensive bundle price
-    description: "Complete pour over coffee mastery kit! Includes precision V60 Dripper, burr hand grinder, glass server, coffee filters, and Alpico mug. Everything you need for perfect pour over brewing with 250g specially selected light roast coffee.",
-    image: "https://images.pexels.com/photos/4226903/pexels-photo-4226903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    category: "combo-offers",
-    featured: true,
-    inStock: getProductStock(304),
-    details: {
-      material: "Complete Bundle",
-      capacity: "Professional Pour Over Setup",
-      features: ["V60 Dripper", "Burr Grinder", "Glass Server", "Filters", "Alpico Mug", "250g Coffee"],
-      weight: "Complete Pour Over Kit + 250g Coffee"
-    },
-    variants: []
-  }
+  } 
 ];
 
 // 🎯 APPLY DISCOUNTS AUTOMATICALLY

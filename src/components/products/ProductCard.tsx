@@ -336,7 +336,7 @@ const ProductCard = memo<ProductCardProps>(({ product, delay = 0, currentCategor
               text-xs sm:text-sm w-full
               ${isOutOfStock 
                 ? 'bg-gray-100 text-gray-500 border-gray-300 cursor-not-allowed' 
-                : 'hover:scale-105 hover:shadow-xl active:scale-95'
+                : 'hover:shadow-xl active:scale-95'
               }
               ${isAdding ? 'animate-pulse scale-105' : ''}
               font-semibold rounded-xl px-4 py-3 sm:py-3.5

@@ -439,10 +439,10 @@ const Products: React.FC = () => {
                         onClick={handleClearSearch}
                         className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
                       >
-                        View All Products
+                        Clear Search
                       </button>
                       <button
-                        onClick={() => setActiveCategory('all')}
+                        onClick={() => setActiveCategory('combo-offers')}
                         className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
                       >
                         Browse Categories
@@ -456,13 +456,13 @@ const Products: React.FC = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                       </svg>
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">No products in this category</h3>
-                      <p className="text-gray-600 mb-6">Try selecting a different category or view all products.</p>
+                      <p className="text-gray-600 mb-6">Try selecting a different category.</p>
                     </div>
                     <button
-                      onClick={() => setActiveCategory('all')}
+                      onClick={() => setActiveCategory('combo-offers')}
                       className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
                     >
-                      View All Products
+                      Browse Categories
                     </button>
                   </div>
                 )}
